@@ -10,6 +10,7 @@ let appState = {
     postPhotoData: null,
     timerInterval: null,
     editMode: false, // Coordinate adjustment mode flag
+    isAdmin: false, // Admin privileges flag
     historyData: [
         { id: 1, date: '2026-07-01', sport: '陸上 (スプリント)', preRom: 70, postRom: 85, romChange: 21.4, preBal: 12, postBal: 28, balChange: 133.3 },
         { id: 2, date: '2026-07-04', sport: '陸上 (スプリント)', preRom: 72, postRom: 88, romChange: 22.2, preBal: 15, postBal: 35, balChange: 133.3 }
@@ -1347,20 +1348,30 @@ function runTimer(stage) {
 }
 
 function calculateResults() {
-    const preRom = parseFloat(document.getElementById('preRom').value) || 70;
-    const postRom = parseFloat(document.getElementById('postRom').value) || 85;
-    const preBal = parseFloat(document.getElementById('preBalance').value) || 15;
-    const postBal = parseFloat(document.getElementById('postBalance').value) || 40;
+    const preFlex = parseFloat(document.getElementById('preFlexion').value) || 5;
+    const preExt = parseFloat(document.getElementById('preExtension').value) || 5;
+    const preRot = parseFloat(document.getElementById('preRotation').value) || 5;
+    const preLat = parseFloat(document.getElementById('preLateral').value) || 5;
 
-    const romChange = (((postRom - preRom) / preRom) * 100).toFixed(1);
-    const balChange = (((postBal - preBal) / preBal) * 100).toFixed(1);
+    const postFlex = parseFloat(document.getElementById('postFlexion').value) || 5;
+    const postExt = parseFloat(document.getElementById('postExtension').value) || 5;
+    const postRot = parseFloat(document.getElementById('postRotation').value) || 5;
+    const postLat = parseFloat(document.getElementById('postLateral').value) || 5;
 
-    document.getElementById('resPreRom').textContent = `${preRom}°`;
-    document.getElementById('resPostRom').textContent = `${postRom}°`;
+    // Calculate averages
+    const preAvg = (preFlex + preExt + preRot + preLat) / 4;
+    const postAvg = (postFlex + postExt + postRot + postLat) / 4;
+
+    // Calculate percentage improvements
+    const romChange = (((postAvg - preAvg) / preAvg) * 100).toFixed(1);
+    const balChange = (((postFlex - preFlex) / preFlex) * 100).toFixed(1); // Flexion specific change
+
+    document.getElementById('resPreRom').textContent = `${preAvg.toFixed(1)} / 10`;
+    document.getElementById('resPostRom').textContent = `${postAvg.toFixed(1)} / 10`;
     document.getElementById('resRomChange').textContent = `${romChange > 0 ? '+' : ''}${romChange}%`;
     
-    document.getElementById('resPreBal').textContent = `${preBal}秒`;
-    document.getElementById('resPostBal').textContent = `${postBal}秒`;
+    document.getElementById('resPreBal').textContent = `${preFlex} / 10`;
+    document.getElementById('resPostBal').textContent = `${postFlex} / 10`;
     document.getElementById('resBalChange').textContent = `${balChange > 0 ? '+' : ''}${balChange}%`;
 
     const usedRings = 6;
@@ -1372,11 +1383,11 @@ function calculateResults() {
         id: Date.now(),
         date: today,
         sport: sportName,
-        preRom: preRom,
-        postRom: postRom,
+        preRom: preAvg,
+        postRom: postAvg,
         romChange: parseFloat(romChange),
-        preBal: preBal,
-        postBal: postBal,
+        preBal: preFlex,
+        postBal: postFlex,
         balChange: parseFloat(balChange)
     };
     appState.historyData.push(newRecord);
@@ -1387,10 +1398,26 @@ function calculateResults() {
 }
 
 function resetWizard() {
-    document.getElementById('preRom').value = '';
-    document.getElementById('postRom').value = '';
-    document.getElementById('preBalance').value = '';
-    document.getElementById('postBalance').value = '';
+    // Reset ranges to 5
+    document.getElementById('preFlexion').value = 5;
+    document.getElementById('preExtension').value = 5;
+    document.getElementById('preRotation').value = 5;
+    document.getElementById('preLateral').value = 5;
+    document.getElementById('postFlexion').value = 5;
+    document.getElementById('postExtension').value = 5;
+    document.getElementById('postRotation').value = 5;
+    document.getElementById('postLateral').value = 5;
+
+    // Reset textual indicators
+    document.getElementById('preFlexionText').innerText = 5;
+    document.getElementById('preExtensionText').innerText = 5;
+    document.getElementById('preRotationText').innerText = 5;
+    document.getElementById('preLateralText').innerText = 5;
+    document.getElementById('postFlexionText').innerText = 5;
+    document.getElementById('postExtensionText').innerText = 5;
+    document.getElementById('postRotationText').innerText = 5;
+    document.getElementById('postLateralText').innerText = 5;
+
     appState.prePhotoData = null;
     appState.postPhotoData = null;
     
@@ -1551,7 +1578,7 @@ function renderHistoryChart() {
             labels: labels,
             datasets: [
                 {
-                    label: 'ROM改善率 (%)',
+                    label: '総合改善率 (%)',
                     data: romData,
                     borderColor: '#39ff14',
                     backgroundColor: 'rgba(57, 255, 20, 0.05)',
@@ -1560,7 +1587,7 @@ function renderHistoryChart() {
                     fill: true
                 },
                 {
-                    label: 'バランス改善率 (%)',
+                    label: '前屈改善率 (%)',
                     data: balData,
                     borderColor: '#00f0ff',
                     backgroundColor: 'rgba(0, 240, 255, 0.05)',
@@ -1613,12 +1640,12 @@ function renderHistoryList() {
             </div>
             <div class="history-item-stats">
                 <div class="history-stat-box">
-                    <span class="history-stat-label">ROM</span>
-                    <span class="history-stat-val highlight-green">+${item.romChange}%</span>
+                    <span class="history-stat-label">総合改善</span>
+                    <span class="history-stat-val highlight-green">${item.romChange > 0 ? '+' : ''}${item.romChange}%</span>
                 </div>
                 <div class="history-stat-box">
-                    <span class="history-stat-label">バランス</span>
-                    <span class="history-stat-val highlight-blue">+${item.balChange}%</span>
+                    <span class="history-stat-label">前屈改善</span>
+                    <span class="history-stat-val highlight-blue">${item.balChange > 0 ? '+' : ''}${item.balChange}%</span>
                 </div>
             </div>
         `;
@@ -1933,11 +1960,68 @@ function closeProductDetailsModal() {
     }
 }
 
+// Admin Privilege Control Functions
+function updateAdminButtonsVisibility() {
+    const adminBtn = document.getElementById('adminBtn');
+    const exportCodeBtn = document.getElementById('exportCodeBtn');
+    const editModeBtn = document.getElementById('editModeBtn');
+    const lockBtn = document.getElementById('adminLockBtn');
+    const lockIcon = document.getElementById('adminLockIcon');
+    
+    const showAdmin = appState.isAdmin;
+    
+    if (adminBtn) adminBtn.style.display = showAdmin ? 'inline-flex' : 'none';
+    if (exportCodeBtn) exportCodeBtn.style.display = showAdmin ? 'inline-flex' : 'none';
+    if (editModeBtn) editModeBtn.style.display = showAdmin ? 'inline-flex' : 'none';
+    
+    if (lockIcon) {
+        if (showAdmin) {
+            lockIcon.className = 'fa-solid fa-lock-open';
+            if (lockBtn) lockBtn.classList.add('unlocked');
+        } else {
+            lockIcon.className = 'fa-solid fa-lock';
+            if (lockBtn) lockBtn.classList.remove('unlocked');
+        }
+    }
+}
+
+function handleAdminLockClick() {
+    if (appState.isAdmin) {
+        appState.isAdmin = false;
+        sessionStorage.removeItem('bclab_is_admin');
+        updateAdminButtonsVisibility();
+        
+        // Exit edit mode if active
+        if (appState.editMode) {
+            toggleEditMode();
+        }
+        
+        showToast("管理者モードからログアウトしました。");
+    } else {
+        const pwd = prompt("管理者パスワードを入力してください:");
+        if (pwd === 'bclab2009') {
+            appState.isAdmin = true;
+            sessionStorage.setItem('bclab_is_admin', 'true');
+            updateAdminButtonsVisibility();
+            showToast("管理者モードでログインしました。");
+        } else if (pwd !== null) {
+            showToast("パスワードが正しくありません。");
+        }
+    }
+}
+
 // Initialize App
 window.addEventListener('DOMContentLoaded', () => {
     loadStateFromLocalStorage();
     loadCustomCoordinates(); // Restores drag-and-dropped coordinates
     updateStockUI(0);
+    
+    // Restore admin session if active
+    if (sessionStorage.getItem('bclab_is_admin') === 'true') {
+        appState.isAdmin = true;
+    }
+    updateAdminButtonsVisibility();
+    
     switchView('home');
     initDragAndDrop(); // Attaches mouse/touch events to body SVG
 });

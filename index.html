@@ -28,6 +28,9 @@
                 <i class="fa-solid fa-circle-dot"></i>
                 <span>シール残数: <strong id="globalRingCount">24</strong>枚</span>
             </div>
+            <button class="admin-lock-trigger" id="adminLockBtn" onclick="handleAdminLockClick()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px; font-size: 14px; transition: color 0.2s;" title="管理者ログイン">
+                <i class="fa-solid fa-lock" id="adminLockIcon"></i>
+            </button>
         </header>
 
         <!-- 2. Main View Container -->
@@ -146,13 +149,13 @@
                         <p>種目または症状に合わせた最適なアプローチ位置を表示します。</p>
                     </div>
                     <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                        <button class="btn btn-secondary-outline btn-xs" onclick="openAdminModal()" id="adminBtn">
+                        <button class="btn btn-secondary-outline btn-xs" onclick="openAdminModal()" id="adminBtn" style="display: none;">
                             <i class="fa-solid fa-database"></i> データ管理
                         </button>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="openExportModal()" id="exportCodeBtn">
+                        <button class="btn btn-secondary-outline btn-xs" onclick="openExportModal()" id="exportCodeBtn" style="display: none;">
                             <i class="fa-solid fa-code"></i> 一括コード出力
                         </button>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="toggleEditMode()" id="editModeBtn">
+                        <button class="btn btn-secondary-outline btn-xs" onclick="toggleEditMode()" id="editModeBtn" style="display: none;">
                             <i class="fa-solid fa-pen-to-square"></i> 座標調整
                         </button>
                     </div>
@@ -237,35 +240,45 @@
                     <!-- Step 1: Pre-test -->
                     <div class="wizard-step active" id="step-1">
                         <div class="step-indicator">STEP 1 of 3</div>
-                        <h3>パッチを貼る前の状態を測定</h3>
-                        <p>まず、可動域（前屈など）やバランス（閉眼片足立ち）のテストを行います。</p>
+                        <h3>パッチを貼る前の状態（1〜10評価）</h3>
+                        <p>各可動域テストを行い、動きやすさ（10が最も動かしやすい状態）を入力します。</p>
                         
-                        <div class="form-group">
-                            <label>前屈（SLR）角度（目安：0〜90°）</label>
-                            <div class="input-unit-wrapper">
-                                <input type="number" id="preRom" placeholder="70" min="0" max="120">
-                                <span class="unit">°</span>
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">前屈（正常目安：70°〜90°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preFlexionText">5</span> / 10</span>
                             </div>
+                            <input type="range" id="preFlexion" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preFlexionText').innerText = this.value">
                         </div>
 
-                        <div class="form-group">
-                            <label>閉眼片足立ち保持時間（最大60秒）</label>
-                            <div class="input-unit-wrapper">
-                                <input type="number" id="preBalance" placeholder="15" min="0" max="60">
-                                <span class="unit">秒</span>
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">後屈（正常目安：20°〜30°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preExtensionText">5</span> / 10</span>
                             </div>
-                            <div class="timer-tool">
-                                <button class="btn btn-sm btn-outline" id="preTimerBtn" onclick="runTimer('pre')">
-                                    <i class="fa-solid fa-stopwatch"></i> 計測タイマー開始 (30秒)
-                                </button>
-                                <span class="timer-display-small" id="preTimerText">00:30</span>
+                            <input type="range" id="preExtension" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preExtensionText').innerText = this.value">
+                        </div>
+
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">回旋（正常目安：左右各 40°〜50°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preRotationText">5</span> / 10</span>
                             </div>
+                            <input type="range" id="preRotation" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preRotationText').innerText = this.value">
+                        </div>
+
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">側屈（正常目安：左右各 30°〜40°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preLateralText">5</span> / 10</span>
+                            </div>
+                            <input type="range" id="preLateral" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preLateralText').innerText = this.value">
                         </div>
 
                         <!-- Camera Capture Button (ROM baseline) -->
-                        <div class="camera-integration">
+                        <div class="camera-integration" style="margin-top: 15px;">
                             <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('pre')">
-                                <i class="fa-solid fa-camera"></i> 前屈（Pre）写真を撮影して保存
+                                <i class="fa-solid fa-camera"></i> プレ姿勢写真を撮影して保存
                             </button>
                             <div class="captured-preview" id="prePhotoPreview">
                                 <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
@@ -280,35 +293,45 @@
                     <!-- Step 2: Post-test -->
                     <div class="wizard-step" id="step-2">
                         <div class="step-indicator">STEP 2 of 3</div>
-                        <h3>パッチ貼付後の状態を測定</h3>
-                        <p>ガイド通りにパッチを貼付し、直後（数十秒以内）に同じテストを行います。</p>
+                        <h3>パッチ貼付後の状態（1〜10評価）</h3>
+                        <p>ガイド通りにパッチを貼付し、同じ可動域テストを行います。</p>
                         
-                        <div class="form-group">
-                            <label>前屈（SLR）角度（パッチ貼付後）</label>
-                            <div class="input-unit-wrapper">
-                                <input type="number" id="postRom" placeholder="85" min="0" max="120">
-                                <span class="unit">°</span>
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">前屈（正常目安：70°〜90°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postFlexionText">5</span> / 10</span>
                             </div>
+                            <input type="range" id="postFlexion" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postFlexionText').innerText = this.value">
                         </div>
 
-                        <div class="form-group">
-                            <label>閉眼片足立ち保持時間（パッチ貼付後）</label>
-                            <div class="input-unit-wrapper">
-                                <input type="number" id="postBalance" placeholder="40" min="0" max="60">
-                                <span class="unit">秒</span>
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">後屈（正常目安：20°〜30°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postExtensionText">5</span> / 10</span>
                             </div>
-                            <div class="timer-tool">
-                                <button class="btn btn-sm btn-outline" id="postTimerBtn" onclick="runTimer('post')">
-                                    <i class="fa-solid fa-stopwatch"></i> 計測タイマー開始 (30秒)
-                                </button>
-                                <span class="timer-display-small" id="postTimerText">00:30</span>
+                            <input type="range" id="postExtension" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postExtensionText').innerText = this.value">
+                        </div>
+
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">回旋（正常目安：左右各 40°〜50°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postRotationText">5</span> / 10</span>
                             </div>
+                            <input type="range" id="postRotation" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postRotationText').innerText = this.value">
+                        </div>
+
+                        <div class="form-group margin-bottom-15">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <label style="margin: 0; font-size: 12px; font-weight: 700;">側屈（正常目安：左右各 30°〜40°）</label>
+                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postLateralText">5</span> / 10</span>
+                            </div>
+                            <input type="range" id="postLateral" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postLateralText').innerText = this.value">
                         </div>
 
                         <!-- Camera Overlay / Slider Button -->
-                        <div class="camera-integration">
+                        <div class="camera-integration" style="margin-top: 15px;">
                             <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('post')">
-                                <i class="fa-solid fa-camera"></i> 前屈（Post）写真を撮影＆重ね合わせ比較
+                                <i class="fa-solid fa-camera"></i> ポスト姿勢写真を撮影＆重ね合わせ比較
                             </button>
                             <div class="captured-preview" id="postPhotoPreview">
                                 <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
@@ -333,25 +356,25 @@
                             <h3>神経筋制御が最適化されました！</h3>
                         </div>
 
-                        <div class="metrics-comparison">
-                            <div class="metric-result-card">
-                                <span class="metric-label">可動域（前屈）</span>
+                        <div class="metrics-comparison" style="display: flex; flex-direction: column; gap: 12px;">
+                            <div class="metric-result-card" style="width: 100%; box-sizing: border-box;">
+                                <span class="metric-label">総合可動性（平均値）</span>
                                 <div class="metric-comparison-row">
-                                    <span class="old-val" id="resPreRom">70°</span>
+                                    <span class="old-val" id="resPreRom">5.0 / 10</span>
                                     <i class="fa-solid fa-chevron-right"></i>
-                                    <span class="new-val" id="resPostRom">85°</span>
+                                    <span class="new-val" id="resPostRom">8.5 / 10</span>
                                 </div>
-                                <span class="metric-pct highlight-green" id="resRomChange">+21.4%</span>
+                                <span class="metric-pct highlight-green" id="resRomChange">+70.0%</span>
                             </div>
 
-                            <div class="metric-result-card">
-                                <span class="metric-label">バランス保持</span>
+                            <div class="metric-result-card" style="width: 100%; box-sizing: border-box;">
+                                <span class="metric-label">前屈（正常目安：70°〜90°）</span>
                                 <div class="metric-comparison-row">
-                                    <span class="old-val" id="resPreBal">15秒</span>
+                                    <span class="old-val" id="resPreBal">5 / 10</span>
                                     <i class="fa-solid fa-chevron-right"></i>
-                                    <span class="new-val" id="resPostBal">40秒</span>
+                                    <span class="new-val" id="resPostBal">8 / 10</span>
                                 </div>
-                                <span class="metric-pct highlight-blue" id="resBalChange">+166.7%</span>
+                                <span class="metric-pct highlight-blue" id="resBalChange">+60.0%</span>
                             </div>
                         </div>
 
@@ -612,8 +635,6 @@
                                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">製品名</td><td style="padding: 4px 0; font-weight: 700; text-align: right; color: var(--text-main);">KINETIC-LINK 109</td></tr>
                                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">スローガン</td><td style="padding: 4px 0; font-style: italic; text-align: right; color: var(--text-main);">Move As One.</td></tr>
                                 <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">パッチ入り数</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">8個 (4ペア同梱)</td></tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">微細突起数</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">109個 (1.5mmピッチ)</td></tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">硬度・素材</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">Shore A50 / 医療用シリコン</td></tr>
                                 <tr><td style="padding: 4px 0; color: var(--text-muted);">製造国</td><td style="padding: 4px 0; text-align: right; color: var(--secondary); font-weight: 700;">MADE IN JAPAN</td></tr>
                             </table>
                         </div>

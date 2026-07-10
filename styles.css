@@ -1574,7 +1574,24 @@ body {
     letter-spacing: 4px;
     margin-top: 12px;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}/* Admin Lock Button Trigger */
+.admin-lock-trigger {
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    cursor: pointer;
+    padding: 6px 10px;
+    font-size: 14px;
+    transition: color var(--transition-speed), transform var(--transition-speed);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
-
-
-
+.admin-lock-trigger:hover {
+    color: var(--secondary);
+    transform: scale(1.1);
+}
+.admin-lock-trigger.unlocked {
+    color: var(--secondary);
+    text-shadow: 0 0 8px var(--secondary-glow);
+}
