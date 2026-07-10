@@ -539,10 +539,15 @@ body {
     width: 100%;
     height: 100%;
 }
-.body-svg .map-dot {
-    fill: rgba(0, 240, 255, 0.4);
-    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3));
+.body-svg .map-dot-touch {
+    fill: transparent;
+    stroke: none;
     cursor: pointer;
+    pointer-events: all;
+}
+.body-svg .map-dot {
+    fill: rgba(0, 240, 255, 0.6);
+    filter: drop-shadow(0 0 4px rgba(0, 240, 255, 0.3));
     transition: all 0.2s;
 }
 
@@ -1285,8 +1290,8 @@ body {
 }
 
 .mapping-dashboard.edit-active .body-canvas-wrapper {
-    width: 180px; /* Zoomed width */
-    height: 360px; /* Zoomed height */
+    width: 200px; /* Zoomed width matching exact SVG width */
+    height: 400px; /* Zoomed height matching exact SVG height */
     padding: 12px;
     background: rgba(0, 0, 0, 0.4);
     border: 2px dashed var(--secondary);
@@ -1317,6 +1322,32 @@ body {
 /* Give some margin when overlay tip is present */
 .mapping-dashboard.edit-active {
     margin-bottom: 60px;
+}
+
+/* Custom outline button for coordination tool */
+.btn-secondary-outline {
+    background: transparent;
+    color: var(--secondary);
+    border: 1px solid var(--secondary);
+    border-radius: 8px;
+    padding: 6px 12px;
+    font-size: 11px;
+    cursor: pointer;
+    transition: all var(--transition-speed) ease;
+}
+.btn-secondary-outline:active, .btn-secondary-outline.active {
+    background: rgba(0, 240, 255, 0.15);
+    box-shadow: 0 0 10px var(--secondary-glow);
+}
+.btn-xs {
+    padding: 4px 8px;
+    font-size: 10px;
+}
+
+/* Selector Tabs Active Color Override for Mapping Guide to unify with Cyan */
+.selector-tabs .tab-btn.active {
+    color: var(--secondary) !important;
+    text-shadow: 0 0 8px var(--secondary-glow);
 }
 
 /* D-pad Controller CSS */
@@ -1413,6 +1444,61 @@ body {
 .dpad-down {
     grid-column: 2;
     grid-row: 3;
+}
+
+/* Zoom Reset Button overlay style */
+.zoom-reset-btn {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(15, 23, 42, 0.85);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-outfit);
+    font-size: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    z-index: 100;
+    transition: all var(--transition-speed);
+}
+.zoom-reset-btn:active {
+    background: var(--secondary);
+    color: var(--text-dark);
+    box-shadow: 0 0 8px var(--secondary-glow);
+}
+
+/* Admin Panel Inputs & Layout */
+.admin-input {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
+    color: var(--text-main);
+    padding: 8px 12px;
+    border-radius: 8px;
+    font-family: var(--font-outfit);
+    font-size: 13px;
+    outline: none;
+    transition: border-color var(--transition-speed);
+}
+.admin-input:focus {
+    border-color: var(--secondary);
+}
+.margin-bottom-15 {
+    margin-bottom: 15px;
+}
+.margin-bottom-10 {
+    margin-bottom: 10px;
+}
+.admin-points-section label {
+    display: block;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 600;
 }
 
 

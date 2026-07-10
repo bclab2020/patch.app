@@ -37,7 +37,7 @@
             <section id="view-home" class="app-view active">
                 <div class="hero-section">
                     <div class="hero-bg-glow"></div>
-                    <span class="hero-tag">MODEL-109</span>
+                    <span class="hero-tag">KINETIC-LINK 109</span>
                     <h1>神経筋制御をハックする<br><span class="highlight-text">最速体感デバイス</span></h1>
                     <p>皮膚メカノレセプターへの高密度刺激が、脳の防衛ブレーキを解除し、可動域と筋出力を劇的に呼び覚ます。</p>
                 </div>
@@ -66,10 +66,15 @@
                 <div class="info-card">
                     <h3><i class="fa-solid fa-gears"></i> なぜ「貼るだけ」で変わるのか？</h3>
                     <p>日々の負荷や疲労により筋肉や関節からの信号に「ノイズ」が混入すると、脳は関節を固める指令（ブレーキ）を出します。</p>
-                    <p>Model-109パッチは、109個 of 超微細突起により皮膚の遅順応受容器（SA-I/SA-II）へ高解像度入力を送り、脳の予測誤差をリセットしてブレーキを瞬時に解除します。</p>
-                    <button class="btn btn-secondary" onclick="switchView('map')">
-                        <i class="fa-solid fa-magnifying-glass-location"></i> 貼付ガイドを見る
-                    </button>
+                    <p>KINETIC-LINK 109パッチは、109個の超微細突起により皮膚の遅順応受容器（SA-I/SA-II）へ高解像度入力を送り、脳の予測誤差をリセットしてブレーキを瞬時に解除します。</p>
+                    <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
+                        <button class="btn btn-secondary" onclick="switchView('map')" style="flex: 1; min-width: 140px;">
+                            <i class="fa-solid fa-magnifying-glass-location"></i> 貼付ガイドを見る
+                        </button>
+                        <button class="btn btn-secondary-outline" onclick="openProductDetailsModal()" style="flex: 1; min-width: 140px; color: var(--secondary); border-color: rgba(0,240,255,0.2);">
+                            <i class="fa-solid fa-box-open"></i> パッチ詳細スペック
+                        </button>
+                    </div>
                 </div>
             </section>
 
@@ -80,7 +85,10 @@
                         <h2><i class="fa-solid fa-map-location-dot"></i> 貼付マッピングガイド</h2>
                         <p>種目または症状に合わせた最適なアプローチ位置を表示します。</p>
                     </div>
-                    <div style="display: flex; gap: 8px;">
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <button class="btn btn-secondary-outline btn-xs" onclick="openAdminModal()" id="adminBtn">
+                            <i class="fa-solid fa-database"></i> データ管理
+                        </button>
                         <button class="btn btn-secondary-outline btn-xs" onclick="openExportModal()" id="exportCodeBtn">
                             <i class="fa-solid fa-code"></i> 一括コード出力
                         </button>
@@ -128,11 +136,12 @@
 
                     <div class="interactive-map-area">
                         <!-- Human body outline SVG with Symmetrical Polygon Image -->
-                        <div class="body-canvas-wrapper">
+                        <div class="body-canvas-wrapper" style="position: relative;">
                             <svg class="body-svg" viewBox="0 0 200 400" id="bodySvg">
                                 <image id="bodyOutlineImage" href="body_front.png" x="0" y="0" width="200" height="400" />
                                 <!-- Interactive Dots will be drawn here dynamically by app.js -->
                             </svg>
+                            <button class="zoom-reset-btn" id="zoomResetBtn" onclick="resetZoom()" title="全体表示"><i class="fa-solid fa-expand"></i> 全体</button>
                         </div>
 
                         <!-- D-pad for coordinate adjustment (only shown in edit mode) -->
@@ -436,6 +445,146 @@
                     <i class="fa-solid fa-copy"></i> コピーする
                 </button>
                 <button class="btn btn-primary-outline btn-sm" style="flex: 1;" onclick="closeExportModal()">
+                    閉じる
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Management Modal -->
+    <div id="adminModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-content" style="max-width: 440px; width: 90%; max-height: 85vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 700;"><i class="fa-solid fa-database"></i> 貼付データ管理画面</h3>
+                <button class="modal-close-btn" onclick="closeAdminModal()">&times;</button>
+            </div>
+            
+            <!-- Edit Category Panel -->
+            <div id="adminEditPanel">
+                <div class="form-group margin-bottom-15">
+                    <label>現在選択中のカテゴリー名</label>
+                    <input type="text" id="adminCategoryName" class="admin-input" placeholder="競技名または症状名">
+                </div>
+                <div class="form-group margin-bottom-15">
+                    <label>カテゴリーの説明</label>
+                    <textarea id="adminCategoryDesc" class="admin-input" rows="2" placeholder="コンセプトやベネフィット"></textarea>
+                </div>
+                
+                <!-- Points Management Area -->
+                <div class="admin-points-section" style="margin-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                        <label style="font-weight: 700; font-size: 12px; color: var(--secondary);">貼付ポイント一覧</label>
+                        <button class="btn btn-secondary-outline btn-xs" onclick="addAdminPoint()">
+                            <i class="fa-solid fa-plus"></i> ポイント追加
+                        </button>
+                    </div>
+                    
+                    <div id="adminPointsList" style="display: flex; flex-direction: column; gap: 12px; max-height: 250px; overflow-y: auto; padding-right: 4px; margin-bottom: 15px;">
+                        <!-- JS generated list of points -->
+                    </div>
+                </div>
+
+                <!-- Footer Buttons -->
+                <div style="display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; margin-top: 10px;">
+                    <button class="btn btn-outline btn-sm" onclick="addNewCategoryBtnClick()" style="flex: 1; font-size: 11px;">
+                        <i class="fa-solid fa-folder-plus"></i> 新規作成
+                    </button>
+                    <button class="btn btn-outline btn-sm" onclick="deleteActiveCategoryBtnClick()" style="flex: 1; color: var(--accent); border-color: rgba(255,0,127,0.3); font-size: 11px;">
+                        <i class="fa-solid fa-trash"></i> 削除
+                    </button>
+                    <button class="btn btn-primary btn-sm" onclick="saveAdminData()" style="flex: 1.2;">
+                        <i class="fa-solid fa-save"></i> 変更を保存
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Create Category Panel (Hidden by default) -->
+            <div id="adminCreatePanel" style="display: none;">
+                <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
+                    <h4 style="color: var(--secondary);"><i class="fa-solid fa-folder-plus"></i> 新規カテゴリー作成</h4>
+                </div>
+                <div class="form-group margin-bottom-15">
+                    <label>カテゴリー種別</label>
+                    <select id="newCatType" class="custom-select" style="padding: 8px 12px; font-size: 13px; height: 36px; line-height: 1;">
+                        <option value="sports">競技別 (Sports)</option>
+                        <option value="symptoms">部位・症状別 (Symptoms)</option>
+                    </select>
+                </div>
+                <div class="form-group margin-bottom-15">
+                    <label>カテゴリーID（半角英数、一意の識別子）</label>
+                    <input type="text" id="newCatId" class="admin-input" placeholder="例: tennis_elbow, running">
+                </div>
+                <div class="form-group margin-bottom-15">
+                    <label>表示名称</label>
+                    <input type="text" id="newCatName" class="admin-input" placeholder="例: テニス肘、ランニング">
+                </div>
+                <div class="form-group margin-bottom-15">
+                    <label>コンセプト・説明</label>
+                    <textarea id="newCatDesc" class="admin-input" rows="2" placeholder="競技特性や期待される効果を入力"></textarea>
+                </div>
+                <div style="display: flex; gap: 8px; margin-top: 15px;">
+                    <button class="btn btn-outline btn-sm" onclick="cancelCreateCategory()" style="flex: 1;">キャンセル</button>
+                    <button class="btn btn-primary btn-sm" onclick="saveNewCategory()" style="flex: 1;">作成して編集</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productDetailsModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-content" style="max-width: 600px; width: 95%; max-height: 85vh; overflow-y: auto;">
+            <div class="modal-header">
+                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+                    <i class="fa-solid fa-box-open"></i> KINETIC-LINK 109 プロダクト詳細解説
+                </h3>
+                <button class="modal-close-btn" onclick="closeProductDetailsModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 15px 0;">
+                <div class="details-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+                    <div class="details-image-side" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                        <img src="kinetic_link_box.png" alt="KINETIC-LINK 109 Package" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);">
+                        <span style="font-size: 11px; color: var(--secondary); font-weight: 700; letter-spacing: 2px;">"MOVE AS ONE."</span>
+                    </div>
+                    <div class="details-info-side" style="display: flex; flex-direction: column; gap: 12px; font-size: 12px; line-height: 1.5;">
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 6px;">
+                            <h4 style="margin: 0 0 6px 0; color: var(--secondary); font-size: 11px; font-weight: 700;">製品スペック</h4>
+                            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">製品名</td><td style="padding: 4px 0; font-weight: 700; text-align: right; color: var(--text-main);">KINETIC-LINK 109</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">スローガン</td><td style="padding: 4px 0; font-style: italic; text-align: right; color: var(--text-main);">Move As One.</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">パッチ入り数</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">8個 (4ペア同梱)</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">微細突起数</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">109個 (1.5mmピッチ)</td></tr>
+                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">硬度・素材</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">Shore A50 / 医療用シリコン</td></tr>
+                                <tr><td style="padding: 4px 0; color: var(--text-muted);">製造国</td><td style="padding: 4px 0; text-align: right; color: var(--secondary); font-weight: 700;">MADE IN JAPAN</td></tr>
+                            </table>
+                        </div>
+                        
+                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 6px;">
+                            <h4 style="margin: 0 0 6px 0; color: var(--secondary); font-size: 11px; font-weight: 700;">神経筋制御テクノロジー</h4>
+                            <p style="margin: 0; color: var(--text-muted); font-size: 11px;">
+                                皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
+                            </p>
+                            <p style="margin: 6px 0 0 0; color: var(--text-muted); font-size: 11px;">
+                                脳（小脳・体性感覚野）の「予測誤差」をリセットし、防衛的な関節ロック（脳の無意識のブレーキ）を解除。即座に柔軟性（可動域）とバランス力を劇的に改善します。
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Responsive style -->
+                <style>
+                    @media (max-width: 500px) {
+                        .details-layout {
+                            grid-template-columns: 1fr !important;
+                            gap: 15px !important;
+                        }
+                        .details-image-side img {
+                            max-width: 140px !important;
+                        }
+                    }
+                </style>
+            </div>
+            <div class="modal-footer" style="margin-top: 10px;">
+                <button class="btn btn-secondary btn-block" onclick="closeProductDetailsModal()">
                     閉じる
                 </button>
             </div>
