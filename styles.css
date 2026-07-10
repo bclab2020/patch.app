@@ -1501,5 +1501,80 @@ body {
     font-weight: 600;
 }
 
+/* 11. Welcome Box Card Styles */
+.welcome-box-card {
+    background: linear-gradient(135deg, #0f0f11 0%, #050506 100%);
+    border: 1px solid rgba(0, 240, 255, 0.15);
+    border-radius: 16px;
+    padding: 24px 16px;
+    margin: 10px 0 20px 0;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+}
+
+.welcome-box-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(0, 240, 255, 0.04) 0%, transparent 60%);
+    pointer-events: none;
+}
+
+.welcome-box-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.welcome-brand {
+    font-family: var(--font-outfit);
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text-main);
+    letter-spacing: 2px;
+    margin-bottom: 2px;
+    text-shadow: 0 0 16px rgba(0, 240, 255, 0.2);
+}
+
+.welcome-sub {
+    font-family: var(--font-outfit);
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 3px;
+    margin-bottom: 12px;
+}
+
+.welcome-graphic-container {
+    width: 100%;
+    max-width: 240px;
+    margin: 8px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.welcome-brain-svg {
+    width: 100%;
+    height: auto;
+    filter: drop-shadow(0 0 8px rgba(0, 240, 255, 0.25));
+}
+
+.welcome-slogan {
+    font-family: var(--font-outfit);
+    font-size: 13px;
+    font-weight: 800;
+    color: #ffffff; /* White text as requested! */
+    letter-spacing: 4px;
+    margin-top: 12px;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+}
+
 
 
