@@ -107,17 +107,20 @@
                 <!-- Interactive Mapping Body Dashboard -->
                 <div class="mapping-dashboard card-glass">
                     <div class="mapping-meta">
-                        <h3 id="mappingTitle">陸上（スプリント・跳躍）</h3>
-                        <p id="mappingDescription">走動作の推進力・接地感を最大化するプロトコル</p>
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <div>
+                                <h3 id="mappingTitle">陸上（スプリント・跳躍）</h3>
+                                <p id="mappingDescription">走動作の推進力・接地感を最大化するプロトコル</p>
+                            </div>
+                            <span class="view-indicator-badge" id="bodyViewIndicator">前面 (FRONT)</span>
+                        </div>
                     </div>
 
                     <div class="interactive-map-area">
-                        <!-- Human body outline SVG placeholder -->
+                        <!-- Human body outline SVG with Symmetrical Polygon Image -->
                         <div class="body-canvas-wrapper">
                             <svg class="body-svg" viewBox="0 0 200 400" id="bodySvg">
-                                <!-- Body outline paths -->
-                                <circle cx="100" cy="30" r="14" fill="none" stroke="#00f0ff" stroke-width="1.5"/>
-                                <path d="M 95,44 L 75,60 L 60,130 L 55,140 L 50,200 L 53,210 C 53,215 47,215 47,210 L 60,140 L 75,95 L 80,160 L 76,210 L 72,300 L 74,310 L 76,380 L 68,390 C 68,395 86,395 86,390 L 86,380 L 88,310 L 92,210 L 100,225 L 108,210 L 112,310 L 114,380 L 114,390 C 114,395 132,395 132,390 L 124,380 L 126,310 L 128,300 L 124,210 L 120,160 L 125,95 L 140,140 L 147,210 C 147,215 153,215 153,210 L 150,200 L 145,140 L 140,130 L 125,60 L 105,44 Z" fill="rgba(255,255,255,0.06)" stroke="#00f0ff" stroke-width="1.5"/>
+                                <image id="bodyOutlineImage" href="body_front.png" x="0" y="0" width="200" height="400" />
                                 <!-- Interactive Dots will be drawn here dynamically by app.js -->
                             </svg>
                         </div>
