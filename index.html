@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>B.C Lab - Receptor Patch Portal</title>
+    
+    <!-- Google Fonts & FontAwesome -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- 1. Header Area -->
+        <header class="app-header">
+            <div class="header-logo">
+                <span class="logo-bc">B.C</span><span class="logo-lab">Lab</span>
+                <span class="logo-sub">RECEPTOR PORTAL</span>
+            </div>
+            <div class="adhesive-badge" id="globalBadge">
+                <i class="fa-solid fa-circle-dot"></i>
+                <span>シール残数: <strong id="globalRingCount">24</strong>枚</span>
+            </div>
+        </header>
+
+        <!-- 2. Main View Container -->
+        <main class="app-main" id="viewContainer">
+            
+            <!-- HOME VIEW -->
+            <section id="view-home" class="app-view active">
+                <div class="hero-section">
+                    <div class="hero-bg-glow"></div>
+                    <span class="hero-tag">MODEL-109</span>
+                    <h1>神経筋制御をハックする<br><span class="highlight-text">最速体感デバイス</span></h1>
+                    <p>皮膚メカノレセプターへの高密度刺激が、脳の防衛ブレーキを解除し、可動域と筋出力を劇的に呼び覚ます。</p>
+                </div>
+
+                <div class="pack-contents-card">
+                    <h3><i class="fa-solid fa-box-open"></i> パッケージ同梱物のご確認</h3>
+                    <div class="contents-grid">
+                        <div class="content-item">
+                            <div class="icon-wrapper"><i class="fa-solid fa-circle-nodes"></i></div>
+                            <span class="qty">8個</span>
+                            <span class="label">レセプターパッチ</span>
+                        </div>
+                        <div class="content-item">
+                            <div class="icon-wrapper"><i class="fa-solid fa-circle-dot"></i></div>
+                            <span class="qty">24枚</span>
+                            <span class="label">貼付用シール (3シート)</span>
+                        </div>
+                        <div class="content-item">
+                            <div class="icon-wrapper"><i class="fa-solid fa-map"></i></div>
+                            <span class="qty">1部</span>
+                            <span class="label">マッピングチャート</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <h3><i class="fa-solid fa-gears"></i> なぜ「貼るだけ」で変わるのか？</h3>
+                    <p>日々の負荷や疲労により筋肉や関節からの信号に「ノイズ」が混入すると、脳は関節を固める指令（ブレーキ）を出します。</p>
+                    <p>Model-109パッチは、109個 of 超微細突起により皮膚の遅順応受容器（SA-I/SA-II）へ高解像度入力を送り、脳の予測誤差をリセットしてブレーキを瞬時に解除します。</p>
+                    <button class="btn btn-secondary" onclick="switchView('map')">
+                        <i class="fa-solid fa-magnifying-glass-location"></i> 貼付ガイドを見る
+                    </button>
+                </div>
+            </section>
+
+            <!-- GUIDE/MAP VIEW -->
+            <section id="view-map" class="app-view">
+                <div class="view-header">
+                    <h2><i class="fa-solid fa-map-location-dot"></i> 貼付マッピングガイド</h2>
+                    <p>種目または症状に合わせた最適なアプローチ位置を表示します。</p>
+                </div>
+
+                <!-- Selector Tabs -->
+                <div class="selector-tabs">
+                    <button class="tab-btn active" onclick="switchMappingTab('sports')">競技別 (16種)</button>
+                    <button class="tab-btn" onclick="switchMappingTab('symptoms')">部位・症状別</button>
+                </div>
+
+                <!-- Sports Selection Grid -->
+                <div id="mapping-sports-container" class="mapping-tab-content active">
+                    <div class="sport-select-wrapper">
+                        <select id="sportSelector" class="custom-select" onchange="loadSportMapping(this.value)">
+                            <!-- Loaded via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Symptoms Selection Grid -->
+                <div id="mapping-symptoms-container" class="mapping-tab-content">
+                    <div class="symptom-select-wrapper">
+                        <select id="symptomSelector" class="custom-select" onchange="loadSymptomMapping(this.value)">
+                            <!-- Loaded via JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Interactive Mapping Body Dashboard -->
+                <div class="mapping-dashboard card-glass">
+                    <div class="mapping-meta">
+                        <h3 id="mappingTitle">陸上（スプリント・跳躍）</h3>
+                        <p id="mappingDescription">走動作の推進力・接地感を最大化するプロトコル</p>
+                    </div>
+
+                    <div class="interactive-map-area">
+                        <!-- Human body outline SVG placeholder -->
+                        <div class="body-canvas-wrapper">
+                            <svg class="body-svg" viewBox="0 0 200 400" id="bodySvg">
+                                <!-- Body outline paths -->
+                                <path d="M100 40c8 0 15-7 15-15s-7-15-15-15-15 7-15 15 7 15 15 15zm25 15c-10-4-40-4-50 0-8 3-12 10-12 20v60c0 5 4 9 9 9h6v90c0 5 4 9 9 9h6v120c0 10 8 18 18 18s18-8 18-18v-120h6c5 0 9-4 9-9v-90h6c5 0 9-4 9-9V75c0-10-4-17-12-20z" fill="rgba(255,255,255,0.06)" stroke="#00f0ff" stroke-width="1.5"/>
+                                <!-- Interactive Dots will be drawn here dynamically by app.js -->
+                            </svg>
+                        </div>
+                        
+                        <div class="target-point-list" id="targetPointList">
+                            <!-- Points loaded dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- PRE/POST TEST WIZARD VIEW -->
+            <section id="view-test" class="app-view">
+                <div class="view-header">
+                    <h2><i class="fa-solid fa-gauge-high"></i> 効果検証アシスタント</h2>
+                    <p>プレテスト・ポストテストを行い、脳のブレーキ解除を定量測定します。</p>
+                </div>
+
+                <div class="wizard-card card-glass" id="wizardCard">
+                    <!-- Step 1: Pre-test -->
+                    <div class="wizard-step active" id="step-1">
+                        <div class="step-indicator">STEP 1 of 3</div>
+                        <h3>パッチを貼る前の状態を測定</h3>
+                        <p>まず、可動域（前屈など）やバランス（閉眼片足立ち）のテストを行います。</p>
+                        
+                        <div class="form-group">
+                            <label>前屈（SLR）角度（目安：0〜90°）</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="preRom" placeholder="70" min="0" max="120">
+                                <span class="unit">°</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>閉眼片足立ち保持時間（最大60秒）</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="preBalance" placeholder="15" min="0" max="60">
+                                <span class="unit">秒</span>
+                            </div>
+                            <div class="timer-tool">
+                                <button class="btn btn-sm btn-outline" id="preTimerBtn" onclick="runTimer('pre')">
+                                    <i class="fa-solid fa-stopwatch"></i> 計測タイマー開始 (30秒)
+                                </button>
+                                <span class="timer-display-small" id="preTimerText">00:30</span>
+                            </div>
+                        </div>
+
+                        <!-- Camera Capture Button (ROM baseline) -->
+                        <div class="camera-integration">
+                            <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('pre')">
+                                <i class="fa-solid fa-camera"></i> 前屈（Pre）写真を撮影して保存
+                            </button>
+                            <div class="captured-preview" id="prePhotoPreview">
+                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary btn-block margin-top-20" onclick="nextWizardStep(2)">
+                            貼付完了 ➔ STEP 2へ進む <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Post-test -->
+                    <div class="wizard-step" id="step-2">
+                        <div class="step-indicator">STEP 2 of 3</div>
+                        <h3>パッチ貼付後の状態を測定</h3>
+                        <p>ガイド通りにパッチを貼付し、直後（数十秒以内）に同じテストを行います。</p>
+                        
+                        <div class="form-group">
+                            <label>前屈（SLR）角度（パッチ貼付後）</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="postRom" placeholder="85" min="0" max="120">
+                                <span class="unit">°</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>閉眼片足立ち保持時間（パッチ貼付後）</label>
+                            <div class="input-unit-wrapper">
+                                <input type="number" id="postBalance" placeholder="40" min="0" max="60">
+                                <span class="unit">秒</span>
+                            </div>
+                            <div class="timer-tool">
+                                <button class="btn btn-sm btn-outline" id="postTimerBtn" onclick="runTimer('post')">
+                                    <i class="fa-solid fa-stopwatch"></i> 計測タイマー開始 (30秒)
+                                </button>
+                                <span class="timer-display-small" id="postTimerText">00:30</span>
+                            </div>
+                        </div>
+
+                        <!-- Camera Overlay / Slider Button -->
+                        <div class="camera-integration">
+                            <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('post')">
+                                <i class="fa-solid fa-camera"></i> 前屈（Post）写真を撮影＆重ね合わせ比較
+                            </button>
+                            <div class="captured-preview" id="postPhotoPreview">
+                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
+                            </div>
+                        </div>
+
+                        <div class="button-row margin-top-20">
+                            <button class="btn btn-secondary" onclick="nextWizardStep(1)">
+                                <i class="fa-solid fa-arrow-left"></i> 戻る
+                            </button>
+                            <button class="btn btn-primary" onclick="calculateResults()">
+                                結果の算出 <i class="fa-solid fa-circle-check"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: Result Dashboard -->
+                    <div class="wizard-step" id="step-3">
+                        <div class="step-indicator">RESULT</div>
+                        <div class="result-celebration">
+                            <i class="fa-solid fa-rocket animate-bounce"></i>
+                            <h3>神経筋制御が最適化されました！</h3>
+                        </div>
+
+                        <div class="metrics-comparison">
+                            <div class="metric-result-card">
+                                <span class="metric-label">可動域（前屈）</span>
+                                <div class="metric-comparison-row">
+                                    <span class="old-val" id="resPreRom">70°</span>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                    <span class="new-val" id="resPostRom">85°</span>
+                                </div>
+                                <span class="metric-pct highlight-green" id="resRomChange">+21.4%</span>
+                            </div>
+
+                            <div class="metric-result-card">
+                                <span class="metric-label">バランス保持</span>
+                                <div class="metric-comparison-row">
+                                    <span class="old-val" id="resPreBal">15秒</span>
+                                    <i class="fa-solid fa-chevron-right"></i>
+                                    <span class="new-val" id="resPostBal">40秒</span>
+                                </div>
+                                <span class="metric-pct highlight-blue" id="resBalChange">+166.7%</span>
+                            </div>
+                        </div>
+
+                        <div class="stock-deduction-notice">
+                            <p><i class="fa-solid fa-circle-dot"></i> 貼付により、シールの残数を差し引きました。</p>
+                            <p>今回の使用枚数: <strong id="usedCountDisplay">6</strong>枚 / 残数: <strong id="stockCountDisplay">18</strong>枚</p>
+                            <div class="progress-bar-container">
+                                <div class="progress-bar-fill" id="ringProgressBar" style="width: 75%;"></div>
+                            </div>
+                        </div>
+
+                        <div class="button-row margin-top-20">
+                            <button class="btn btn-secondary" onclick="resetWizard()">
+                                <i class="fa-solid fa-rotate-right"></i> 新たに計測する
+                            </button>
+                            <button class="btn btn-primary" onclick="switchView('history')">
+                                <i class="fa-solid fa-chart-line"></i> 履歴を見る
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- CLINICAL HISTORY / REPORT VIEW -->
+            <section id="view-history" class="app-view">
+                <div class="view-header">
+                    <h2><i class="fa-solid fa-chart-line"></i> 測定データ履歴</h2>
+                    <p>蓄積されたバランス・可動域改善の軌跡を確認できます。</p>
+                </div>
+
+                <div class="chart-container card-glass">
+                    <canvas id="historyChart"></canvas>
+                </div>
+
+                <div class="history-list-wrapper" id="historyList">
+                    <!-- History items loaded via JS -->
+                </div>
+            </section>
+
+            <!-- STORE / REORDER VIEW -->
+            <section id="view-store" class="app-view">
+                <div class="view-header">
+                    <h2><i class="fa-solid fa-cart-shopping"></i> シール追加注文</h2>
+                    <p>レセプターパッチは再利用可能ですが、貼付シールは使い捨てです。</p>
+                </div>
+
+                <div class="store-card card-glass">
+                    <div class="store-item-image">
+                        <i class="fa-solid fa-circle-dot main-ring-icon"></i>
+                        <span class="store-item-badge">B.C Lab 純正</span>
+                    </div>
+                    <div class="store-item-info">
+                        <h3>Model-109 専用貼付シール<br><small>(高接着・医療用グレードシート)</small></h3>
+                        <p class="store-desc">汗や摩擦に強く、スポーツ時でもパッチの刺激を忠実に伝える極薄2.0mmリング設計シートです。</p>
+                        
+                        <div class="price-row">
+                            <span class="price">¥1,980 <small>(税込)</small></span>
+                            <span class="pack-qty">1袋 (4シート / 32枚入)</span>
+                        </div>
+                        
+                        <button class="btn btn-primary btn-block margin-top-20" onclick="simulatePurchase()">
+                            <i class="fa-solid fa-credit-card"></i> ワンタップ追加購入する
+                        </button>
+                    </div>
+                </div>
+
+                <div class="replenish-tool card-glass">
+                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> デモ用シール補充機能</h4>
+                    <p>実機のないシミュレーション用として、ボタンを押すだけでデジタルシール残数をリセット・補充できます。</p>
+                    <button class="btn btn-secondary btn-block margin-top-10" onclick="replenishRings(24)">
+                        シールを24枚に補充・リセットする
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- 3. Bottom Tab Navigation Bar -->
+        <nav class="app-navbar">
+            <button class="nav-item active" id="nav-home" onclick="switchView('home')">
+                <i class="fa-solid fa-house"></i>
+                <span>ホーム</span>
+            </button>
+            <button class="nav-item" id="nav-map" onclick="switchView('map')">
+                <i class="fa-solid fa-map-location-dot"></i>
+                <span>貼付ガイド</span>
+            </button>
+            <button class="nav-item" id="nav-test" onclick="switchView('test')">
+                <i class="fa-solid fa-gauge-high"></i>
+                <span>効果検証</span>
+            </button>
+            <button class="nav-item" id="nav-history" onclick="switchView('history')">
+                <i class="fa-solid fa-chart-line"></i>
+                <span>履歴</span>
+            </button>
+            <button class="nav-item" id="nav-store" onclick="switchView('store')">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span>シール購入</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- 4. Camera Overlay Modal -->
+    <div class="camera-modal" id="cameraModal">
+        <div class="camera-modal-content">
+            <div class="camera-header">
+                <span id="cameraTitle">前屈姿勢の撮影</span>
+                <button class="close-btn" onclick="closeCamera()">✖</button>
+            </div>
+            
+            <div class="video-container">
+                <video id="webcam" autoplay playsinline></video>
+                <canvas id="photoCanvas" style="display:none;"></canvas>
+                
+                <!-- Overlay Grid Guide -->
+                <div class="overlay-grid"></div>
+                
+                <!-- Pre Image Transparency Slider Overlay (Only for Post stage) -->
+                <img id="transparencyOverlayImg" class="transparency-overlay" style="display:none;">
+            </div>
+
+            <!-- Transparency Slider control -->
+            <div class="transparency-control" id="transparencyControl" style="display:none;">
+                <label><i class="fa-solid fa-sliders"></i> Pre写真との重ね合わせ不透明度</label>
+                <input type="range" id="transparencySlider" min="0" max="100" value="50" oninput="adjustOverlayTransparency(this.value)">
+            </div>
+            
+            <div class="camera-footer">
+                <button class="btn btn-outline" onclick="closeCamera()">キャンセル</button>
+                <button class="btn btn-primary" id="captureBtn" onclick="takeSnapshot()">
+                    <i class="fa-solid fa-camera"></i> シャッターを切る
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. Toast Notification -->
+    <div class="toast" id="toast">
+        <span id="toastMessage">トーストメッセージ</span>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
