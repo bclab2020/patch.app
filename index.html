@@ -80,9 +80,14 @@
                         <h2><i class="fa-solid fa-map-location-dot"></i> 貼付マッピングガイド</h2>
                         <p>種目または症状に合わせた最適なアプローチ位置を表示します。</p>
                     </div>
-                    <button class="btn btn-secondary-outline btn-xs" onclick="toggleEditMode()" id="editModeBtn">
-                        <i class="fa-solid fa-pen-to-square"></i> 座標調整
-                    </button>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn btn-secondary-outline btn-xs" onclick="openExportModal()" id="exportCodeBtn">
+                            <i class="fa-solid fa-code"></i> 一括コード出力
+                        </button>
+                        <button class="btn btn-secondary-outline btn-xs" onclick="toggleEditMode()" id="editModeBtn">
+                            <i class="fa-solid fa-pen-to-square"></i> 座標調整
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Selector Tabs -->
@@ -128,6 +133,21 @@
                                 <image id="bodyOutlineImage" href="body_front.png" x="0" y="0" width="200" height="400" />
                                 <!-- Interactive Dots will be drawn here dynamically by app.js -->
                             </svg>
+                        </div>
+
+                        <!-- D-pad for coordinate adjustment (only shown in edit mode) -->
+                        <div class="dpad-container" id="dpadContainer" style="display: none;">
+                            <div class="dpad-status">
+                                <span id="dpadActivePointName">1. 前脛骨筋 (右)</span><br>
+                                <span class="dpad-coords">X: <strong id="dpadValX">81</strong>, Y: <strong id="dpadValY">335</strong></span>
+                            </div>
+                            <div class="dpad-keys">
+                                <button class="dpad-btn dpad-up" onclick="moveActivePoint(0, -2)" title="上に移動"><i class="fa-solid fa-caret-up"></i></button>
+                                <button class="dpad-btn dpad-left" onclick="moveActivePoint(-2, 0)" title="左に移動"><i class="fa-solid fa-caret-left"></i></button>
+                                <div class="dpad-center"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
+                                <button class="dpad-btn dpad-right" onclick="moveActivePoint(2, 0)" title="右に移動"><i class="fa-solid fa-caret-right"></i></button>
+                                <button class="dpad-btn dpad-down" onclick="moveActivePoint(0, 2)" title="下に移動"><i class="fa-solid fa-caret-down"></i></button>
+                            </div>
                         </div>
                         
                         <div class="target-point-list" id="targetPointList">

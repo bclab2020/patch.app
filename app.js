@@ -379,7 +379,15 @@ function renderMappingInteractive(points) {
         listContainer.appendChild(card);
     });
 
-    // If edit mode is active, refresh the code export box
+    // 3. Show D-pad & Update status if edit mode is active
+    const dpad = document.getElementById('dpadContainer');
+    if (dpad) {
+        dpad.style.display = appState.editMode ? 'flex' : 'none';
+        if (appState.editMode && activePt) {
+            updateDpadStatus(activePt);
+        }
+    }
+
     if (appState.editMode) {
         updateExportData();
     }
@@ -491,8 +499,7 @@ function toggleEditMode() {
         btn.classList.remove('active');
         btn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> 座標調整`;
         if (dashboard) dashboard.classList.remove('edit-active');
-        showToast("座標の調整が終了しました。コードを出力します。");
-        openExportModal();
+        showToast("座標の調整を終了しました。右上の「一括コード出力」からコードを取得できます。");
     }
     
     // Re-render dots to update cursor style
@@ -501,6 +508,39 @@ function toggleEditMode() {
         ? SPORTS_MAPPING[appState.selectedSport].points 
         : SYMPTOMS_MAPPING[appState.selectedSymptom].points;
     renderMappingInteractive(points);
+function moveActivePoint(dx, dy) {
+    const tabName = appState.mappingTab;
+    const points = tabName === 'sports' 
+        ? SPORTS_MAPPING[appState.selectedSport].points 
+        : SYMPTOMS_MAPPING[appState.selectedSymptom].points;
+        
+    const pt = points[appState.activeDotIndex];
+    if (pt) {
+        pt.x = Math.max(0, Math.min(200, pt.x + dx));
+        pt.y = Math.max(0, Math.min(400, pt.y + dy));
+        
+        // Update SVG circle coordinates
+        const circle = document.querySelector(`#bodySvg .dot-${appState.activeDotIndex}`);
+        if (circle) {
+            circle.setAttribute('cx', pt.x);
+            circle.setAttribute('cy', pt.y);
+        }
+        
+        updateDpadStatus(pt);
+        saveCustomCoordinates();
+    }
+}
+
+function updateDpadStatus(pt) {
+    const nameEl = document.getElementById('dpadActivePointName');
+    const valX = document.getElementById('dpadValX');
+    const valY = document.getElementById('dpadValY');
+    
+    if (pt) {
+        if (nameEl) nameEl.textContent = `${appState.activeDotIndex + 1}. ${pt.name}`;
+        if (valX) valX.textContent = pt.x;
+        if (valY) valY.textContent = pt.y;
+    }
 }
 
 function openExportModal() {
