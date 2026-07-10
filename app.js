@@ -508,6 +508,8 @@ function toggleEditMode() {
         ? SPORTS_MAPPING[appState.selectedSport].points 
         : SYMPTOMS_MAPPING[appState.selectedSymptom].points;
     renderMappingInteractive(points);
+}
+
 function moveActivePoint(dx, dy) {
     const tabName = appState.mappingTab;
     const points = tabName === 'sports' 
