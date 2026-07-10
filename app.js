@@ -480,19 +480,19 @@ function endDrag() {
 function toggleEditMode() {
     appState.editMode = !appState.editMode;
     const btn = document.getElementById('editModeBtn');
-    const panel = document.getElementById('adminEditPanel');
+    const dashboard = document.querySelector('.mapping-dashboard');
     
     if (appState.editMode) {
         btn.classList.add('active');
         btn.innerHTML = `<i class="fa-solid fa-check"></i> 調整終了`;
-        panel.style.display = 'block';
-        updateExportData();
-        showToast("座標調整モードが有効になりました。ドットをドラッグして位置を調整できます。");
+        if (dashboard) dashboard.classList.add('edit-active');
+        showToast("座標調整モード開始。ドットをドラッグして位置を調整してください。");
     } else {
         btn.classList.remove('active');
         btn.innerHTML = `<i class="fa-solid fa-pen-to-square"></i> 座標調整`;
-        panel.style.display = 'none';
-        showToast("座標の調整を終了しました。");
+        if (dashboard) dashboard.classList.remove('edit-active');
+        showToast("座標の調整が終了しました。コードを出力します。");
+        openExportModal();
     }
     
     // Re-render dots to update cursor style
@@ -502,6 +502,22 @@ function toggleEditMode() {
         : SYMPTOMS_MAPPING[appState.selectedSymptom].points;
     renderMappingInteractive(points);
 }
+
+function openExportModal() {
+    const modal = document.getElementById('exportModal');
+    if (modal) {
+        updateExportData();
+        modal.style.display = 'flex';
+    }
+}
+
+function closeExportModal() {
+    const modal = document.getElementById('exportModal');
+    if (modal) {
+        modal.style.display = 'none';
+    }
+}
+
 
 function updateExportData() {
     const area = document.getElementById('coordExportArea');

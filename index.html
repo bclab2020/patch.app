@@ -135,27 +135,6 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Coordinate Editing Admin Panel (Toggled via button) -->
-                <div class="card-glass admin-edit-panel" id="adminEditPanel" style="display: none; margin-top: 16px; padding: 16px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
-                        <h4 style="color: var(--secondary); font-size: 13px; font-weight: 700; margin: 0;"><i class="fa-solid fa-screwdriver-wrench"></i> 座標調整モード（開発管理）</h4>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="resetCustomCoordinates()" style="padding: 2px 8px; font-size: 9px;">初期設定に戻す</button>
-                    </div>
-                    <p style="font-size: 11px; color: var(--text-muted); margin-bottom: 12px; line-height: 1.4; margin-top: 0;">
-                        人体モデル上の光るドットを直接ドラッグ＆ドロップして位置を調整できます。<br>
-                        調整完了後、下のコードをコピーしてAIチャットに貼り付けると、恒久的にプログラムに反映されます。
-                    </p>
-                    <textarea id="coordExportArea" readonly style="width: 100%; height: 120px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-main); margin-bottom: 12px; resize: none; box-sizing: border-box;"></textarea>
-                    <div style="display: flex; gap: 8px;">
-                        <button class="btn btn-secondary btn-sm" style="flex: 1;" onclick="copyExportedCode()">
-                            <i class="fa-solid fa-copy"></i> コードをコピー
-                        </button>
-                        <button class="btn btn-primary-outline btn-sm" style="flex: 1;" onclick="toggleEditMode()">
-                            調整を終了
-                        </button>
-                    </div>
-                </div>
             </section>
 
             <!-- PRE/POST TEST WIZARD VIEW -->
@@ -414,6 +393,30 @@
                 <button class="btn btn-outline" onclick="closeCamera()">キャンセル</button>
                 <button class="btn btn-primary" id="captureBtn" onclick="takeSnapshot()">
                     <i class="fa-solid fa-camera"></i> シャッターを切る
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Export Modal -->
+    <div id="exportModal" class="modal-backdrop" style="display: none;">
+        <div class="modal-content" style="max-width: 340px; width: 90%;">
+            <div class="modal-header">
+                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 700;"><i class="fa-solid fa-code"></i> 調整済み座標の出力</h3>
+                <button class="modal-close-btn" onclick="closeExportModal()">&times;</button>
+            </div>
+            <div class="modal-body" style="padding: 12px 0;">
+                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; margin-top: 0;">
+                    調整された座標データコードです。以下のボタンを押してコピーし、AIアシスタントのチャットに貼り付けてください。
+                </p>
+                <textarea id="coordExportArea" readonly style="width: 100%; height: 150px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-main); resize: none; box-sizing: border-box;"></textarea>
+            </div>
+            <div class="modal-footer" style="display: flex; gap: 8px; margin-top: 12px;">
+                <button class="btn btn-secondary btn-sm" style="flex: 1;" onclick="copyExportedCode()">
+                    <i class="fa-solid fa-copy"></i> コピーする
+                </button>
+                <button class="btn btn-primary-outline btn-sm" style="flex: 1;" onclick="closeExportModal()">
+                    閉じる
                 </button>
             </div>
         </div>
