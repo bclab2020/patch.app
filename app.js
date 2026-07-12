@@ -2127,4 +2127,103 @@ window.addEventListener('DOMContentLoaded', () => {
     
     switchView('home');
     initDragAndDrop(); // Attaches mouse/touch events to body SVG
+    
+    // PWA & Notification setup
+    initPWA();
+    initNotificationUI();
+    checkNoteUpdates();
 });
+
+// PWA Service Worker Registration
+function initPWA() {
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+                .then(reg => console.log('ServiceWorker registered with scope:', reg.scope))
+                .catch(err => console.error('ServiceWorker registration failed:', err));
+        });
+    }
+}
+
+// Notification UI handling
+function initNotificationUI() {
+    const btn = document.getElementById('notificationToggleBtn');
+    if (!btn) return;
+    
+    if (!("Notification" in window)) {
+        btn.textContent = "非対応";
+        btn.disabled = true;
+        btn.style.opacity = "0.5";
+        return;
+    }
+    
+    if (Notification.permission === "granted") {
+        btn.textContent = "通知オン";
+        btn.style.background = "rgba(0, 240, 255, 0.2)";
+        btn.style.borderColor = "var(--secondary)";
+        btn.disabled = true;
+    } else if (Notification.permission === "denied") {
+        btn.textContent = "通知ブロック中";
+        btn.style.background = "rgba(255, 0, 80, 0.1)";
+        btn.style.borderColor = "#ff0050";
+        btn.style.color = "#ff0050";
+        btn.disabled = true;
+    }
+}
+
+async function toggleNotificationPermission() {
+    if (!("Notification" in window)) return;
+    
+    const permission = await Notification.requestPermission();
+    initNotificationUI();
+    
+    if (permission === "granted") {
+        showToast("通知がオンになりました！");
+        // Send a test notification
+        new Notification("B.C Lab ポータル", {
+            body: "noteの最新情報やアップデート通知が届くようになりました。",
+            icon: "icon.svg"
+        });
+        checkNoteUpdates();
+    } else {
+        showToast("通知設定がキャンセルされました。");
+    }
+}
+
+// Background / Fetch checking for Note RSS updates via client-side
+async function checkNoteUpdates() {
+    if (!("Notification" in window) || Notification.permission !== "granted") return;
+    
+    try {
+        // Use public rss2json converter to fetch RSS feed of note.com/ks0616 in JSON format (CORS friendly)
+        const rssUrl = "https://note.com/ks0616/rss";
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
+        
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        
+        if (data.status === 'ok' && data.items && data.items.length > 0) {
+            const latestArticle = data.items[0];
+            const savedGuid = localStorage.getItem('last_notified_note_guid');
+            
+            if (savedGuid && savedGuid !== latestArticle.guid) {
+                // Trigger local notification
+                const notification = new Notification("【公式note更新】", {
+                    body: latestArticle.title,
+                    icon: "icon.svg",
+                    tag: "note-update"
+                });
+                notification.onclick = () => {
+                    window.focus();
+                    window.open(latestArticle.link, '_self');
+                    notification.close();
+                };
+            }
+            
+            // Save latest guid in localStorage so we don't notify multiple times for the same article
+            localStorage.setItem('last_notified_note_guid', latestArticle.guid);
+        }
+    } catch (e) {
+        console.error("note更新チェックエラー:", e);
+    }
+}
