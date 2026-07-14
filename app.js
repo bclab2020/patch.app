@@ -1019,6 +1019,18 @@ function loadSportMapping(sportKey) {
     if (svg) svg.setAttribute('viewBox', '0 0 200 400');
     
     renderMappingInteractive(data.points);
+    
+    // Toggle Tennis Troubleshooting Guide Panel
+    const tennisCard = document.getElementById('tennisTroubleCard');
+    if (tennisCard) {
+        if (sportKey === 'tennis') {
+            tennisCard.style.display = 'block';
+            document.getElementById('tennisComplaintSelector').value = '';
+            document.getElementById('tennisComplaintDetailArea').style.display = 'none';
+        } else {
+            tennisCard.style.display = 'none';
+        }
+    }
 }
 
 function loadSymptomMapping(symptomKey) {
@@ -1033,6 +1045,10 @@ function loadSymptomMapping(symptomKey) {
     if (svg) svg.setAttribute('viewBox', '0 0 200 400');
     
     renderMappingInteractive(data.points);
+    
+    // Hide Tennis Troubleshooting Guide Panel when viewing symptoms
+    const tennisCard = document.getElementById('tennisTroubleCard');
+    if (tennisCard) tennisCard.style.display = 'none';
 }
 
 function renderMappingInteractive(points) {
@@ -2225,5 +2241,85 @@ async function checkNoteUpdates() {
         }
     } catch (e) {
         console.error("note更新チェックエラー:", e);
+    }
+}
+
+// Tennis-Specific Troubleshooting Mapping Data (Simplified for UI)
+const TENNIS_COMPLAINTS = {
+    "1": {
+        cause: "デスクワーク等の巻き肩で大胸筋のセンサーが麻痺し、脳からのテイクバック指令が遅れるため打点が後ろになります。",
+        points: "鎖骨下周囲 (左右)",
+        effect: "鎖骨下神経を刺激し小脳の予測誤差をリセット。胸郭と肩甲骨の防衛的な脳ブレーキを外します。",
+        future: "テイクバックが高速化し、常に前方の芯で捉えられます。軽い振りで球威が最大化します。"
+    },
+    "2": {
+        cause: "打撃衝撃で前腕の受容器が麻痺し、インパクト時の極小の面ブレ補正反射（共収縮）が遅れます。",
+        points: "外側上顆周囲 (左右) ＋ 手関節背側 (左右)",
+        effect: "橈骨神経や手首腱膜の感覚フィードバックをミリ秒単位で高速化し、手首と前腕を瞬間補正します。",
+        future: "相手の強打に対してもラケット面が壁のように安定し、正確無比なコントロールが手に入ります。"
+    },
+    "3": {
+        cause: "脳の過剰な保護反応により全身が力み（同時緊張）、下半身から腕への運動連鎖が寸断されます。",
+        points: "鎖骨下周囲 (左右) ＋ 胸腰椎移行部 (左右)",
+        effect: "体幹の安定と肩甲帯の感覚統合により力みを消去。相反性神経支配（主動筋と拮抗筋の連動）を正常化します。",
+        future: "下半身のパワーがロスなく伝達。脱力スイングで生きた伸びるボールが打てるようになります。"
+    },
+    "4": {
+        cause: "疲労で肩甲骨の固有受容感覚が狂い、空中のラケットとボールの距離を脳が正確に認知できません。",
+        points: "棘上筋・棘下筋起始部 (左右) ［肩甲骨の中央と上部］",
+        effect: "肩甲上神経経由で肩の位置情報を小脳に高速伝達。視覚と腕の連動（目と手の協調）エラーを解消します。",
+        future: "常に最も力が伝わる打点（スイートスポット）で打てるようになり、サーブの再現性が激変します。"
+    },
+    "5": {
+        cause: "ローテーターカフや僧帽筋の硬化によるインピンジメント（衝突）を防ぐため、脳が可動制限をかけます。",
+        points: "僧帽筋起始部 (左右) ＋ 鎖骨下周囲 (左右)",
+        effect: "副神経および鎖骨下神経への入力により、脳が腕を上げる際の防衛ロックを解除し、可動域を広げます。",
+        future: "肩が引っかかりなく滑らかに回り、高い打点からしなる強烈な高速サーブが打てるようになります。"
+    },
+    "6": {
+        cause: "足関節や脛の感覚器が鈍り、脳が地面を蹴る運動準備指令（背屈・底屈反射）を遅延させます。",
+        points: "前脛骨筋起始部 (左右) ［お皿の外側下］",
+        effect: "深腓骨神経へ高密度入力し、足首の背屈・底屈の脊髄反射回路を高速化。敏捷性スイッチをオンにします。",
+        future: "打球音と同時に体が爆発的に反応。一歩目が速くなり、守備範囲が劇的に広がります。"
+    },
+    "7": {
+        cause: "急減速時の横ブレに股関節（殿筋）の連動が遅れ、骨盤がスライドして重心が崩れます。",
+        points: "前脛骨筋起始部 (左右) ＋ 大殿筋起始部 (左右)",
+        effect: "殿筋と足首の感覚連動を高め、着地時の床反力を体幹へ即時共有。骨盤のアライメントを自動補正します。",
+        future: "走らされたストップでも軸がブレずに強打でき、打球後一瞬でセンターに戻れるようになります。"
+    },
+    "8": {
+        cause: "捻転運動による多裂筋・腰方形筋の緊張から、脳が腰を固める防衛収縮ループが固定化しています。",
+        points: "胸腰椎移行部 T12-L1 (左右)",
+        effect: "脊髄後枝への入力で交感神経の異常緊張を緩和。毛細血管を拡張させて血流を改善し疲労を蓄積させません。",
+        future: "翌朝腰の重さなくスッキリ起きられます。腰を庇う悪いスイングのクセが根絶されます。"
+    },
+    "9": {
+        cause: "グリップの握りすぎや差し込まれにより、肘の外側の短橈側手根伸筋腱に牽引ストレスが集中します。",
+        points: "外側上顆周囲 (左右)",
+        effect: "筋肉のセンサー疲労をリセットし前腕の緊張を最適化。打球衝撃をしなやかに逃がす機能を取り戻します。",
+        future: "サポーターや薬に頼らず、全力スイングを痛みの恐怖ゼロで楽しめる未来が手に入ります。"
+    },
+    "10": {
+        cause: "着地時に股関節が十分に機能せず、大腿四頭筋（前もも）だけで減速ショックを受け止めるためです。",
+        points: "膝蓋骨周囲 (左右) ＋ 大腿四頭筋起始部 (左右) ［太ももの付け根中央］",
+        effect: "太ももの位置感覚を高め、着地時のニーイン（膝の内ブレ）を自動修正。臀部へ衝撃を分散させます。",
+        future: "膝のグラつきや痛みが消え、低い姿勢でも強く踏ん張れます。関節の寿命を大幅に伸ばします。"
+    }
+};
+
+function showTennisComplaintDetail(val) {
+    const area = document.getElementById('tennisComplaintDetailArea');
+    if (!val) {
+        area.style.display = 'none';
+        return;
+    }
+    const data = TENNIS_COMPLAINTS[val];
+    if (data) {
+        document.getElementById('tennisCompCause').textContent = data.cause;
+        document.getElementById('tennisCompPoints').textContent = data.points;
+        document.getElementById('tennisCompEffect').textContent = data.effect;
+        document.getElementById('tennisCompFuture').textContent = data.future;
+        area.style.display = 'block';
     }
 }

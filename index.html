@@ -337,6 +337,58 @@
                         <div class="target-point-list" id="targetPointList">
                             <!-- Points loaded dynamically -->
                         </div>
+                </div>
+                
+                <!-- Tennis-Specific Troubleshooting Guide Panel -->
+                <div id="tennisTroubleCard" class="info-card" style="display: none; margin-top: 15px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.03) 0%, rgba(255, 0, 80, 0.01) 100%); border: 1px solid rgba(0, 240, 255, 0.15); padding: 15px; border-radius: 8px;">
+                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 14px;"><i class="fa-solid fa-graduation-cap"></i> 🎾 テニスお悩み別 解決マッピング</h3>
+                    <p style="font-size: 11px; margin: 0 0 12px 0; color: var(--text-muted); line-height: 1.4;">
+                        プレイヤーの具体的なお悩みから、最適な貼付ポイントと神経生理学的な解説・未来のパフォーマンス向上効果を表示します。
+                    </p>
+                    
+                    <!-- Select Complaint Dropdown -->
+                    <div class="symptom-select-wrapper" style="margin-bottom: 12px;">
+                        <select id="tennisComplaintSelector" class="custom-select" onchange="showTennisComplaintDetail(this.value)" style="border-color: rgba(0, 240, 255, 0.3); font-size: 12px; width: 100%; padding: 8px; border-radius: 6px; background: rgba(10,10,12,0.8); color: var(--text-main);">
+                            <option value="">-- お悩みを選択してください --</option>
+                            <optgroup label="カテゴリー１：ストロークの悩み">
+                                <option value="1">悩み①：フォアが差し込まれ、打点が後ろになって球威が出ない</option>
+                                <option value="2">悩み②：バックハンドで当たり負けし、面がブレてミスになる</option>
+                                <option value="3">悩み③：力んで手打ちになり、ボールが伸びない</option>
+                            </optgroup>
+                            <optgroup label="カテゴリー２：サーブ＆スマッシュの悩み">
+                                <option value="4">悩み④：トスとの距離感がズレ、打点が毎回バラバラになる</option>
+                                <option value="5">悩み⑤：肩が詰まりサーブのスピードが出ない</option>
+                            </optgroup>
+                            <optgroup label="カテゴリー３：フットワーク＆アジリティの悩み">
+                                <option value="6">悩み⑥：一歩目の出だしが遅れる</option>
+                                <option value="7">悩み⑦：切り返し時に体が流れて踏ん張れない</option>
+                            </optgroup>
+                            <optgroup label="カテゴリー４：疲労・リカバリー・怪我予防の悩み">
+                                <option value="8">悩み⑧：練習後に腰が張り、慢性的な腰痛がある</option>
+                                <option value="9">悩み⑨：打っていると肘の外側や手首がピキッと痛む（テニス肘）</option>
+                                <option value="10">悩み⑩：踏み込みやダッシュ時に膝が痛む</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    
+                    <!-- Complaint Detail Display Area -->
+                    <div id="tennisComplaintDetailArea" style="display: none; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; font-size: 11px; line-height: 1.5; color: var(--text-main);">
+                        <div style="margin-bottom: 8px;">
+                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-circle-question"></i> 原因（神経生理学的メカニズム）:</span>
+                            <p id="tennisCompCause" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px;"></p>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-location-crosshairs"></i> 推奨貼付ポイント:</span>
+                            <p id="tennisCompPoints" style="margin: 3px 0 0 0; color: var(--secondary); font-size: 12px; font-weight: bold;"></p>
+                        </div>
+                        <div style="margin-bottom: 8px;">
+                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-arrows-spin"></i> 体内で起きる変化（作用）:</span>
+                            <p id="tennisCompEffect" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px;"></p>
+                        </div>
+                        <div style="margin-bottom: 3px;">
+                            <span style="color: #ff0050; font-weight: bold; font-size: 11px;"><i class="fa-solid fa-circle-up"></i> 開ける新たな未来:</span>
+                            <p id="tennisCompFuture" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px; font-weight: bold;"></p>
+                        </div>
                     </div>
                 </div>
             </section>
