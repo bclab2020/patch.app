@@ -1620,3 +1620,104 @@ body {
     opacity: 0.75;
     pointer-events: none;
 }
+
+/* PC & Tablet Screen Responsive Optimizations */
+@media (min-width: 768px) {
+    /* 1. App Frame setup for Desktop Dashboard */
+    .app-container {
+        max-width: 800px;
+        height: 90vh;
+        height: 90dvh;
+        border-radius: 16px;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+        margin: auto;
+    }
+    
+    .app-main {
+        padding: 20px;
+    }
+    
+    /* 2. Home View Grid layout */
+    #view-home {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 16px;
+        align-content: start;
+    }
+    #view-home .welcome-box-card {
+        margin-bottom: 0;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
+    /* 3. Map View (Interactive Map Area) Grid layout */
+    .interactive-map-area {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 20px;
+        align-items: start;
+    }
+    .body-canvas-wrapper {
+        width: 100% !important;
+        height: 380px !important;
+        box-sizing: border-box;
+    }
+    .target-point-list {
+        max-height: 380px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+    
+    /* 4. Test View (Sliders 2x2 Grid) */
+    #step-1, #step-3 {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        align-content: start;
+    }
+    #step-1 .step-indicator, #step-1 h3, #step-1 p, #step-1 .camera-integration, #step-1 .button-row,
+    #step-3 .step-indicator, #step-3 .result-celebration, #step-3 .metrics-comparison, #step-3 .stock-deduction-notice, #step-3 .button-row {
+        grid-column: span 2;
+    }
+    #step-1 .form-group, #step-3 .form-group {
+        margin-bottom: 0;
+    }
+    
+    /* 5. History View Grid layout */
+    #view-history {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 16px;
+        align-content: start;
+    }
+    #view-history .view-header {
+        grid-column: span 2;
+    }
+    #view-history .chart-container {
+        margin-bottom: 0;
+    }
+    #view-history .history-list-wrapper {
+        max-height: 340px;
+        overflow-y: auto;
+        padding-right: 4px;
+    }
+    
+    /* 6. Store View Horizontal layout */
+    .store-card {
+        flex-direction: row !important;
+        align-items: stretch;
+    }
+    .store-item-image {
+        width: 40%;
+        height: auto !important;
+        border-bottom: none !important;
+        border-right: 1px solid var(--border-color);
+    }
+    .store-item-info {
+        width: 60%;
+        padding: 20px;
+    }
+}
