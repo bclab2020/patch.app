@@ -1020,16 +1020,12 @@ function loadSportMapping(sportKey) {
     
     renderMappingInteractive(data.points);
     
-    // Toggle Tennis Troubleshooting Guide Panel
-    const tennisCard = document.getElementById('tennisTroubleCard');
-    if (tennisCard) {
-        if (sportKey === 'tennis') {
-            tennisCard.style.display = 'block';
-            document.getElementById('tennisComplaintSelector').value = '';
-            document.getElementById('tennisComplaintDetailArea').style.display = 'none';
-        } else {
-            tennisCard.style.display = 'none';
-        }
+    // Toggle Sport Troubleshooting Guide Panel (available for all sports)
+    const sportCard = document.getElementById('sportTroubleCard');
+    if (sportCard) {
+        sportCard.style.display = 'block';
+        document.getElementById('sportTroubleTitle').textContent = `🏆 ${data.name} お悩み別 解決マッピング`;
+        populateSportComplaints(sportKey);
     }
 }
 
@@ -1046,9 +1042,9 @@ function loadSymptomMapping(symptomKey) {
     
     renderMappingInteractive(data.points);
     
-    // Hide Tennis Troubleshooting Guide Panel when viewing symptoms
-    const tennisCard = document.getElementById('tennisTroubleCard');
-    if (tennisCard) tennisCard.style.display = 'none';
+    // Hide Sport Troubleshooting Guide Panel when viewing symptoms
+    const sportCard = document.getElementById('sportTroubleCard');
+    if (sportCard) sportCard.style.display = 'none';
 }
 
 function renderMappingInteractive(points) {
@@ -2244,82 +2240,287 @@ async function checkNoteUpdates() {
     }
 }
 
-// Tennis-Specific Troubleshooting Mapping Data (Simplified for UI)
-const TENNIS_COMPLAINTS = {
-    "1": {
-        cause: "デスクワーク等の巻き肩で大胸筋のセンサーが麻痺し、脳からのテイクバック指令が遅れるため打点が後ろになります。",
-        points: "鎖骨下周囲 (左右)",
-        effect: "鎖骨下神経を刺激し小脳の予測誤差をリセット。胸郭と肩甲骨の防衛的な脳ブレーキを外します。",
-        future: "テイクバックが高速化し、常に前方の芯で捉えられます。軽い振りで球威が最大化します。"
-    },
-    "2": {
-        cause: "打撃衝撃で前腕の受容器が麻痺し、インパクト時の極小の面ブレ補正反射（共収縮）が遅れます。",
-        points: "外側上顆周囲 (左右) ＋ 手関節背側 (左右)",
-        effect: "橈骨神経や手首腱膜の感覚フィードバックをミリ秒単位で高速化し、手首と前腕を瞬間補正します。",
-        future: "相手の強打に対してもラケット面が壁のように安定し、正確無比なコントロールが手に入ります。"
-    },
-    "3": {
-        cause: "脳の過剰な保護反応により全身が力み（同時緊張）、下半身から腕への運動連鎖が寸断されます。",
-        points: "鎖骨下周囲 (左右) ＋ 胸腰椎移行部 (左右)",
-        effect: "体幹の安定と肩甲帯の感覚統合により力みを消去。相反性神経支配（主動筋と拮抗筋の連動）を正常化します。",
-        future: "下半身のパワーがロスなく伝達。脱力スイングで生きた伸びるボールが打てるようになります。"
-    },
-    "4": {
-        cause: "疲労で肩甲骨の固有受容感覚が狂い、空中のラケットとボールの距離を脳が正確に認知できません。",
-        points: "棘上筋・棘下筋起始部 (左右) ［肩甲骨の中央と上部］",
-        effect: "肩甲上神経経由で肩の位置情報を小脳に高速伝達。視覚と腕の連動（目と手の協調）エラーを解消します。",
-        future: "常に最も力が伝わる打点（スイートスポット）で打てるようになり、サーブの再現性が激変します。"
-    },
-    "5": {
-        cause: "ローテーターカフや僧帽筋の硬化によるインピンジメント（衝突）を防ぐため、脳が可動制限をかけます。",
-        points: "僧帽筋起始部 (左右) ＋ 鎖骨下周囲 (左右)",
-        effect: "副神経および鎖骨下神経への入力により、脳が腕を上げる際の防衛ロックを解除し、可動域を広げます。",
-        future: "肩が引っかかりなく滑らかに回り、高い打点からしなる強烈な高速サーブが打てるようになります。"
-    },
-    "6": {
-        cause: "足関節や脛の感覚器が鈍り、脳が地面を蹴る運動準備指令（背屈・底屈反射）を遅延させます。",
-        points: "前脛骨筋起始部 (左右) ［お皿の外側下］",
-        effect: "深腓骨神経へ高密度入力し、足首の背屈・底屈の脊髄反射回路を高速化。敏捷性スイッチをオンにします。",
-        future: "打球音と同時に体が爆発的に反応。一歩目が速くなり、守備範囲が劇的に広がります。"
-    },
-    "7": {
-        cause: "急減速時の横ブレに股関節（殿筋）の連動が遅れ、骨盤がスライドして重心が崩れます。",
-        points: "前脛骨筋起始部 (左右) ＋ 大殿筋起始部 (左右)",
-        effect: "殿筋と足首の感覚連動を高め、着地時の床反力を体幹へ即時共有。骨盤のアライメントを自動補正します。",
-        future: "走らされたストップでも軸がブレずに強打でき、打球後一瞬でセンターに戻れるようになります。"
-    },
-    "8": {
-        cause: "捻転運動による多裂筋・腰方形筋の緊張から、脳が腰を固める防衛収縮ループが固定化しています。",
-        points: "胸腰椎移行部 T12-L1 (左右)",
-        effect: "脊髄後枝への入力で交感神経の異常緊張を緩和。毛細血管を拡張させて血流を改善し疲労を蓄積させません。",
-        future: "翌朝腰の重さなくスッキリ起きられます。腰を庇う悪いスイングのクセが根絶されます。"
-    },
-    "9": {
-        cause: "グリップの握りすぎや差し込まれにより、肘の外側の短橈側手根伸筋腱に牽引ストレスが集中します。",
-        points: "外側上顆周囲 (左右)",
-        effect: "筋肉のセンサー疲労をリセットし前腕の緊張を最適化。打球衝撃をしなやかに逃がす機能を取り戻します。",
-        future: "サポーターや薬に頼らず、全力スイングを痛みの恐怖ゼロで楽しめる未来が手に入ります。"
-    },
-    "10": {
-        cause: "着地時に股関節が十分に機能せず、大腿四頭筋（前もも）だけで減速ショックを受け止めるためです。",
-        points: "膝蓋骨周囲 (左右) ＋ 大腿四頭筋起始部 (左右) ［太ももの付け根中央］",
-        effect: "太ももの位置感覚を高め、着地時のニーイン（膝の内ブレ）を自動修正。臀部へ衝撃を分散させます。",
-        future: "膝のグラつきや痛みが消え、低い姿勢でも強く踏ん張れます。関節の寿命を大幅に伸ばします。"
-    }
+// All-Sports Troubleshooting Mapping Database (Simplified for UI)
+const SPORTS_COMPLAINTS = {
+    "tennis": [
+        {
+            id: "tennis_1",
+            title: "悩み①：フォアが差し込まれ、打点が後ろになって球威が出ない",
+            cause: "デスクワーク等の巻き肩で大胸筋のセンサーが麻痺し、脳からのテイクバック指令が遅れるため打点が後ろになります。",
+            points: "鎖骨下周囲 (左右)",
+            effect: "鎖骨下神経を刺激し小脳の予測誤差をリセット。胸郭と肩甲骨の防衛的な脳ブレーキを外します。",
+            future: "テイクバックが高速化し、常に前方の芯で捉えられます。軽い振りで球威が最大化します。"
+        },
+        {
+            id: "tennis_2",
+            title: "悩み②：バックハンドで当たり負けし、面がブレてミスになる",
+            cause: "打撃衝撃で前腕の受容器が麻痺し、インパクト時の極小の面ブレ補正反射（共収縮）が遅れます。",
+            points: "外側上顆周囲 (左右) ＋ 手関節背側 (左右)",
+            effect: "橈骨神経や手首腱膜の感覚フィードバックをミリ秒単位で高速化し、手首と前腕を瞬間補正します。",
+            future: "相手の強打に対してもラケット面が壁のように安定し、正確無比なコントロールが手に入ります。"
+        },
+        {
+            id: "tennis_3",
+            title: "悩み③：力んで手打ちになり、ボールが伸びない",
+            cause: "脳の過剰な保護反応により全身が力み（同時緊張）、下半身から腕への運動連鎖が寸断されます。",
+            points: "鎖骨下周囲 (左右) ＋ 胸腰椎移行部 (左右)",
+            effect: "体幹の安定と肩甲帯の感覚統合により力みを消去。相反性神経支配（主動筋と拮抗筋の連動）を正常化します。",
+            future: "下半身のパワーがロスなく伝達。脱力スイングで生きた伸びるボールが打てるようになります。"
+        },
+        {
+            id: "tennis_4",
+            title: "悩み④：トスとの距離感がズレ、打点が毎回バラバラになる",
+            cause: "疲労で肩甲骨の固有受容感覚が狂い、空中のラケットとボールの距離を脳が正確に認知できません。",
+            points: "棘上筋・棘下筋起始部 (左右) ［肩甲骨の中央と上部］",
+            effect: "肩甲上神経経由で肩の位置情報を小脳に高速伝達。視覚と腕の連動（目と手の協調）エラーを解消します。",
+            future: "常に最も力が伝わる打点（スイートスポット）で打てるようになり、サーブの再現性が激変します。"
+        },
+        {
+            id: "tennis_5",
+            title: "悩み⑤：肩が詰まりサーブのスピードが出ない",
+            cause: "ローテーターカフや僧帽筋の硬化によるインピンジメント（衝突）を防ぐため、脳が可動制限をかけます。",
+            points: "僧帽筋起始部 (左右) ＋ 鎖骨下周囲 (左右)",
+            effect: "副神経および鎖骨下神経への入力により、脳が腕を上げる際の防衛ロックを解除し、可動域を広げます。",
+            future: "肩が引っかかりなく滑らかに回り、高い打点からしなる強烈な高速サーブが打てるようになります。"
+        },
+        {
+            id: "tennis_6",
+            title: "悩み⑥：一歩目の出だしが遅れる",
+            cause: "足関節や脛の感覚器が鈍り、脳が地面を蹴る運動準備指令（背屈・底屈反射）を遅延させます。",
+            points: "前脛骨筋起始部 (左右) ［お皿の外側下］",
+            effect: "深腓骨神経へ高密度入力し、足首の背屈・底屈の脊髄反射回路を高速化。敏捷性スイッチをオンにします。",
+            future: "打球音と同時に体が爆発的に反応。一歩目が速くなり、守備範囲が劇的に広がります。"
+        },
+        {
+            id: "tennis_7",
+            title: "悩み⑦：切り返し時に体が流れて踏ん張れない",
+            cause: "急減速時の横ブレに股関節（殿筋）の連動が遅れ、骨盤がスライドして重心が崩れます。",
+            points: "前脛骨筋起始部 (左右) ＋ 大殿筋起始部 (左右)",
+            effect: "殿筋と足首の感覚連動を高め、着地時の床反力を体幹へ即時共有。骨盤のアライメントを自動補正します。",
+            future: "走らされたストップでも軸がブレずに強打でき、打球後一瞬でセンターに戻れるようになります。"
+        },
+        {
+            id: "tennis_8",
+            title: "悩み⑧：練習後に腰が張り、慢性的な腰痛がある",
+            cause: "捻転運動による多裂筋・腰方形筋の緊張から、脳が腰を固める防衛収縮ループが固定化しています。",
+            points: "胸腰椎移行部 T12-L1 (左右)",
+            effect: "脊髄後枝への入力で交感神経の異常緊張を緩和。毛細血管を拡張させて血流を改善し疲労を蓄積させません。",
+            future: "翌朝腰の重さなくスッキリ起きられます。腰を庇う悪いスイングのクセが根絶されます。"
+        },
+        {
+            id: "tennis_9",
+            title: "悩み⑨：打っていると肘の外側や手首がピキッと痛む（テニス肘）",
+            cause: "グリップの握りすぎや差し込まれにより、肘の外側の短橈側手根伸筋腱に牽引ストレスが集中します。",
+            points: "外側上顆周囲 (左右)",
+            effect: "筋肉のセンサー疲労をリセットし前腕の緊張を最適化。打球衝撃をしなやかに逃がす機能を取り戻します。",
+            future: "サポーターや薬に頼らず、全力スイングを痛みの恐怖ゼロで楽しめる未来が手に入ります。"
+        },
+        {
+            id: "tennis_10",
+            title: "悩み⑩：踏み込みやダッシュ時に膝が痛む",
+            cause: "着地時に股関節が十分に機能せず、大腿四頭筋（前もも）だけで減速ショックを受け止めるためです。",
+            points: "膝蓋骨周囲 (左右) ＋ 大腿四頭筋起始部 (左右) ［太ももの付け根中央］",
+            effect: "太ももの位置感覚を高め、着地時のニーイン（膝の内ブレ）を自動修正。臀部へ衝撃を分散させます。",
+            future: "膝のグラつきや痛みが消え、低い姿勢でも強く踏ん張れます。関節の寿命を大幅に伸ばします。"
+        }
+    ],
+    "sprinting": [
+        {
+            id: "sprint_1",
+            title: "悩み①：スタート時の爆発的な蹴り出し（出だし）が遅い",
+            cause: "足裏やすねの感覚器が鈍り、地面を踏んだ反発力を脳が瞬時に大出力の瞬発力へ変換できていません。",
+            points: "前脛骨筋起始部 (左右)",
+            effect: "深腓骨神経を刺激し、足関節の底屈・背屈の脊髄反射を高速化。プレテンション（準備状態）を整えます。",
+            future: "スタート音と同時に爆発的に飛び出せ、最初の一歩目の初速が劇的にアップします。"
+        },
+        {
+            id: "sprint_2",
+            title: "悩み②：中盤以降のピッチ（脚の回転）が上がらない",
+            cause: "股関節周囲の感覚フィードバックが低下し、大殿筋と腸腰筋の切り替えタイミングにズレが生じています。",
+            points: "大殿筋起始部 (左右) ＋ 胸腰椎移行部 (左右)",
+            effect: "大殿筋と体幹コアの感覚入力を統合し、相反性神経支配を整え、無駄な拮抗筋の力みを自動消去します。",
+            future: "力みのないスムーズな脚の回転が可能になり、後半のトップスピード維持が極めて楽になります。"
+        },
+        {
+            id: "sprint_3",
+            title: "悩み③：接地時に上体や足首がブレ、前への推進力が逃げる",
+            cause: "走動作による微細な疲労で多裂筋や前脛骨筋のセンサーが狂い、動的アライメントが崩れています。",
+            points: "胸腰椎移行部 T12-L1 (左右) ＋ 前脛骨筋起始部 (左右)",
+            effect: "脊髄後枝と深腓骨神経の入力を統合し、着地ショックを吸収して骨盤の前傾姿勢を自動キープします。",
+            future: "接地時のグラつきが皆無になり、すべてのキック力がロスなく前方への推進力に変換されます。"
+        }
+    ],
+    "soccer": [
+        {
+            id: "soccer_1",
+            title: "悩み①：キック時に軸足がブレてシュートやロングパスが逸れる",
+            cause: "軸足の着地感と骨盤のコントロールセンサーが鈍り、踏み込みの瞬間に重心のズレを反射補正できていません。",
+            points: "前脛骨筋起始部 (左右) ＋ 腰方形筋周囲 (左右)",
+            effect: "深腓骨神経と腰背部の入力を高め、踏み込み時の床反力を即座にコア（体幹）へ伝達。骨盤の左右ブレを抑えます。",
+            future: "どんなに激しいスピードからでも軸足がピタッと安定し、正確無比なキックが連発できるようになります。"
+        },
+        {
+            id: "soccer_2",
+            title: "悩み②：急な切り返し（ターンやダッシュ）で踏ん張れず滑る・遅れる",
+            cause: "減速ショックに対する殿筋（お尻）の反射収縮が遅れ、太ももだけで受け止めるため関節が防御ロックします。",
+            points: "大腿四頭筋起始部 (左右) ＋ 大殿筋起始部 (左右)",
+            effect: "前後の筋肉の感覚統合を高め、ニーイン（膝の内折れ）を抑えつつ、臀部のブレーキ力を瞬間的に起動します。",
+            future: "鋭いターンや急ストップでもブレず、ディフェンスの一歩先を行くキレのある動きが手に入ります。"
+        },
+        {
+            id: "soccer_3",
+            title: "悩み③：ヘディングや競り合いで空中バランスが崩れて競り負ける",
+            cause: "ジャンプ前の踏み込み感と空中姿勢の感覚アライメントにズレが生じ、無駄な全身の力みが発生しています。",
+            points: "胸腰椎移行部 T12-L1 (左右) ＋ 前脛骨筋起始部 (左右)",
+            effect: "体幹後枝と足関節のセンサーを同調させ、空中で自身の軸を脳が正確に把握できるようになります。",
+            future: "空中でピタッと軸がぶれなくなり、高い打点から競り負けないパワフルなヘディングが打てます。"
+        }
+    ],
+    "baseball": [
+        {
+            id: "baseball_1",
+            title: "悩み①：投球時に肩が引っかかり、球速が出ない（肩の詰まり）",
+            cause: "肩甲骨周囲の受容器の麻痺により、脳が肩のインピンジメントを防ごうと腕の振りに無意識のブレーキをかけています。",
+            points: "僧帽筋起始部 (左右) ＋ 鎖骨下周囲 (左右)",
+            effect: "副神経と鎖骨下神経への入力により、脳の挙上制限ロックを解除。胸郭の回旋としなやかな肩甲骨運動を促します。",
+            future: "肩が引っかかりなく滑らかに回り、高いリリースポイントから伸びのある快速球が投げられます。"
+        },
+        {
+            id: "baseball_2",
+            title: "悩み②：スイング時に軸がブレてボールの芯を捉えられない",
+            cause: "スイングの捻転動作の際に、体幹と踏み込み足の感覚連動が低下し、スウェー（腰の逃げ）が発生しています。",
+            points: "胸腰椎移行部 T12-L1 (左右) ＋ 前脛骨筋起始部 (左右)",
+            effect: "体幹深層筋と足関節のセンサーを同調。回転運動軸となる骨盤のアライメントをリアルタイムで自動補正します。",
+            future: "頭の位置が全くブレない正確なスイング軸になり、変化球にも崩されずにミート力が最大化します。"
+        },
+        {
+            id: "baseball_3",
+            title: "悩み③：守備や走塁で「最初の一歩」の反応が遅れる",
+            cause: "プレ準備姿勢でのすねや足裏の感覚入力が低く、脳からの瞬発的な動作指令の伝達が遅延しています。",
+            points: "前脛骨筋起始部 (左右)",
+            effect: "深腓骨神経を活性化させ、一歩目を踏み出す足の脊髄反射回路（背屈・底屈）の反応速度を高速化します。",
+            future: "打球音やサインに体が無意識に反応し、レシーブや盗塁のスタートが爆発的に速くなります。"
+        }
+    ],
+    "golf": [
+        {
+            id: "golf_1",
+            title: "悩み①：バックスイングで腰が引けてスウェー（横流れ）してしまう",
+            cause: "股関節および骨盤周囲の感覚アライメントが狂い、回転の中心軸（骨盤）を脳が正しく認知できていません。",
+            points: "大殿筋起始部 (左右) ＋ 腰方形筋周囲 (左右)",
+            effect: "殿筋と腰背部のレセプターを刺激し、股関節の回旋運動時に骨盤を水平に保持する筋肉のセンサーを活性化します。",
+            future: "その場で独楽（こま）のように鋭く回転するテイクバックになり、スウェーによるエネルギーロスを防ぎます。"
+        },
+        {
+            id: "golf_2",
+            title: "悩み②：インパクトで力んでしまい、ヘッドスピードが上がらずスライスする",
+            cause: "「強く叩こう」とすることで脳が関節保護のために肩や腕を防御的に固め（力み）、ヘッドの走りをブロックします。",
+            points: "鎖骨下周囲 (左右)",
+            effect: "鎖骨下・胸郭周辺の感覚フィードバックを高め、脳の緊張トーンを緩和。相反性支配を促し無駄な力みを取り除きます。",
+            future: "無駄な力が綺麗に抜け、インパクトゾーンでヘッドが勝手に走る「美しいドローボール」が打てるようになります。"
+        },
+        {
+            id: "golf_3",
+            title: "悩み③：ラウンド後半に腰が張り、アドレスが安定せずミスショットが出る",
+            cause: "長時間のスイング反復による腰方形筋・多裂筋の疲労蓄積から、脳が腰を固める防衛反応スパイラルに陥っています。",
+            points: "胸腰椎移行部 T12-L1 (左右)",
+            effect: "脊髄後枝への感覚入力により自律神経の過緊張を和らげ、腰部の血流を急速に促進させます。",
+            future: "後半ホールになってもアドレスの軸が安定し、疲れによるダフリやトップのミスショットが激減します。"
+        }
+    ],
+    "basketball": [
+        {
+            id: "basketball_1",
+            title: "悩み①：ドライブイン時の切り返し（クロスオーバー）のキレが悪い",
+            cause: "横方向への爆発的な切り返しに対して、足首と股関節のセンサー連動が遅れて重心移動がロスしています。",
+            points: "前脛骨筋起始部 (左右) ＋ 大殿筋起始部 (左右)",
+            effect: "足関節の底屈・背屈反射と臀部の踏ん張り反射を同調させ、急な切り返し動作を高速化します。",
+            future: "ディフェンスが一歩も動けないような、重心移動が深く鋭いキレ味抜群のドライブが可能になります。"
+        },
+        {
+            id: "basketball_2",
+            title: "悩み②：ジャンプシュート時に空中でブレてリングを外す・着地が不安定",
+            cause: "空中姿勢をコントロールするコアと肩まわりの固有感覚のズレにより、空間における体の対称姿勢を脳が保てていません。",
+            points: "胸腰椎移行部 T12-L1 (左右) ＋ 鎖骨下周囲 (左右)",
+            effect: "脊髄コアと鎖骨周囲の感覚アライメントを統合し、空中で重心軸が真っ直ぐに維持されるよう脳が自動調整します。",
+            future: "空中でピタッと静止しているような感覚になり、リリースのブレがなくなりシュート確率が劇的に向上します。"
+        },
+        {
+            id: "basketball_3",
+            title: "悩み③：ディフェンス時に相手のクイックネスな動きについていけない",
+            cause: "横スライドの際の足首の防御的関節ロック（捻挫防止反応）が発生し、ステップがワンテンポ遅れています。",
+            points: "前脛骨筋起始部 (左右)",
+            effect: "深腓骨神経へ高密度入力し、足首 of 横方向への踏ん張りと敏捷なステップのための反射回路を解放します。",
+            future: "相手の細かい方向転換にも完全にマークが張り付き、シュートスペースを与えない強固なDFが築けます。"
+        }
+    ],
+    "general": [
+        {
+            id: "general_1",
+            title: "悩み①：練習や試合の後半になると動きが固くなり、スタミナ切れ・力みが出る",
+            cause: "反復動作の疲労ノイズにより脳が筋肉を過剰に固め、アゴニストとアンタゴニストが同時に収縮してエネルギーをロスします。",
+            points: "各競技の基本貼付ポイント",
+            effect: "全身の相反性神経支配（主動筋が働くとき拮抗筋が緩む動き）を脳が正しく機能させ、筋肉が自然にしなる状態に戻します。",
+            future: "長時間のプレーでも無駄な筋肉の摩擦熱や疲労がなくなり、後半まで高いパフォーマンスを持続できます。"
+        },
+        {
+            id: "general_2",
+            title: "悩み②：特定の関節の可動域が狭く、動きに「詰まり」や引っかかりを感じる",
+            cause: "過去の怪我や疲労により脳が防御反応として関節可動域にブレーキをかけ、動作スピードを制限しています。",
+            points: "各関節周囲の貼付ポイント",
+            effect: "皮膚受容器からのクリアな位置感覚シグナルが「これ以上動かしても安全」という判断を脳に促し、ブレーキを解除します。",
+            future: "詰まり感がその場で消去され、関節の可動域が広がることで、ダイナミックでしなやかなフォームへ改善します。"
+        },
+        {
+            id: "general_3",
+            title: "悩み③：プレー翌日に必ず背中や腰に疲労が残り、コンディションが安定しない",
+            cause: "激しいプレーによる筋肉の過緊張と血流低下が、交感神経の優位状態を引き起こし、睡眠時の回復力を妨げています。",
+            points: "胸腰椎移行部 T12-L1 (左右)",
+            effect: "脊髄神経後枝への感覚入力が自律神経バランスを副交感神経優位に導き、全身の毛細血管血流を促進させて早期リカバリーします。",
+            future: "翌朝の寝起きが非常に軽くなり、連戦でも蓄積された疲労を引きずることなく100%の力で臨めます。"
+        }
+    ]
 };
 
-function showTennisComplaintDetail(val) {
-    const area = document.getElementById('tennisComplaintDetailArea');
-    if (!val) {
+// Populate complaints select options dynamically based on selected sport
+function populateSportComplaints(sportKey) {
+    const selector = document.getElementById('sportComplaintSelector');
+    if (!selector) return;
+    
+    // Clear existing options, keeping only the default placeholder
+    selector.innerHTML = '<option value="">-- お悩みを選択してください --</option>';
+    
+    // Determine which complaints array to load
+    const complaints = SPORTS_COMPLAINTS[sportKey] || SPORTS_COMPLAINTS['general'];
+    
+    // Build options
+    complaints.forEach((c, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx.toString(); // Store the array index as option value
+        opt.textContent = c.title;
+        selector.appendChild(opt);
+    });
+    
+    // Hide detail area initially
+    document.getElementById('sportComplaintDetailArea').style.display = 'none';
+}
+
+function showSportComplaintDetail(idxVal) {
+    const area = document.getElementById('sportComplaintDetailArea');
+    if (!idxVal) {
         area.style.display = 'none';
         return;
     }
-    const data = TENNIS_COMPLAINTS[val];
+    
+    const sportKey = appState.selectedSport;
+    const complaints = SPORTS_COMPLAINTS[sportKey] || SPORTS_COMPLAINTS['general'];
+    const data = complaints[parseInt(idxVal)];
+    
     if (data) {
-        document.getElementById('tennisCompCause').textContent = data.cause;
-        document.getElementById('tennisCompPoints').textContent = data.points;
-        document.getElementById('tennisCompEffect').textContent = data.effect;
-        document.getElementById('tennisCompFuture').textContent = data.future;
+        document.getElementById('sportCompCause').textContent = data.cause;
+        document.getElementById('sportCompPoints').textContent = data.points;
+        document.getElementById('sportCompEffect').textContent = data.effect;
+        document.getElementById('sportCompFuture').textContent = data.future;
         area.style.display = 'block';
     }
 }
