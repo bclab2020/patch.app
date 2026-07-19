@@ -2143,7 +2143,7 @@ window.addEventListener('DOMContentLoaded', () => {
     // PWA & Notification setup
     initPWA();
     initNotificationUI();
-    checkNoteUpdates();
+    checkPortalUpdates();
 });
 
 // PWA Service Worker Registration
@@ -2193,50 +2193,50 @@ async function toggleNotificationPermission() {
         showToast("通知がオンになりました！");
         // Send a test notification
         new Notification("B.C Lab ポータル", {
-            body: "noteの最新情報やアップデート通知が届くようになりました。",
+            body: "CORE CONNECTの最新情報やアップデート通知が届くようになりました。",
             icon: "icon.svg"
         });
-        checkNoteUpdates();
+        checkPortalUpdates();
     } else {
         showToast("通知設定がキャンセルされました。");
     }
 }
 
-// Background / Fetch checking for Note RSS updates via client-side
-async function checkNoteUpdates() {
+// Background / Fetch checking for CORE CONNECT updates via GitHub API
+async function checkPortalUpdates() {
     if (!("Notification" in window) || Notification.permission !== "granted") return;
     
     try {
-        // Use public rss2json converter to fetch RSS feed of note.com/ks0616 in JSON format (CORS friendly)
-        const rssUrl = "https://note.com/ks0616/rss";
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`;
-        
+        const apiUrl = "https://api.github.com/repos/bclab2020/portal-mockup/commits";
         const response = await fetch(apiUrl);
+        if (!response.ok) return;
         const data = await response.json();
         
-        if (data.status === 'ok' && data.items && data.items.length > 0) {
-            const latestArticle = data.items[0];
-            const savedGuid = localStorage.getItem('last_notified_note_guid');
+        if (data && data.length > 0) {
+            const latestCommit = data[0];
+            const latestSha = latestCommit.sha;
+            const savedSha = localStorage.getItem('last_notified_portal_sha');
+            const commitMessage = (latestCommit.commit && latestCommit.commit.message) ? latestCommit.commit.message : 'コンテンツが更新されました。';
             
-            if (savedGuid && savedGuid !== latestArticle.guid) {
+            if (savedSha && savedSha !== latestSha) {
                 // Trigger local notification
-                const notification = new Notification("【公式note更新】", {
-                    body: latestArticle.title,
+                const notification = new Notification("【CORE CONNECT 更新】", {
+                    body: commitMessage,
                     icon: "icon.svg",
-                    tag: "note-update"
+                    tag: "portal-update"
                 });
                 notification.onclick = () => {
                     window.focus();
-                    window.open(latestArticle.link, '_self');
+                    window.open('https://bclab2020.github.io/portal-mockup/', '_self');
                     notification.close();
                 };
             }
             
-            // Save latest guid in localStorage so we don't notify multiple times for the same article
-            localStorage.setItem('last_notified_note_guid', latestArticle.guid);
+            // Save latest SHA in localStorage
+            localStorage.setItem('last_notified_portal_sha', latestSha);
         }
     } catch (e) {
-        console.error("note更新チェックエラー:", e);
+        console.error("CORE CONNECT更新チェックエラー:", e);
     }
 }
 
