@@ -41,9 +41,8 @@ body {
 /* Smartphone Viewport Wrapper (Mock for Desktop, full screen on Mobile) */
 .app-container {
     width: 100%;
-    max-width: 480px;
-    height: 100vh;
-    height: 100dvh; /* Use dynamic viewport height to fit exactly on mobile screens */
+    max-width: 1200px;
+    min-height: 100vh;
     background-color: var(--bg-main);
     border-left: 1px solid var(--border-color);
     border-right: 1px solid var(--border-color);
@@ -51,7 +50,7 @@ body {
     flex-direction: column;
     position: relative;
     box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
+    margin: 0 auto;
 }
 
 /* App Header styling */
@@ -1721,3 +1720,157 @@ body {
         padding: 20px;
     }
 }
+
+/* --- React & Ant Design Premium UI Customizations --- */
+
+/* Force AntD steps to use dark mode styling */
+.ant-steps-item-title {
+    color: var(--text-main) !important;
+}
+.ant-steps-item-description {
+    color: var(--text-muted) !important;
+    font-size: 11px !important;
+}
+.ant-steps-item-process .ant-steps-item-icon {
+    background: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+}
+.ant-steps-item-finish .ant-steps-item-icon {
+    border-color: var(--primary) !important;
+}
+.ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon {
+    color: var(--primary) !important;
+}
+.ant-steps-item-wait .ant-steps-item-icon {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
+}
+.ant-steps-item-wait .ant-steps-item-icon > .ant-steps-icon {
+    color: var(--text-muted) !important;
+}
+.ant-steps-item-tail::before {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+}
+
+/* Custom Card adjustments */
+.ant-card {
+    background: rgba(15, 23, 42, 0.45) !important;
+    border: 1px solid rgba(255, 255, 255, 0.08) !important;
+    border-radius: 12px !important;
+    color: var(--text-main) !important;
+    transition: all var(--transition-speed) ease;
+}
+.ant-card:hover {
+    border-color: var(--secondary-glow) !important;
+    box-shadow: 0 8px 24px rgba(0, 240, 255, 0.15) !important;
+}
+.ant-card-meta-title {
+    color: var(--text-main) !important;
+    font-family: var(--font-outfit);
+}
+.ant-card-meta-description {
+    color: var(--text-muted) !important;
+    font-size: 12px !important;
+}
+
+/* Alert Styling overrides */
+.ant-alert {
+    background-color: rgba(255, 0, 127, 0.08) !important;
+    border: 1px solid rgba(255, 0, 127, 0.25) !important;
+    border-radius: 8px !important;
+    color: #ff3399 !important;
+}
+.ant-alert-message {
+    color: #ff3399 !important;
+    font-weight: bold;
+}
+.ant-alert-description {
+    color: #ff99cc !important;
+    font-size: 11px !important;
+}
+
+/* Button UI overrides */
+.ant-btn {
+    border-radius: 6px !important;
+    font-weight: 600 !important;
+    transition: all 0.2s ease !important;
+}
+.ant-btn-primary {
+    background: var(--secondary) !important;
+    border-color: var(--secondary) !important;
+    color: var(--text-dark) !important;
+}
+.ant-btn-primary:hover, .ant-btn-primary:focus {
+    background: #4df3ff !important;
+    border-color: #4df3ff !important;
+    box-shadow: 0 0 12px var(--secondary-glow) !important;
+}
+
+/* Interactive SVG layouts side-by-side */
+.visualizer-container {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 16px;
+    box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+.visualizer-pane {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+.visualizer-title {
+    font-size: 11px;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+.body-svg-wrapper {
+    width: 140px;
+    height: 280px;
+    position: relative;
+}
+
+/* Active glowing points on SVG */
+.anatomy-dot {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.anatomy-dot circle {
+    stroke-width: 2;
+    transition: all 0.3s ease;
+}
+.anatomy-dot.base circle {
+    fill: var(--primary) !important;
+    stroke: #000 !important;
+}
+.anatomy-dot.custom circle {
+    fill: var(--secondary) !important;
+    stroke: #000 !important;
+}
+.anatomy-dot.highlighted circle {
+    r: 8 !important;
+    filter: drop-shadow(0 0 8px var(--secondary));
+}
+.anatomy-dot.active circle {
+    animation: pointGlow 1.5s infinite alternate;
+}
+
+@keyframes pointGlow {
+    0% {
+        r: 5;
+        stroke-width: 2;
+    }
+    100% {
+        r: 8;
+        stroke-width: 4;
+        filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.8));
+    }
+}
+

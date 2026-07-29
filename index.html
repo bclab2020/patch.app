@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>B.C Lab - Receptor Patch Portal</title>
+    <title>B.C Lab - KINETIC-LINK 109 Portal</title>
     
     <!-- Google Fonts & FontAwesome -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,8 +11,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- React & Babel CDN -->
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Ant Design 4.24.15 CSS and JS CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.15/antd.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/antd/4.24.15/antd.min.js"></script>
     
     <link rel="stylesheet" href="styles.css">
     
@@ -24,812 +30,723 @@
     <link rel="apple-touch-icon" href="icon.svg">
 </head>
 <body>
-    <div class="app-container">
-        <!-- 1. Header Area -->
-        <header class="app-header">
-            <div class="header-logo" style="display: flex; flex-direction: row; align-items: center; gap: 8px;">
-                <img src="logo_mark.png" alt="B.C Lab Logo Mark" style="height: 24px; width: auto; display: block;">
-                <div style="display: flex; flex-direction: column;">
-                    <div><span class="logo-bc">B.C</span><span class="logo-lab">Lab</span></div>
-                    <span class="logo-sub">RECEPTOR PORTAL</span>
-                </div>
-            </div>
-            <div class="adhesive-badge" id="globalBadge">
-                <i class="fa-solid fa-circle-dot"></i>
-                <span>シール残数: <strong id="globalRingCount">24</strong>枚</span>
-            </div>
-            <button class="admin-lock-trigger" id="adminLockBtn" onclick="handleAdminLockClick()" style="background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 4px 8px; font-size: 14px; transition: color 0.2s;" title="管理者ログイン">
-                <i class="fa-solid fa-lock" id="adminLockIcon"></i>
-            </button>
-        </header>
+    <div id="root"></div>
 
-        <!-- 2. Main View Container -->
-        <main class="app-main" id="viewContainer">
+    <script type="text/babel">
+        const { Steps, Button, Card, Row, Col, Alert, Checkbox, Radio, Tooltip, notification, Badge, Divider, Select } = antd;
+        const { Step } = Steps;
+        const { Option } = Select;
+
+        // 1. Data Model (JSON Structure) - 12 Sports supported
+        const PROTOCOL_DATA = {
+            basePatches: [
+                {
+                    id: "achilles",
+                    name: "アキレス腱遠位部 (左右2枚)",
+                    meridian: "SBL (Superficial Back Line / 表層バックライン)",
+                    desc: "アキレス腱の付着部付近（かかとの骨の上端から指1.5本分上）。下肢後面の張力バランスを整え、直立・動作時の前後動揺を抑制します。",
+                    view: "back",
+                    coords: [
+                        { x: 86, y: 365, side: "右" },
+                        { x: 114, y: 365, side: "左" }
+                    ]
+                },
+                {
+                    id: "fibular",
+                    name: "腓骨頭外側 (左右2枚)",
+                    meridian: "LL (Lateral Line) / SPL (Spiral Line)",
+                    desc: "膝関節外側の下部にある骨の出っ張り（腓骨頭）の直下。側方のブレを抑え、骨盤回旋のパワー伝達を安定化させます。",
+                    view: "front",
+                    coords: [
+                        { x: 60, y: 285, side: "右" },
+                        { x: 140, y: 285, side: "左" }
+                    ]
+                },
+                {
+                    id: "scapula",
+                    name: "肩甲骨内側縁 (左右2枚)",
+                    meridian: "Arm Lines (アームライン) / SPL (スパイラルライン)",
+                    desc: "肩甲骨の内側のフチの中央付近（背骨から指2本分外側）。胸郭と肩甲帯の動的連動を高め、腕の余分な力みを取り除きます。",
+                    view: "back",
+                    coords: [
+                        { x: 78, y: 98, side: "右" },
+                        { x: 122, y: 98, side: "左" }
+                    ]
+                }
+            ],
+            sportsOptions: {
+                sprinting: {
+                    id: "sprinting",
+                    name: "1. 陸上（スプリント・跳躍）",
+                    category: "running",
+                    chains: "SBL / SFL フォーカス",
+                    desc: "走動作の推進力・ピッチ・接地感覚を最大化するプロトコール"
+                },
+                soccer: {
+                    id: "soccer",
+                    name: "2. サッカー",
+                    category: "agility",
+                    chains: "LL / SBL フォーカス",
+                    desc: "キック時の軸ブレ防止、急激な切り返し（アジリティ）を強化"
+                },
+                baseball: {
+                    id: "baseball",
+                    name: "3. 野球",
+                    category: "swing",
+                    chains: "DFL / Arm Lines フォーカス",
+                    desc: "投球時の肩甲骨・胸郭連動、バッティング時のスイング軸を安定"
+                },
+                golf: {
+                    id: "golf",
+                    name: "4. ゴルフ",
+                    category: "swing",
+                    chains: "DFL / Arm Lines フォーカス",
+                    desc: "アドレス時の重心安定、体幹（スイング軸）の安定を促す"
+                },
+                tennis: {
+                    id: "tennis",
+                    name: "5. テニス",
+                    category: "swing",
+                    chains: "DFL / Arm Lines フォーカス",
+                    desc: "リスト・肘の負担軽減とフットワークの敏捷性向上"
+                },
+                basketball: {
+                    id: "basketball",
+                    name: "6. バスケットボール",
+                    category: "agility",
+                    chains: "LL / SBL フォーカス",
+                    desc: "ジャンプ到達点アップ、着地時の関節保護とクイックネス強化"
+                },
+                rugby: {
+                    id: "rugby",
+                    name: "7. ラグビー",
+                    category: "agility",
+                    chains: "LL / SBL フォーカス",
+                    desc: "コンタクト衝撃に耐えるコア（腹圧）と首元の保護"
+                },
+                swimming: {
+                    id: "swimming",
+                    name: "8. 水泳",
+                    category: "running",
+                    chains: "SBL / SFL フォーカス",
+                    desc: "ストリームライン（一直線姿勢）の維持とストローク効率の向上"
+                },
+                volleyball: {
+                    id: "volleyball",
+                    name: "9. バレーボール",
+                    category: "agility",
+                    chains: "LL / SBL フォーカス",
+                    desc: "スパイクスイングスピードの向上と着地によるジャンパー膝予防"
+                },
+                badminton: {
+                    id: "badminton",
+                    name: "10. バドミントン",
+                    category: "swing",
+                    chains: "DFL / Arm Lines フォーカス",
+                    desc: "フットワークの急ストップ時の安定とリストターンの障害予防"
+                },
+                tabletennis: {
+                    id: "tabletennis",
+                    name: "11. 卓球",
+                    category: "swing",
+                    chains: "DFL / Arm Lines フォーカス",
+                    desc: "微小ステップ時の敏捷性と手首のミリ単位コントロール"
+                },
+                judo: {
+                    id: "judo",
+                    name: "12. 柔道",
+                    category: "agility",
+                    chains: "LL / SBL フォーカス",
+                    desc: "グラウンディング（踏ん張り）の強化と引き込み握力の維持"
+                }
+            },
+            customPatches: {
+                running: [
+                    {
+                        id: "tibialis",
+                        name: "前脛骨筋起始部 (左右2枚)",
+                        meridian: "SFL (Superficial Front Line / 表層フロントライン)",
+                        desc: "すねの外側の筋肉（お皿の下から指4本分下、すねの骨の外側約1横指のくぼみ）。足首のスムーズな背屈と接地時の推進力を最大化し、ブレーキロスを最小限に抑えます。",
+                        view: "front",
+                        coords: [
+                            { x: 68, y: 310, side: "右" },
+                            { x: 132, y: 310, side: "左" }
+                        ]
+                    },
+                    {
+                        id: "rectus",
+                        name: "大腿直筋部 (左右2枚)",
+                        meridian: "SFL (Superficial Front Line / 表層フロントライン)",
+                        desc: "骨盤前面の骨の出っ張り（上前腸骨棘）から真下に指3本分下。骨盤の前傾キープを容易にし、ダッシュ・ピッチ走時の大腿部スイングを滑らかにします。",
+                        view: "front",
+                        coords: [
+                            { x: 75, y: 210, side: "右" },
+                            { x: 125, y: 210, side: "左" }
+                        ]
+                    }
+                ],
+                swing: [
+                    {
+                        id: "epicondyle",
+                        name: "上腕骨外側上顆 (左右2枚)",
+                        meridian: "Arm Lines (アームライン / 腕の経絡系)",
+                        desc: "肘の外側の出っ張り骨のすぐ下（前腕伸筋群起始部）。手首・肘関節の過緊張（力み）を中枢神経レベルで抑制し、体幹始動のパワー伝達を実現します。",
+                        view: "front",
+                        coords: [
+                            { x: 48, y: 125, side: "右" },
+                            { x: 152, y: 125, side: "左" }
+                        ]
+                    },
+                    {
+                        id: "subclavius",
+                        name: "鎖骨下筋・小胸筋周囲 (左右2枚)",
+                        meridian: "Arm Lines (深層フロントアームライン)",
+                        desc: "鎖骨の外側1/3のすぐ下にあるくぼみ（大胸筋上部付近）。胸郭と肩甲骨の連動性をリセットし、スイング時の体幹の深い捻転と解放をスムーズにします。",
+                        view: "front",
+                        coords: [
+                            { x: 82, y: 80, side: "右" },
+                            { x: 118, y: 80, side: "左" }
+                        ]
+                    }
+                ],
+                agility: [
+                    {
+                        id: "gluteus",
+                        name: "大殿筋起始部 (左右2枚)",
+                        meridian: "LL (ラテラルライン) / SBL (表層バックライン)",
+                        desc: "骨盤の後ろの骨の出っ張り（上後腸骨棘）から斜め下外側に指3本分。股関節の爆発的な伸展パワーを引き出し、急なサイドステップや静止時の体幹バランスを制御します。",
+                        view: "back",
+                        coords: [
+                            { x: 78, y: 192, side: "右" },
+                            { x: 122, y: 194, side: "左" }
+                        ]
+                    },
+                    {
+                        id: "thoracolumbar",
+                        name: "胸腰椎移行部 T12-L1 (左右2枚)",
+                        meridian: "SPL (Spiral Line / スパイラルライン) / LL",
+                        desc: "一番下の肋骨の先端と同じ高さで、背骨の中心から左右に指2本分外側。切り返し（方向転換）の際に加わる強い側方力および回旋Gに対して軸ブレを防止します。",
+                        view: "back",
+                        coords: [
+                            { x: 88, y: 133, side: "右" },
+                            { x: 112, y: 133, side: "左" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function KineticLinkApp() {
+            const [currentStep, setCurrentStep] = React.useState(0);
+            const [selectedSport, setSelectedSport] = React.useState(null);
+            const [hoveredPointId, setHoveredPointId] = React.useState(null);
             
-            <!-- HOME VIEW -->
-            <section id="view-home" class="app-view active">
-                <div class="welcome-box-card">
-                    <div class="welcome-polygon-left"></div>
-                    <div class="welcome-polygon-right"></div>
-                    <div class="welcome-box-inner">
-                        <span class="welcome-brand">KINETIC-LINK 109</span>
-                        <span class="welcome-sub">SENSORY PATCHES</span>
-                        <span class="welcome-tech-detail" style="font-family: var(--font-outfit); font-size: 7px; color: var(--text-muted); letter-spacing: 1.2px; margin-top: -5px; margin-bottom: 3px; text-transform: uppercase;">Neuro-Kinetic Feedback Technology</span>
-                        <span class="welcome-pack-detail" style="font-family: var(--font-outfit); font-size: 6px; color: var(--text-muted); opacity: 0.6; letter-spacing: 0.5px; margin-top: -1px; margin-bottom: 8px;">(8 PATCHES | 4 Pairs)</span>
+            // Checkbox states to ensure active interaction
+            const [baseChecked, setBaseChecked] = React.useState({
+                achilles: false,
+                fibular: false,
+                scapula: false
+            });
+            const [customChecked, setCustomChecked] = React.useState({
+                custom1: false,
+                custom2: false
+            });
+
+            // Service worker and notifications initializer
+            React.useEffect(() => {
+                // Register PWA service worker
+                if ('serviceWorker' in navigator) {
+                    navigator.serviceWorker.register('./sw.js')
+                        .then(reg => console.log('ServiceWorker registered:', reg.scope))
+                        .catch(err => console.error('ServiceWorker failed:', err));
+                }
+
+                // Check for core connect updates via GitHub Commits API
+                checkPortalUpdates();
+            }, []);
+
+            // Check portal updates function
+            async function checkPortalUpdates() {
+                try {
+                    const response = await fetch("https://api.github.com/repos/bclab2020/portal-mockup/commits");
+                    if (!response.ok) return;
+                    const commits = await response.json();
+                    if (commits && commits.length > 0) {
+                        const latestSha = commits[0].sha;
+                        const savedSha = localStorage.getItem('last_notified_portal_sha');
+                        const commitMsg = commits[0].commit.message || 'コンテンツが更新されました。';
                         
-                        <div class="welcome-graphic-container">
-                            <svg viewBox="0 0 200 160" class="welcome-brain-svg" style="max-height: 160px;">
-                                <defs>
-                                    <filter id="welcome-glow" x="-20%" y="-20%" width="140%" height="140%">
-                                        <feGaussianBlur stdDeviation="2.5" result="blur" />
-                                        <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                                    </filter>
-                                </defs>
-                                
-                                <g stroke="#00f0ff" stroke-width="0.8" opacity="0.75" fill="none">
-                                    <line x1="80" y1="25" x2="60" y2="35" />
-                                    <line x1="60" y1="35" x2="45" y2="55" />
-                                    <line x1="45" y1="55" x2="40" y2="80" />
-                                    <line x1="40" y1="80" x2="45" y2="105" />
-                                    <line x1="45" y1="105" x2="60" y2="125" />
-                                    <line x1="60" y1="125" x2="80" y2="135" />
-                                    <line x1="92" y1="35" x2="92" y2="60" />
-                                    <line x1="92" y1="60" x2="92" y2="80" />
-                                    <line x1="92" y1="80" x2="92" y2="100" />
-                                    <line x1="92" y1="100" x2="92" y2="125" />
-                                    <line x1="80" y1="25" x2="92" y2="35" />
-                                    <line x1="80" y1="135" x2="92" y2="125" />
-                                    <line x1="80" y1="25" x2="80" y2="55" />
-                                    <line x1="60" y1="35" x2="80" y2="55" />
-                                    <line x1="92" y1="35" x2="80" y2="55" />
-                                    <line x1="92" y1="60" x2="80" y2="55" />
-                                    <line x1="60" y1="35" x2="70" y2="55" />
-                                    <line x1="45" y1="55" x2="70" y2="55" />
-                                    <line x1="80" y1="55" x2="70" y2="55" />
-                                    <line x1="92" y1="60" x2="80" y2="80" />
-                                    <line x1="45" y1="55" x2="65" y2="80" />
-                                    <line x1="40" y1="80" x2="65" y2="80" />
-                                    <line x1="70" y1="55" x2="65" y2="80" />
-                                    <line x1="65" y1="80" x2="80" y2="80" />
-                                    <line x1="40" y1="80" x2="70" y2="105" />
-                                    <line x1="45" y1="105" x2="70" y2="105" />
-                                    <line x1="65" y1="80" x2="70" y2="105" />
-                                    <line x1="92" y1="80" x2="80" y2="80" />
-                                    <line x1="45" y1="105" x2="60" y2="125" />
-                                    <line x1="60" y1="125" x2="80" y2="105" />
-                                    <line x1="80" y1="135" x2="80" y2="105" />
-                                    <line x1="92" y1="125" x2="80" y2="105" />
-                                    <line x1="92" y1="100" x2="80" y2="80" />
-                                    <line x1="92" y1="100" x2="80" y2="105" />
-                                    <line x1="70" y1="105" x2="80" y2="105" />
-                                    <line x1="70" y1="55" x2="80" y2="80" />
-                                    <line x1="70" y1="105" x2="80" y2="80" />
-                                    <line x1="80" y1="55" x2="80" y2="80" />
-                                    <line x1="80" y1="80" x2="80" y2="105" />
-                                    <line x1="120" y1="25" x2="140" y2="35" />
-                                    <line x1="140" y1="35" x2="155" y2="55" />
-                                    <line x1="155" y1="55" x2="160" y2="80" />
-                                    <line x1="160" y1="80" x2="155" y2="105" />
-                                    <line x1="155" y1="105" x2="140" y2="125" />
-                                    <line x1="140" y1="125" x2="120" y2="135" />
-                                    <line x1="108" y1="35" x2="108" y2="60" />
-                                    <line x1="108" y1="60" x2="108" y2="80" />
-                                    <line x1="108" y1="80" x2="108" y2="100" />
-                                    <line x1="108" y1="100" x2="108" y2="125" />
-                                    <line x1="120" y1="25" x2="108" y2="35" />
-                                    <line x1="120" y1="135" x2="108" y2="125" />
-                                    <line x1="120" y1="25" x2="120" y2="55" />
-                                    <line x1="140" y1="35" x2="120" y2="55" />
-                                    <line x1="108" y1="35" x2="120" y2="55" />
-                                    <line x1="108" y1="60" x2="120" y2="55" />
-                                    <line x1="140" y1="35" x2="130" y2="55" />
-                                    <line x1="155" y1="55" x2="130" y2="55" />
-                                    <line x1="120" y1="55" x2="130" y2="55" />
-                                    <line x1="108" y1="60" x2="120" y2="80" />
-                                    <line x1="155" y1="55" x2="135" y2="80" />
-                                    <line x1="160" y1="80" x2="135" y2="80" />
-                                    <line x1="130" y1="55" x2="135" y2="80" />
-                                    <line x1="135" y1="80" x2="120" y2="80" />
-                                    <line x1="160" y1="80" x2="130" y2="105" />
-                                    <line x1="155" y1="105" x2="130" y2="105" />
-                                    <line x1="135" y1="80" x2="130" y2="105" />
-                                    <line x1="108" y1="80" x2="120" y2="80" />
-                                    <line x1="155" y1="105" x2="140" y2="125" />
-                                    <line x1="140" y1="125" x2="120" y2="105" />
-                                    <line x1="120" y1="135" x2="120" y2="105" />
-                                    <line x1="108" y1="125" x2="120" y2="105" />
-                                    <line x1="108" y1="100" x2="120" y2="80" />
-                                    <line x1="108" y1="100" x2="120" y2="105" />
-                                    <line x1="130" y1="105" x2="120" y2="105" />
-                                    <line x1="130" y1="55" x2="120" y2="80" />
-                                    <line x1="130" y1="105" x2="120" y2="80" />
-                                    <line x1="120" y1="55" x2="120" y2="80" />
-                                    <line x1="120" y1="80" x2="120" y2="105" />
-                                    <line x1="92" y1="60" x2="108" y2="60" stroke-dasharray="1.5 1.5" opacity="0.6" />
-                                    <line x1="92" y1="80" x2="108" y2="80" stroke-dasharray="1.5 1.5" opacity="0.6" />
-                                    <line x1="92" y1="100" x2="108" y2="100" stroke-dasharray="1.5 1.5" opacity="0.6" />
-                                </g>
-                                
-                                <g fill="#00f0ff" filter="url(#welcome-glow)">
-                                    <circle cx="80" cy="25" r="2" />
-                                    <circle cx="60" cy="35" r="2" />
-                                    <circle cx="45" cy="55" r="2" />
-                                    <circle cx="40" cy="80" r="2" />
-                                    <circle cx="45" cy="105" r="2" />
-                                    <circle cx="60" cy="125" r="2" />
-                                    <circle cx="80" cy="135" r="2" />
-                                    <circle cx="92" cy="35" r="2" />
-                                    <circle cx="92" cy="60" r="2" />
-                                    <circle cx="92" cy="80" r="2" />
-                                    <circle cx="92" cy="100" r="2" />
-                                    <circle cx="92" cy="125" r="2" />
-                                    <circle cx="70" cy="55" r="2" />
-                                    <circle cx="65" cy="80" r="2" />
-                                    <circle cx="70" cy="105" r="2" />
-                                    <circle cx="80" cy="55" r="2" />
-                                    <circle cx="80" cy="80" r="2" />
-                                    <circle cx="80" cy="105" r="2" />
-                                    <circle cx="120" cy="25" r="2" />
-                                    <circle cx="140" cy="35" r="2" />
-                                    <circle cx="155" cy="55" r="2" />
-                                    <circle cx="160" cy="80" r="2" />
-                                    <circle cx="155" cy="105" r="2" />
-                                    <circle cx="140" cy="125" r="2" />
-                                    <circle cx="120" cy="135" r="2" />
-                                    <circle cx="108" cy="35" r="2" />
-                                    <circle cx="108" cy="60" r="2" />
-                                    <circle cx="108" cy="80" r="2" />
-                                    <circle cx="108" cy="100" r="2" />
-                                    <circle cx="108" cy="125" r="2" />
-                                    <circle cx="130" cy="55" r="2" />
-                                    <circle cx="135" cy="80" r="2" />
-                                    <circle cx="130" cy="105" r="2" />
-                                    <circle cx="120" cy="55" r="2" />
-                                    <circle cx="120" cy="80" r="2" />
-                                    <circle cx="120" cy="105" r="2" />
-                                </g>
-                            </svg>
-                        </div>
-                        
-                        <span class="welcome-slogan">MOVE AS ONE</span>
-                    </div>
-                </div>
-
-                <div class="pack-contents-card">
-                    <h3><i class="fa-solid fa-box-open"></i> パッケージ同梱物のご確認</h3>
-                    <div class="contents-grid">
-                        <div class="content-item">
-                            <div class="icon-wrapper"><i class="fa-solid fa-circle-nodes"></i></div>
-                            <span class="qty">8個</span>
-                            <span class="label">レセプターパッチ</span>
-                        </div>
-                        <div class="content-item">
-                            <div class="icon-wrapper"><i class="fa-solid fa-circle-dot"></i></div>
-                            <span class="qty">24枚</span>
-                            <span class="label">貼付用シール (3シート)</span>
-                        </div>
-                        <div class="content-item">
-                            <div class="icon-wrapper"><i class="fa-solid fa-map"></i></div>
-                            <span class="qty">1部</span>
-                            <span class="label">マッピングチャート</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="info-card">
-                    <h3><i class="fa-solid fa-gears"></i> なぜ貼るだけで、キミの限界値（リミッター）は一瞬で外れるのか？</h3>
-                    <p>一流のトップアスリートが圧倒的なプレーを見せるのは、脳と体が一切のズレなく連動しているからです。</p>
-                    <p>KINETIC-LINK 109は、皮膚の精密センサーを通じて脳のブレーキをその場で取り除く、選ばれた選手のための「特別仕様のギア」です。貼った瞬間に、体が信じられないほど軽くなり、思い通りの動きが可能になります。一歩先を行くテクノロジーを味方につけて、ピッチやコートで「圧倒的な違い」を生み出す特別な存在へ。</p>
-                    <div style="display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap;">
-                        <button class="btn btn-secondary" onclick="switchView('map')" style="flex: 1; min-width: 140px;">
-                            <i class="fa-solid fa-magnifying-glass-location"></i> 貼付ガイドを見る
-                        </button>
-                        <button class="btn btn-secondary-outline" onclick="openProductDetailsModal()" style="flex: 1; min-width: 140px; color: var(--secondary); border-color: rgba(0,240,255,0.2);">
-                            <i class="fa-solid fa-box-open"></i> パッチ詳細スペック
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Educational/SNS portal link card -->
-                <div class="info-card" style="background: linear-gradient(135deg, rgba(30, 200, 100, 0.03) 0%, rgba(0, 240, 255, 0.03) 100%); border: 1px solid rgba(0, 240, 255, 0.15); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);">
-                    <h3 style="color: var(--secondary); display: flex; align-items: center; gap: 8px;"><i class="fa-solid fa-graduation-cap"></i> ジュニア・保護者のための特別授業</h3>
-                    <p style="font-size: 11px; line-height: 1.5; color: var(--text-main); margin: 0 0 10px 0;">
-                        パッチの正しい貼り方・コツや、子供の運動能力を伸ばす「皮膚刺激と脳」の関係について、公式ポータル（CORE CONNECT）で専門的に優しく解説しています。
-                    </p>
-                    <div style="display: flex; flex-direction: column; gap: 8px;">
-                        <a href="https://bclab2020.github.io/portal-mockup/" target="_self" class="btn btn-secondary" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 8px; background: #232325; border: 1px solid rgba(255,255,255,0.1); color: #ffffff;">
-                            <i class="fa-solid fa-book-open"></i> CORE CONNECT で詳しく学ぶ
-                        </a>
-                        <span style="display: block; text-align: center; font-size: 9px; color: var(--text-muted); margin-top: 2px;">
-                            ※読み終わった後は、ブラウザの「戻る」ボタンやスワイプ操作で簡単にアプリに戻れます。
-                        </span>
-                    </div>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size: 10px; color: var(--text-muted); display: flex; align-items: center; gap: 4px;"><i class="fa-solid fa-bell"></i> 更新通知を受け取る</span>
-                        <button class="btn" id="notificationToggleBtn" onclick="toggleNotificationPermission()" style="background: rgba(0, 240, 255, 0.08); border: 1px solid var(--secondary); color: var(--secondary); font-size: 9px; padding: 3px 10px; border-radius: 4px; cursor: pointer; font-weight: bold; transition: all 0.2s;">
-                            設定する
-                        </button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- GUIDE/MAP VIEW -->
-            <section id="view-map" class="app-view">
-                <div class="view-header" style="display: flex; justify-content: space-between; align-items: center;">
-                    <div>
-                        <h2><i class="fa-solid fa-map-location-dot"></i> 貼付マッピングガイド</h2>
-                        <p>種目または症状に合わせた最適なアプローチ位置を表示します。</p>
-                    </div>
-                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
-                        <button class="btn btn-secondary-outline btn-xs" onclick="openAdminModal()" id="adminBtn" style="display: none;">
-                            <i class="fa-solid fa-database"></i> データ管理
-                        </button>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="openExportModal()" id="exportCodeBtn" style="display: none;">
-                            <i class="fa-solid fa-code"></i> 一括コード出力
-                        </button>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="toggleEditMode()" id="editModeBtn" style="display: none;">
-                            <i class="fa-solid fa-pen-to-square"></i> 座標調整
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Selector Tabs -->
-                <div class="selector-tabs">
-                    <button class="tab-btn active" onclick="switchMappingTab('sports')">競技別 (16種)</button>
-                    <button class="tab-btn" onclick="switchMappingTab('symptoms')">部位・症状別</button>
-                </div>
-
-                <!-- Sports Selection Grid -->
-                <div id="mapping-sports-container" class="mapping-tab-content active">
-                    <div class="sport-select-wrapper">
-                        <select id="sportSelector" class="custom-select" onchange="loadSportMapping(this.value)">
-                            <!-- Loaded via JS -->
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Symptoms Selection Grid -->
-                <div id="mapping-symptoms-container" class="mapping-tab-content">
-                    <div class="symptom-select-wrapper">
-                        <select id="symptomSelector" class="custom-select" onchange="loadSymptomMapping(this.value)">
-                            <!-- Loaded via JS -->
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Interactive Mapping Body Dashboard -->
-                <div class="mapping-dashboard card-glass">
-                    <div class="mapping-meta">
-                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
-                            <div>
-                                <h3 id="mappingTitle">陸上（スプリント・跳躍）</h3>
-                                <p id="mappingDescription">走動作の推進力・接地感を最大化するプロトコル</p>
-                            </div>
-                            <span class="view-indicator-badge" id="bodyViewIndicator">前面 (FRONT)</span>
-                        </div>
-                    </div>
-
-                    <div class="interactive-map-area">
-                        <!-- Human body outline SVG with Symmetrical Polygon Image -->
-                        <div class="body-canvas-wrapper" style="position: relative;">
-                            <svg class="body-svg" viewBox="0 0 200 400" id="bodySvg">
-                                <image id="bodyOutlineImage" href="body_front.png" x="0" y="0" width="200" height="400" />
-                                <!-- Interactive Dots will be drawn here dynamically by app.js -->
-                            </svg>
-                            <button class="zoom-reset-btn" id="zoomResetBtn" onclick="resetZoom()" title="全体表示"><i class="fa-solid fa-expand"></i> 全体</button>
-                        </div>
-
-                        <!-- D-pad for coordinate adjustment (only shown in edit mode) -->
-                        <div class="dpad-container" id="dpadContainer" style="display: none;">
-                            <div class="dpad-status">
-                                <span id="dpadActivePointName">1. 前脛骨筋 (右)</span><br>
-                                <span class="dpad-coords">X: <strong id="dpadValX">81</strong>, Y: <strong id="dpadValY">335</strong></span>
-                            </div>
-                            <div class="dpad-keys">
-                                <button class="dpad-btn dpad-up" onclick="moveActivePoint(0, -2)" title="上に移動"><i class="fa-solid fa-caret-up"></i></button>
-                                <button class="dpad-btn dpad-left" onclick="moveActivePoint(-2, 0)" title="左に移動"><i class="fa-solid fa-caret-left"></i></button>
-                                <div class="dpad-center"><i class="fa-solid fa-arrows-up-down-left-right"></i></div>
-                                <button class="dpad-btn dpad-right" onclick="moveActivePoint(2, 0)" title="右に移動"><i class="fa-solid fa-caret-right"></i></button>
-                                <button class="dpad-btn dpad-down" onclick="moveActivePoint(0, 2)" title="下に移動"><i class="fa-solid fa-caret-down"></i></button>
-                            </div>
-                        </div>
-                        
-                        <div class="target-point-list" id="targetPointList">
-                            <!-- Points loaded dynamically -->
-                        </div>
-                </div>
-                
-                <!-- Sport-Specific Troubleshooting Guide Panel -->
-                <div id="sportTroubleCard" class="info-card" style="display: none; margin-top: 15px; background: linear-gradient(135deg, rgba(0, 240, 255, 0.03) 0%, rgba(255, 0, 80, 0.01) 100%); border: 1px solid rgba(0, 240, 255, 0.15); padding: 15px; border-radius: 8px;">
-                    <h3 style="color: var(--secondary); margin-top: 0; margin-bottom: 8px; display: flex; align-items: center; gap: 8px; font-size: 14px;"><i class="fa-solid fa-graduation-cap"></i> <span id="sportTroubleTitle">🏆 お悩み別 解決マッピング</span></h3>
-                    <p style="font-size: 11px; margin: 0 0 12px 0; color: var(--text-muted); line-height: 1.4;">
-                        プレイヤーの具体的なお悩みから、最適な貼付ポイントと神経生理学的な解説・未来のパフォーマンス向上効果を表示します。
-                    </p>
-                    
-                    <!-- Select Complaint Dropdown (Populated Dynamically via JS) -->
-                    <div class="symptom-select-wrapper" style="margin-bottom: 12px;">
-                        <select id="sportComplaintSelector" class="custom-select" onchange="showSportComplaintDetail(this.value)" style="border-color: rgba(0, 240, 255, 0.3); font-size: 12px; width: 100%; padding: 8px; border-radius: 6px; background: rgba(10,10,12,0.8); color: var(--text-main);">
-                            <option value="">-- お悩みを選択してください --</option>
-                        </select>
-                    </div>
-                    
-                    <!-- Complaint Detail Display Area -->
-                    <div id="sportComplaintDetailArea" style="display: none; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255,255,255,0.05); padding: 12px; border-radius: 6px; font-size: 11px; line-height: 1.5; color: var(--text-main);">
-                        <div style="margin-bottom: 8px;">
-                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-circle-question"></i> 原因（神経生理学的メカニズム）:</span>
-                            <p id="sportCompCause" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px;"></p>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-location-crosshairs"></i> 推奨貼付ポイント:</span>
-                            <p id="sportCompPoints" style="margin: 3px 0 0 0; color: var(--secondary); font-size: 12px; font-weight: bold;"></p>
-                        </div>
-                        <div style="margin-bottom: 8px;">
-                            <span style="color: var(--secondary); font-weight: bold; font-size: 11px;"><i class="fa-solid fa-arrows-spin"></i> 体内で起きる変化（作用）:</span>
-                            <p id="sportCompEffect" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px;"></p>
-                        </div>
-                        <div style="margin-bottom: 3px;">
-                            <span style="color: #ff0050; font-weight: bold; font-size: 11px;"><i class="fa-solid fa-circle-up"></i> 開ける新たな未来:</span>
-                            <p id="sportCompFuture" style="margin: 3px 0 0 0; color: var(--text-main); font-size: 11px; font-weight: bold;"></p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PRE/POST TEST WIZARD VIEW -->
-            <section id="view-test" class="app-view">
-                <div class="view-header">
-                    <h2><i class="fa-solid fa-gauge-high"></i> 効果検証アシスタント</h2>
-                    <p>プレテスト・ポストテストを行い、脳のブレーキ解除を定量測定します。</p>
-                </div>
-
-                <div class="wizard-card card-glass" id="wizardCard">
-                    <!-- Step 1: Pre-test -->
-                    <div class="wizard-step active" id="step-1">
-                        <div class="step-indicator">STEP 1 of 3</div>
-                        <h3>パッチを貼る前の状態（1〜10評価）</h3>
-                        <p>各可動域テストを行い、動きやすさ（10が最も動かしやすい状態）を入力します。</p>
-                        
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">前屈（正常目安：70°〜90°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preFlexionText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="preFlexion" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preFlexionText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">後屈（正常目安：20°〜30°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preExtensionText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="preExtension" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preExtensionText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">回旋（正常目安：左右各 40°〜50°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preRotationText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="preRotation" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preRotationText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">側屈（正常目安：左右各 30°〜40°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="preLateralText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="preLateral" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('preLateralText').innerText = this.value">
-                        </div>
-
-                        <!-- Camera Capture Button (ROM baseline) -->
-                        <div class="camera-integration" style="margin-top: 15px;">
-                            <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('pre')">
-                                <i class="fa-solid fa-camera"></i> プレ姿勢写真を撮影して保存
-                            </button>
-                            <div class="captured-preview" id="prePhotoPreview">
-                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
-                            </div>
-                        </div>
-
-                        <button class="btn btn-primary btn-block margin-top-20" onclick="nextWizardStep(2)">
-                            貼付完了 ➔ STEP 2へ進む <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- Step 2: Post-test -->
-                    <div class="wizard-step" id="step-2">
-                        <div class="step-indicator">STEP 2 of 3</div>
-                        <h3>パッチ貼付後の状態（1〜10評価）</h3>
-                        <p>ガイド通りにパッチを貼付し、同じ可動域テストを行います。</p>
-                        
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">前屈（正常目安：70°〜90°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postFlexionText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="postFlexion" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postFlexionText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">後屈（正常目安：20°〜30°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postExtensionText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="postExtension" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postExtensionText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">回旋（正常目安：左右各 40°〜50°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postRotationText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="postRotation" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postRotationText').innerText = this.value">
-                        </div>
-
-                        <div class="form-group margin-bottom-15">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <label style="margin: 0; font-size: 12px; font-weight: 700;">側屈（正常目安：左右各 30°〜40°）</label>
-                                <span style="font-size: 11px; font-weight: 700; color: var(--secondary);"><span id="postLateralText">5</span> / 10</span>
-                            </div>
-                            <input type="range" id="postLateral" min="1" max="10" value="5" class="custom-slider" style="width: 100%; margin: 6px 0;" oninput="document.getElementById('postLateralText').innerText = this.value">
-                        </div>
-
-                        <!-- Camera Overlay / Slider Button -->
-                        <div class="camera-integration" style="margin-top: 15px;">
-                            <button class="btn btn-sm btn-outline btn-block" onclick="startCamera('post')">
-                                <i class="fa-solid fa-camera"></i> ポスト姿勢写真を撮影＆重ね合わせ比較
-                            </button>
-                            <div class="captured-preview" id="postPhotoPreview">
-                                <span class="placeholder-text"><i class="fa-solid fa-image"></i> 写真未撮影</span>
-                            </div>
-                        </div>
-
-                        <div class="button-row margin-top-20">
-                            <button class="btn btn-secondary" onclick="nextWizardStep(1)">
-                                <i class="fa-solid fa-arrow-left"></i> 戻る
-                            </button>
-                            <button class="btn btn-primary" onclick="calculateResults()">
-                                結果の算出 <i class="fa-solid fa-circle-check"></i>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Step 3: Result Dashboard -->
-                    <div class="wizard-step" id="step-3">
-                        <div class="step-indicator">RESULT</div>
-                        <div class="result-celebration">
-                            <i class="fa-solid fa-rocket animate-bounce"></i>
-                            <h3>神経筋制御が最適化されました！</h3>
-                        </div>
-
-                        <div class="metrics-comparison" style="display: flex; flex-direction: column; gap: 12px;">
-                            <div class="metric-result-card" style="width: 100%; box-sizing: border-box;">
-                                <span class="metric-label">総合可動性（平均値）</span>
-                                <div class="metric-comparison-row">
-                                    <span class="old-val" id="resPreRom">5.0 / 10</span>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                    <span class="new-val" id="resPostRom">8.5 / 10</span>
-                                </div>
-                                <span class="metric-pct highlight-green" id="resRomChange">+70.0%</span>
-                            </div>
-
-                            <div class="metric-result-card" style="width: 100%; box-sizing: border-box;">
-                                <span class="metric-label">前屈（正常目安：70°〜90°）</span>
-                                <div class="metric-comparison-row">
-                                    <span class="old-val" id="resPreBal">5 / 10</span>
-                                    <i class="fa-solid fa-chevron-right"></i>
-                                    <span class="new-val" id="resPostBal">8 / 10</span>
-                                </div>
-                                <span class="metric-pct highlight-blue" id="resBalChange">+60.0%</span>
-                            </div>
-                        </div>
-
-                        <div class="stock-deduction-notice">
-                            <p><i class="fa-solid fa-circle-dot"></i> 貼付により、シールの残数を差し引きました。</p>
-                            <p>今回の使用枚数: <strong id="usedCountDisplay">6</strong>枚 / 残数: <strong id="stockCountDisplay">18</strong>枚</p>
-                            <div class="progress-bar-container">
-                                <div class="progress-bar-fill" id="ringProgressBar" style="width: 75%;"></div>
-                            </div>
-                        </div>
-
-                        <div class="button-row margin-top-20">
-                            <button class="btn btn-secondary" onclick="resetWizard()">
-                                <i class="fa-solid fa-rotate-right"></i> 新たに計測する
-                            </button>
-                            <button class="btn btn-primary" onclick="switchView('history')">
-                                <i class="fa-solid fa-chart-line"></i> 履歴を見る
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CLINICAL HISTORY / REPORT VIEW -->
-            <section id="view-history" class="app-view">
-                <div class="view-header">
-                    <h2><i class="fa-solid fa-chart-line"></i> 測定データ履歴</h2>
-                    <p>蓄積されたバランス・可動域改善の軌跡を確認できます。</p>
-                </div>
-
-                <div class="chart-container card-glass">
-                    <canvas id="historyChart"></canvas>
-                </div>
-
-                <div class="history-list-wrapper" id="historyList">
-                    <!-- History items loaded via JS -->
-                </div>
-            </section>
-
-            <!-- STORE / REORDER VIEW -->
-            <section id="view-store" class="app-view">
-                <div class="view-header">
-                    <h2><i class="fa-solid fa-cart-shopping"></i> シール追加注文</h2>
-                    <p>レセプターパッチは再利用可能ですが、貼付シールは使い捨てです。</p>
-                </div>
-
-                <div class="store-card card-glass">
-                    <div class="store-item-image">
-                        <i class="fa-solid fa-circle-dot main-ring-icon"></i>
-                        <span class="store-item-badge">B.C Lab 純正</span>
-                    </div>
-                    <div class="store-item-info">
-                        <h3>KINETIC-LINK 109 専用貼付シール<br><small>(高接着・医療用グレードシート)</small></h3>
-                        <p class="store-desc">汗や摩擦に強く、スポーツ時でもパッチの刺激を忠実に伝える極薄2.0mmリング設計シートです。</p>
-                        
-                        <div class="price-row">
-                            <span class="price">¥4,000 <small>(税別)</small></span>
-                            <span class="pack-qty">1袋 (4シート / 32枚入)</span>
-                        </div>
-                        
-                        <button class="btn btn-primary btn-block margin-top-20" onclick="simulatePurchase()">
-                            <i class="fa-solid fa-credit-card"></i> ワンタップ追加購入する
-                        </button>
-                    </div>
-                </div>
-
-                <div class="replenish-tool card-glass">
-                    <h4><i class="fa-solid fa-wand-magic-sparkles"></i> デモ用シール補充機能</h4>
-                    <p>実機のないシミュレーション用として、ボタンを押すだけでデジタルシール残数をリセット・補充できます。</p>
-                    <button class="btn btn-secondary btn-block margin-top-10" onclick="replenishRings(24)">
-                        シールを24枚に補充・リセットする
-                    </button>
-                </div>
-            </section>
-        </main>
-
-        <!-- 3. Bottom Tab Navigation Bar -->
-        <nav class="app-navbar">
-            <button class="nav-item active" id="nav-home" onclick="switchView('home')">
-                <i class="fa-solid fa-house"></i>
-                <span>ホーム</span>
-            </button>
-            <button class="nav-item" id="nav-map" onclick="switchView('map')">
-                <i class="fa-solid fa-map-location-dot"></i>
-                <span>貼付ガイド</span>
-            </button>
-            <button class="nav-item" id="nav-test" onclick="switchView('test')">
-                <i class="fa-solid fa-gauge-high"></i>
-                <span>効果検証</span>
-            </button>
-            <button class="nav-item" id="nav-history" onclick="switchView('history')">
-                <i class="fa-solid fa-chart-line"></i>
-                <span>履歴</span>
-            </button>
-            <button class="nav-item" id="nav-store" onclick="switchView('store')">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span>シール購入</span>
-            </button>
-        </nav>
-    </div>
-
-    <!-- 4. Camera Overlay Modal -->
-    <div class="camera-modal" id="cameraModal">
-        <div class="camera-modal-content">
-            <div class="camera-header">
-                <span id="cameraTitle">前屈姿勢の撮影</span>
-                <button class="close-btn" onclick="closeCamera()">✖</button>
-            </div>
-            
-            <div class="video-container">
-                <video id="webcam" autoplay playsinline></video>
-                <canvas id="photoCanvas" style="display:none;"></canvas>
-                
-                <!-- Overlay Grid Guide -->
-                <div class="overlay-grid"></div>
-                
-                <!-- Pre Image Transparency Slider Overlay (Only for Post stage) -->
-                <img id="transparencyOverlayImg" class="transparency-overlay" style="display:none;">
-            </div>
-
-            <!-- Transparency Slider control -->
-            <div class="transparency-control" id="transparencyControl" style="display:none;">
-                <label><i class="fa-solid fa-sliders"></i> Pre写真との重ね合わせ不透明度</label>
-                <input type="range" id="transparencySlider" min="0" max="100" value="50" oninput="adjustOverlayTransparency(this.value)">
-            </div>
-            
-            <div class="camera-footer">
-                <button class="btn btn-outline" onclick="closeCamera()">キャンセル</button>
-                <button class="btn btn-primary" id="captureBtn" onclick="takeSnapshot()">
-                    <i class="fa-solid fa-camera"></i> シャッターを切る
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Export Modal -->
-    <div id="exportModal" class="modal-backdrop" style="display: none;">
-        <div class="modal-content" style="max-width: 340px; width: 90%;">
-            <div class="modal-header">
-                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 700;"><i class="fa-solid fa-code"></i> 調整済み座標の出力</h3>
-                <button class="modal-close-btn" onclick="closeExportModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="padding: 12px 0;">
-                <p style="font-size: 11px; color: var(--text-muted); line-height: 1.4; margin-bottom: 12px; margin-top: 0;">
-                    調整された座標データコードです。以下のボタンを押してコピーし、AIアシスタントのチャットに貼り付けてください。
-                </p>
-                <textarea id="coordExportArea" readonly style="width: 100%; height: 150px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-color); border-radius: 6px; padding: 8px; font-family: monospace; font-size: 9px; color: var(--text-main); resize: none; box-sizing: border-box;"></textarea>
-            </div>
-            <div class="modal-footer" style="display: flex; gap: 8px; margin-top: 12px;">
-                <button class="btn btn-secondary btn-sm" style="flex: 1;" onclick="copyExportedCode()">
-                    <i class="fa-solid fa-copy"></i> コピーする
-                </button>
-                <button class="btn btn-primary-outline btn-sm" style="flex: 1;" onclick="closeExportModal()">
-                    閉じる
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Management Modal -->
-    <div id="adminModal" class="modal-backdrop" style="display: none;">
-        <div class="modal-content" style="max-width: 440px; width: 90%; max-height: 85vh; overflow-y: auto;">
-            <div class="modal-header">
-                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 700;"><i class="fa-solid fa-database"></i> 貼付データ管理画面</h3>
-                <button class="modal-close-btn" onclick="closeAdminModal()">&times;</button>
-            </div>
-            
-            <!-- Edit Category Panel -->
-            <div id="adminEditPanel">
-                <div class="form-group margin-bottom-15">
-                    <label>現在選択中のカテゴリー名</label>
-                    <input type="text" id="adminCategoryName" class="admin-input" placeholder="競技名または症状名">
-                </div>
-                <div class="form-group margin-bottom-15">
-                    <label>カテゴリーの説明</label>
-                    <textarea id="adminCategoryDesc" class="admin-input" rows="2" placeholder="コンセプトやベネフィット"></textarea>
-                </div>
-                
-                <!-- Points Management Area -->
-                <div class="admin-points-section" style="margin-top: 15px;">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                        <label style="font-weight: 700; font-size: 12px; color: var(--secondary);">貼付ポイント一覧</label>
-                        <button class="btn btn-secondary-outline btn-xs" onclick="addAdminPoint()">
-                            <i class="fa-solid fa-plus"></i> ポイント追加
-                        </button>
-                    </div>
-                    
-                    <div id="adminPointsList" style="display: flex; flex-direction: column; gap: 12px; max-height: 250px; overflow-y: auto; padding-right: 4px; margin-bottom: 15px;">
-                        <!-- JS generated list of points -->
-                    </div>
-                </div>
-
-                <!-- Footer Buttons -->
-                <div style="display: flex; gap: 8px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; margin-top: 10px;">
-                    <button class="btn btn-outline btn-sm" onclick="addNewCategoryBtnClick()" style="flex: 1; font-size: 11px;">
-                        <i class="fa-solid fa-folder-plus"></i> 新規作成
-                    </button>
-                    <button class="btn btn-outline btn-sm" onclick="deleteActiveCategoryBtnClick()" style="flex: 1; color: var(--accent); border-color: rgba(255,0,127,0.3); font-size: 11px;">
-                        <i class="fa-solid fa-trash"></i> 削除
-                    </button>
-                    <button class="btn btn-primary btn-sm" onclick="saveAdminData()" style="flex: 1.2;">
-                        <i class="fa-solid fa-save"></i> 変更を保存
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Create Category Panel (Hidden by default) -->
-            <div id="adminCreatePanel" style="display: none;">
-                <div style="margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px dashed rgba(255,255,255,0.1);">
-                    <h4 style="color: var(--secondary);"><i class="fa-solid fa-folder-plus"></i> 新規カテゴリー作成</h4>
-                </div>
-                <div class="form-group margin-bottom-15">
-                    <label>カテゴリー種別</label>
-                    <select id="newCatType" class="custom-select" style="padding: 8px 12px; font-size: 13px; height: 36px; line-height: 1;">
-                        <option value="sports">競技別 (Sports)</option>
-                        <option value="symptoms">部位・症状別 (Symptoms)</option>
-                    </select>
-                </div>
-                <div class="form-group margin-bottom-15">
-                    <label>カテゴリーID（半角英数、一意の識別子）</label>
-                    <input type="text" id="newCatId" class="admin-input" placeholder="例: tennis_elbow, running">
-                </div>
-                <div class="form-group margin-bottom-15">
-                    <label>表示名称</label>
-                    <input type="text" id="newCatName" class="admin-input" placeholder="例: テニス肘、ランニング">
-                </div>
-                <div class="form-group margin-bottom-15">
-                    <label>コンセプト・説明</label>
-                    <textarea id="newCatDesc" class="admin-input" rows="2" placeholder="競技特性や期待される効果を入力"></textarea>
-                </div>
-                <div style="display: flex; gap: 8px; margin-top: 15px;">
-                    <button class="btn btn-outline btn-sm" onclick="cancelCreateCategory()" style="flex: 1;">キャンセル</button>
-                    <button class="btn btn-primary btn-sm" onclick="saveNewCategory()" style="flex: 1;">作成して編集</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Product Details Modal -->
-    <div id="productDetailsModal" class="modal-backdrop" style="display: none;">
-        <div class="modal-content" style="max-width: 600px; width: 95%; max-height: 85vh; overflow-y: auto;">
-            <div class="modal-header">
-                <h3 style="color: var(--secondary); font-size: 14px; margin: 0; font-weight: 800; display: flex; align-items: center; gap: 8px;">
-                    <i class="fa-solid fa-box-open"></i> KINETIC-LINK 109 プロダクト詳細解説
-                </h3>
-                <button class="modal-close-btn" onclick="closeProductDetailsModal()">&times;</button>
-            </div>
-            <div class="modal-body" style="padding: 15px 0;">
-                <div class="details-layout" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
-                    <div class="details-image-side" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
-                        <img src="kinetic_link_box.png" alt="KINETIC-LINK 109 Package" style="width: 100%; max-width: 200px; border-radius: 8px; box-shadow: 0 8px 24px rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);">
-                        <span style="font-size: 11px; color: var(--secondary); font-weight: 700; letter-spacing: 2px;">"MOVE AS ONE."</span>
-                    </div>
-                    <div class="details-info-side" style="display: flex; flex-direction: column; gap: 12px; font-size: 12px; line-height: 1.5;">
-                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 6px;">
-                            <h4 style="margin: 0 0 6px 0; color: var(--secondary); font-size: 11px; font-weight: 700;">製品スペック</h4>
-                            <table style="width: 100%; border-collapse: collapse; font-size: 10px;">
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">製品名</td><td style="padding: 4px 0; font-weight: 700; text-align: right; color: var(--text-main);">KINETIC-LINK 109</td></tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">スローガン</td><td style="padding: 4px 0; font-style: italic; text-align: right; color: var(--text-main);">Move As One.</td></tr>
-                                <tr style="border-bottom: 1px solid rgba(255,255,255,0.05);"><td style="padding: 4px 0; color: var(--text-muted);">パッチ入り数</td><td style="padding: 4px 0; text-align: right; color: var(--text-main);">8個 (4ペア同梱)</td></tr>
-                                <tr><td style="padding: 4px 0; color: var(--text-muted);">製造国</td><td style="padding: 4px 0; text-align: right; color: var(--secondary); font-weight: 700;">MADE IN JAPAN</td></tr>
-                            </table>
-                        </div>
-                        
-                        <div style="background: rgba(0, 240, 255, 0.02); border: 1px solid rgba(0, 240, 255, 0.15); padding: 10px; border-radius: 6px; box-shadow: 0 0 12px rgba(0, 240, 255, 0.05);">
-                            <h4 style="margin: 0 0 6px 0; color: #ffffff; font-size: 11px; font-weight: 700; letter-spacing: 1px;"><i class="fa-solid fa-wind"></i> SLOGAN: "MOVE AS ONE" に込められた思い</h4>
-                            <p style="margin: 0; color: var(--text-muted); font-size: 11px; line-height: 1.4;">
-                                「脳のイメージ」と「実際の筋肉の動き」が、一切のズレなく完璧にひとつ（ONE）になって動く状態。脳がかけた無意識のブレーキを解除し、アスリートの理想の動きを瞬時に体へ伝達。頭と体が完全に調和して動く喜びを追求するブランドの信念です。
-                            </p>
-                        </div>
-                        
-                        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); padding: 10px; border-radius: 6px;">
-                            <h4 style="margin: 0 0 6px 0; color: var(--secondary); font-size: 11px; font-weight: 700;">神経筋制御テクノロジー</h4>
-                            <p style="margin: 0; color: var(--text-muted); font-size: 11px;">
-                                皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
-                            </p>
-                            <p style="margin: 6px 0 0 0; color: var(--text-muted); font-size: 11px;">
-                                脳（小脳・体性感覚野）の「予測誤差」をリセットし、防衛的な関節ロック（脳の無意識のブレーキ）を解除。即座に柔軟性（可動域）とバランス力を劇的に改善します。
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Responsive style -->
-                <style>
-                    @media (max-width: 500px) {
-                        .details-layout {
-                            grid-template-columns: 1fr !important;
-                            gap: 15px !important;
+                        if (savedSha && savedSha !== latestSha && Notification.permission === "granted") {
+                            new Notification("【CORE CONNECT 更新】", {
+                                body: commitMsg,
+                                icon: "icon.svg"
+                            });
                         }
-                        .details-image-side img {
-                            max-width: 140px !important;
+                        localStorage.setItem('last_notified_portal_sha', latestSha);
+                    }
+                } catch (e) {
+                    console.error("更新チェックエラー:", e);
+                }
+            }
+
+            // Next button conditions
+            const isNextDisabled = () => {
+                if (currentStep === 0) {
+                    return !(baseChecked.achilles && baseChecked.fibular && baseChecked.scapula);
+                }
+                if (currentStep === 1) {
+                    return !selectedSport;
+                }
+                if (currentStep === 2) {
+                    return !(customChecked.custom1 && customChecked.custom2);
+                }
+                return false;
+            };
+
+            const handleNext = () => {
+                if (currentStep < 2) {
+                    setCurrentStep(currentStep + 1);
+                } else {
+                    // Protocol Completion modal/toast
+                    notification.success({
+                        message: "プロトコル貼付完了",
+                        description: "合計10枚の感覚フィードバックパッチがすべて正しく貼付されました！神経筋制御が最適化された状態でトレーニングを開始してください。",
+                        placement: "topRight"
+                    });
+                }
+            };
+
+            const handlePrev = () => {
+                if (currentStep > 0) {
+                    setCurrentStep(currentStep - 1);
+                }
+            };
+
+            const handleSportSelect = (sportId) => {
+                setSelectedSport(sportId);
+                // Reset custom check states
+                setCustomChecked({ custom1: false, custom2: false });
+            };
+
+            const getSelectedSportData = () => {
+                return PROTOCOL_DATA.sportsOptions[selectedSport] || null;
+            };
+
+            // Compile active patch coordinates for visual overlays
+            const getActivePoints = () => {
+                let points = [];
+                
+                // Base patches (always visible)
+                PROTOCOL_DATA.basePatches.forEach(p => {
+                    const isHighlighted = hoveredPointId === p.id;
+                    const isActive = currentStep === 0 && !baseChecked[p.id];
+                    points.push({
+                        ...p,
+                        type: 'base',
+                        highlighted: isHighlighted,
+                        active: isActive
+                    });
+                });
+
+                // Custom patches (visible if sport selected and currentStep is 1 or 2)
+                if (selectedSport && currentStep >= 1) {
+                    const sportData = getSelectedSportData();
+                    if (sportData) {
+                        const patchesList = PROTOCOL_DATA.customPatches[sportData.category];
+                        if (patchesList) {
+                            patchesList.forEach((p, idx) => {
+                                const isHighlighted = hoveredPointId === p.id;
+                                const checkKey = idx === 0 ? 'custom1' : 'custom2';
+                                const isActive = currentStep === 2 && !customChecked[checkKey];
+                                points.push({
+                                    ...p,
+                                    type: 'custom',
+                                    highlighted: isHighlighted,
+                                    active: isActive
+                                });
+                            });
                         }
                     }
-                </style>
-            </div>
-            <div class="modal-footer" style="margin-top: 10px;">
-                <button class="btn btn-secondary btn-block" onclick="closeProductDetailsModal()">
-                    閉じる
-                </button>
-            </div>
-        </div>
-    </div>
+                }
+                return points;
+            };
 
-    <!-- 5. Toast Notification -->
-    <div class="toast" id="toast">
-        <span id="toastMessage">トーストメッセージ</span>
-    </div>
+            const activePoints = getActivePoints();
 
-    <script src="app.js"></script>
+            return (
+                <div className="app-container">
+                    {/* Header */}
+                    <header className="app-header" style={{ padding: "0 24px" }}>
+                        <div className="header-logo" style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "8px" }}>
+                            <img src="logo_mark.png" alt="B.C Lab Logo Mark" style={{ height: "24px", width: "auto" }} />
+                            <div style={{ display: "flex", flexDirection: "column" }}>
+                                <div><span className="logo-bc">B.C</span><span className="logo-lab">Lab</span></div>
+                                <span className="logo-sub">KINETIC-LINK 109</span>
+                            </div>
+                        </div>
+                        <div className="adhesive-badge" style={{ background: "rgba(0, 240, 255, 0.1)", border: "1px solid rgba(0, 240, 255, 0.3)" }}>
+                            <i className="fa-solid fa-circle-dot" style={{ color: "var(--secondary)" }}></i>
+                            <span>使用パッチ: <strong style={{ color: "var(--secondary)" }}>
+                                {(baseChecked.achilles ? 2 : 0) + (baseChecked.fibular ? 2 : 0) + (baseChecked.scapula ? 2 : 0) + (customChecked.custom1 ? 2 : 0) + (customChecked.custom2 ? 2 : 0)}
+                            </strong> / 10 枚</span>
+                        </div>
+                    </header>
+
+                    {/* Main UI grid */}
+                    <div style={{ padding: "24px", flex: 1, display: "flex", flexDirection: "column", gap: "20px" }}>
+                        
+                        {/* Core Constraints Warning */}
+                        <Alert
+                            message="【重要】NG貼付ゾーンの厳守"
+                            description="足の裏（足底腱膜）および手のひら（手掌）は、極度な発汗やシューズ内摩擦によりパッチが剥がれやすいため、絶対に貼付しないでください。本プロトコルはNGゾーンを排除して全身の姿勢反射経路を最適化するシステムです。"
+                            type="warning"
+                            showIcon
+                            icon={<i className="fa-solid fa-ban" style={{ color: "#ff007f", fontSize: "16px" }}></i>}
+                        />
+
+                        {/* AntD Steps Indicator */}
+                        <div className="card-glass" style={{ padding: "20px", borderRadius: "12px" }}>
+                            <Steps current={currentStep} size="small">
+                                <Step title="基本姿勢の安定" description="ベース6枚貼付" />
+                                <Step title="競技カテゴリ選択" description="種目・課題選択" />
+                                <Step title="カスタム強化" description="残り4枚貼付" />
+                            </Steps>
+                        </div>
+
+                        {/* Two Columns Dashboard */}
+                        <Row gutter={[20, 20]} style={{ flex: 1 }}>
+                            
+                            {/* Left Side: Wizard step controls */}
+                            <Col xs={24} md={13} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
+                                
+                                {currentStep === 0 && (
+                                    <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                        <div style={{ marginBottom: "16px" }}>
+                                            <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-shield-halved"></i> STEP 1: 姿勢土台の安定化 (Base Stabilization)</h3>
+                                            <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                Pelvic-Thoracic-Head Alignment（骨盤・胸郭・頭部の一致）を確立し、全身の運動連鎖の基盤となる姿勢反射をリセットする基本の6枚です。全員必須。
+                                            </p>
+                                        </div>
+
+                                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                            {PROTOCOL_DATA.basePatches.map(p => (
+                                                <div 
+                                                    key={p.id}
+                                                    className="info-card" 
+                                                    style={{ 
+                                                        margin: 0, 
+                                                        borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
+                                                        background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
+                                                    }}
+                                                    onMouseEnter={() => setHoveredPointId(p.id)}
+                                                    onMouseLeave={() => setHoveredPointId(null)}
+                                                >
+                                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+                                                        <div style={{ flex: 1 }}>
+                                                            <span style={{ fontSize: "10px", color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
+                                                            <h4 style={{ margin: "2px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
+                                                            <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
+                                                        </div>
+                                                        <Checkbox 
+                                                            checked={baseChecked[p.id]} 
+                                                            onChange={(e) => setBaseChecked({ ...baseChecked, [p.id]: e.target.checked })}
+                                                            style={{ transform: "scale(1.25)", marginTop: "4px" }}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {currentStep === 1 && (
+                                    <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                        <div style={{ marginBottom: "16px" }}>
+                                            <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-gamepad"></i> STEP 2: 競技カテゴリ・動作特性の選択</h3>
+                                            <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                ご自身の競技特性や現在の主要な課題に最も合致するカテゴリを、現在サポートされている12の種目から選択してください。
+                                            </p>
+                                        </div>
+
+                                        <div style={{ marginBottom: "20px" }}>
+                                            <label style={{ display: "block", color: "var(--text-muted)", fontSize: "11px", marginBottom: "6px", fontWeight: "bold" }}>対象競技種目</label>
+                                            <Select
+                                                showSearch
+                                                style={{ width: '100%' }}
+                                                placeholder="競技種目を選択してください"
+                                                optionFilterProp="children"
+                                                value={selectedSport}
+                                                onChange={handleSportSelect}
+                                                dropdownStyle={{ background: '#111317', border: '1px solid rgba(255,255,255,0.08)' }}
+                                            >
+                                                {Object.values(PROTOCOL_DATA.sportsOptions).map(sport => (
+                                                    <Option key={sport.id} value={sport.id} style={{ color: '#fff', background: '#111317' }}>
+                                                        {sport.name}
+                                                    </Option>
+                                                ))}
+                                            </Select>
+                                        </div>
+
+                                        {selectedSport && (
+                                            <Card 
+                                                style={{ 
+                                                    borderColor: "var(--secondary)", 
+                                                    background: "rgba(0, 240, 255, 0.04)"
+                                                }}
+                                            >
+                                                <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                                                    <div style={{ 
+                                                        width: "40px", 
+                                                        height: "40px", 
+                                                        borderRadius: "50%", 
+                                                        background: "var(--secondary)", 
+                                                        display: "flex",
+                                                        alignItems: "center",
+                                                        justifyContent: "center",
+                                                        color: "var(--text-dark)"
+                                                    }}>
+                                                        {getSelectedSportData()?.category === 'running' && <i className="fa-solid fa-person-running" style={{ fontSize: "18px" }}></i>}
+                                                        {getSelectedSportData()?.category === 'swing' && <i className="fa-solid fa-golf-ball-tee" style={{ fontSize: "18px" }}></i>}
+                                                        {getSelectedSportData()?.category === 'agility' && <i className="fa-solid fa-basketball" style={{ fontSize: "18px" }}></i>}
+                                                    </div>
+                                                    <div style={{ flex: 1 }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
+                                                            <h4 style={{ margin: 0, color: "#ffffff", fontSize: "16px", fontWeight: "bold" }}>{getSelectedSportData()?.name}</h4>
+                                                            <span style={{ fontSize: "9px", color: "var(--secondary)", background: "rgba(0,240,255,0.1)", padding: "2px 8px", borderRadius: "10px", fontWeight: "bold" }}>
+                                                                {getSelectedSportData()?.chains}
+                                                            </span>
+                                                        </div>
+                                                        <p style={{ margin: "6px 0 0 0", fontSize: "12px", color: "var(--text-main)", lineHeight: "1.4" }}>
+                                                            {getSelectedSportData()?.desc}
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </Card>
+                                        )}
+                                    </div>
+                                )}
+
+                                {currentStep === 2 && (
+                                    <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                        <div style={{ marginBottom: "16px" }}>
+                                            <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-bolt"></i> STEP 3: カスタム強化 (Custom Enhancement)</h3>
+                                            <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                選択した競技特性に合わせて、残りの4枚を貼付します。これにより、特定の筋膜ラインの動的剛性や運動可動域を最適化します。
+                                            </p>
+                                        </div>
+
+                                        <div style={{ marginBottom: "12px", background: "rgba(0,240,255,0.03)", border: "1px solid rgba(0,240,255,0.15)", borderRadius: "8px", padding: "10px 14px" }}>
+                                            <span style={{ fontSize: "9px", color: "var(--secondary)", fontWeight: "bold" }}>選択されたプログラム</span>
+                                            <div style={{ fontSize: "14px", fontWeight: "bold", color: "#ffffff" }}>
+                                                {getSelectedSportData()?.name} ({getSelectedSportData()?.chains})
+                                            </div>
+                                        </div>
+
+                                        <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                            {PROTOCOL_DATA.customPatches[getSelectedSportData()?.category]?.map((p, idx) => {
+                                                const checkKey = idx === 0 ? 'custom1' : 'custom2';
+                                                return (
+                                                    <div 
+                                                        key={p.id}
+                                                        className="info-card" 
+                                                        style={{ 
+                                                            margin: 0, 
+                                                            borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
+                                                            background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
+                                                        }}
+                                                        onMouseEnter={() => setHoveredPointId(p.id)}
+                                                        onMouseLeave={() => setHoveredPointId(null)}
+                                                    >
+                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+                                                            <div style={{ flex: 1 }}>
+                                                                <span style={{ fontSize: "10px", color: "var(--secondary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
+                                                                <h4 style={{ margin: "2px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
+                                                                <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
+                                                            </div>
+                                                            <Checkbox 
+                                                                checked={customChecked[checkKey]} 
+                                                                onChange={(e) => setCustomChecked({ ...customChecked, [checkKey]: e.target.checked })}
+                                                                style={{ transform: "scale(1.25)", marginTop: "4px" }}
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                );
+                                            })}
+                                        </div>
+                                    </div>
+                                )}
+
+                                {/* Action Buttons */}
+                                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "8px" }}>
+                                    <Button 
+                                        disabled={currentStep === 0} 
+                                        onClick={handlePrev}
+                                        style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.15)", color: "#ffffff" }}
+                                    >
+                                        <i className="fa-solid fa-arrow-left" style={{ marginRight: "6px" }}></i> 戻る
+                                    </Button>
+                                    <Button 
+                                        type="primary" 
+                                        disabled={isNextDisabled()} 
+                                        onClick={handleNext}
+                                        style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                    >
+                                        {currentStep === 2 ? "プロトコル完了" : "次へ進む"} <i className="fa-solid fa-arrow-right"></i>
+                                    </Button>
+                                </div>
+                            </Col>
+
+                            {/* Right Side: Interactive side-by-side silhouette visualizer */}
+                            <Col xs={24} md={11}>
+                                <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", display: "flex", flexDirection: "column", gap: "16px", height: "100%" }}>
+                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                        <h4 style={{ margin: 0, color: "var(--text-main)" }}><i className="fa-solid fa-street-view"></i> 3D 感覚受容器マッピング (全10ポイント)</h4>
+                                        <Badge status="processing" text={<span style={{ fontSize: "10px", color: "var(--text-muted)" }}>LIVE FEEDBACK</span>} />
+                                    </div>
+
+                                    {/* Visualizer container: Front and Back side-by-side */}
+                                    <div className="visualizer-container">
+                                        
+                                        {/* Front view silhouette */}
+                                        <div className="visualizer-pane">
+                                            <div className="visualizer-title">前面 (FRONT)</div>
+                                            <div className="body-svg-wrapper">
+                                                <svg viewBox="0 0 200 400" style={{ width: "100%", height: "100%" }}>
+                                                    <image href="body_front.png" x="0" y="0" width="200" height="400" />
+                                                    
+                                                    {/* Draw active front points */}
+                                                    {activePoints.filter(p => p.view === 'front').map(p => (
+                                                        p.coords.map((coord, idx) => (
+                                                            <g 
+                                                                key={`${p.id}-${idx}`}
+                                                                className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''}`}
+                                                                onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                onMouseLeave={() => setHoveredPointId(null)}
+                                                            >
+                                                                <circle cx={coord.x} cy={coord.y} r="5" stroke="#000" strokeWidth="1.5" />
+                                                                <text x={coord.x} y={coord.y - 8} fontSize="7" fill="#fff" textAnchor="middle" fontWeight="bold" stroke="#000" strokeWidth="0.8" paintOrder="stroke">{coord.side}</text>
+                                                            </g>
+                                                        ))
+                                                    ))}
+
+                                                    {/* Palms NG Zone indicators */}
+                                                    <g>
+                                                        {/* Right Hand Palm */}
+                                                        <circle cx="32" cy="158" r="6" stroke="#ff0050" strokeWidth="2" fill="none" opacity="0.85" />
+                                                        <line x1="28" y1="154" x2="36" y2="162" stroke="#ff0050" strokeWidth="2" opacity="0.85" />
+                                                        <line x1="36" y1="154" x2="28" y2="162" stroke="#ff0050" strokeWidth="2" opacity="0.85" />
+                                                        
+                                                        {/* Left Hand Palm */}
+                                                        <circle cx="168" cy="158" r="6" stroke="#ff0050" strokeWidth="2" fill="none" opacity="0.85" />
+                                                        <line x1="164" y1="154" x2="172" y2="162" stroke="#ff0050" strokeWidth="2" opacity="0.85" />
+                                                        <line x1="172" y1="154" x2="164" y2="162" stroke="#ff0050" strokeWidth="2" opacity="0.85" />
+
+                                                        <text x="32" y="146" fontSize="5" fill="#ff0050" textAnchor="middle" fontWeight="bold">掌NG</text>
+                                                        <text x="168" y="146" fontSize="5" fill="#ff0050" textAnchor="middle" fontWeight="bold">掌NG</text>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                        {/* Back view silhouette */}
+                                        <div className="visualizer-pane">
+                                            <div className="visualizer-title">背面 (BACK)</div>
+                                            <div className="body-svg-wrapper">
+                                                <svg viewBox="0 0 200 400" style={{ width: "100%", height: "100%" }}>
+                                                    <image href="body_back.png" x="0" y="0" width="200" height="400" />
+                                                    
+                                                    {/* Draw active back points */}
+                                                    {activePoints.filter(p => p.view === 'back').map(p => (
+                                                        p.coords.map((coord, idx) => (
+                                                            <g 
+                                                                key={`${p.id}-${idx}`}
+                                                                className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''}`}
+                                                                onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                onMouseLeave={() => setHoveredPointId(null)}
+                                                            >
+                                                                <circle cx={coord.x} cy={coord.y} r="5" stroke="#000" strokeWidth="1.5" />
+                                                                <text x={coord.x} y={coord.y - 8} fontSize="7" fill="#fff" textAnchor="middle" fontWeight="bold" stroke="#000" strokeWidth="0.8" paintOrder="stroke">{coord.side}</text>
+                                                            </g>
+                                                        ))
+                                                    ))}
+
+                                                    {/* Back Hand & Soles NG indicators */}
+                                                    <g>
+                                                        {/* Right Sole */}
+                                                        <circle cx="85" cy="385" r="5" stroke="#ff0050" strokeWidth="1.5" fill="none" opacity="0.85" />
+                                                        <line x1="81" y1="381" x2="89" y2="389" stroke="#ff0050" strokeWidth="1.5" opacity="0.85" />
+                                                        <line x1="89" y1="381" x2="81" y2="389" stroke="#ff0050" strokeWidth="1.5" opacity="0.85" />
+                                                        
+                                                        {/* Left Sole */}
+                                                        <circle cx="115" cy="385" r="5" stroke="#ff0050" strokeWidth="1.5" fill="none" opacity="0.85" />
+                                                        <line x1="111" y1="381" x2="119" y2="389" stroke="#ff0050" strokeWidth="1.5" opacity="0.85" />
+                                                        <line x1="119" y1="381" x2="111" y2="389" stroke="#ff0050" strokeWidth="1.5" opacity="0.85" />
+
+                                                        <text x="100" y="396" fontSize="5" fill="#ff0050" textAnchor="middle" fontWeight="bold">足底NG</text>
+                                                    </g>
+                                                </svg>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    {/* Color Keys */}
+                                    <div style={{ display: "flex", justifyContent: "center", gap: "16px", fontSize: "11px", color: "var(--text-muted)" }}>
+                                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--primary)" }}></span> 基本姿勢パッチ (6枚)
+                                        </span>
+                                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--secondary)" }}></span> カスタム強化パッチ (4枚)
+                                        </span>
+                                    </div>
+                                </div>
+                            </Col>
+
+                        </Row>
+
+                        {/* Portal Mockup Connection Card */}
+                        <div className="info-card" style={{ background: "linear-gradient(135deg, rgba(30, 200, 100, 0.03) 0%, rgba(0, 240, 255, 0.03) 100%)", border: "1px solid rgba(0, 240, 255, 0.15)", margin: 0 }}>
+                            <h3 style={{ color: "var(--secondary)", display: "flex", alignItems: "center", gap: "8px", fontSize: "14px" }}><i className="fa-solid fa-graduation-cap"></i> ジュニア・保護者のための特別授業</h3>
+                            <p style={{ fontSize: "11px", lineHeight: "1.5", color: "var(--text-main)", margin: "0 0 10px 0" }}>
+                                パッチの正しい貼り方・コツや、子供の運動能力を伸ばす「皮膚刺激と脳」の関係について、公式ポータル（CORE CONNECT）で専門的に優しく解説しています。
+                            </p>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "8px" }}>
+                                <a href="https://bclab2020.github.io/portal-mockup/" target="_self" className="btn btn-secondary" style={{ textDecoration: "none", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "8px", background: "#232325", border: "1px solid rgba(255,255,255,0.1)", color: "#ffffff" }}>
+                                    <i className="fa-solid fa-book-open"></i> CORE CONNECT で詳しく学ぶ
+                                </a>
+                                <span style={{ display: "block", textAlign: "center", fontSize: "9px", color: "var(--text-muted)", marginTop: "2px" }}>
+                                    ※読み終わった後は、ブラウザの「戻る」ボタンやスワイプ操作で簡単にアプリに戻れます。
+                                </span>
+                            </div>
+                        </div>
+
+                        {/* Physiological Evidence Footer with Citations */}
+                        <footer style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "12px", fontSize: "10px", color: "var(--text-muted)", lineHeight: "1.5" }}>
+                            <h5 style={{ color: "var(--text-main)", margin: "0 0 6px 0", fontSize: "11px" }}>🔬 神経生理学的エビデンス（感覚フィードバック機構）</h5>
+                            <p style={{ margin: "0 0 4px 0" }}>
+                                *1 **SA-I 機械受容器 (Merkel細胞受容複合体)**: 物理的圧迫とせん断力に持続的（遅順応）に反応し、脳へ常に貼付部位の絶対位置情報を発信します。
+                            </p>
+                            <p style={{ margin: "0 0 4px 0" }}>
+                                *2 **SA-II 機械受容器 (Ruffini終末)**: 皮膚の張力（引っ張り）に鋭敏に反応し、関節角度の変化や動作中の関節運動感覚（固有受容感覚：Proprioception）を高解像度化します。
+                            </p>
+                            <p style={{ margin: "0 0 6px 0" }}>
+                                *3 **体性感覚皮質の再マッピング**: パッチ表面の微細突起突起刺激により脳の小脳および体性感覚野における該当部位の「ホムンクルス表現領域（アライメント解像度）」を拡大し、運動連鎖の遅延（コンマ数秒の遅れ）を軽減します。(※本プロトコルは感覚入力最適化による運動学習サポート効果を提供するものです。)
+                            </p>
+                            <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
+                            <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
+                                【学術参考文献】<br />
+                                - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
+                                - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.
+                            </p>
+                        </footer>
+
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<KineticLinkApp />);
+    </script>
 </body>
 </html>
