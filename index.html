@@ -33,7 +33,7 @@
     <div id="root"></div>
 
     <script type="text/babel">
-        const { Steps, Button, Card, Row, Col, Alert, Checkbox, Radio, Tooltip, notification, Badge, Divider, Select, Slider } = antd;
+        const { Steps, Button, Card, Row, Col, Alert, Checkbox, Radio, Tooltip, notification, Badge, Divider, Select, Slider, Modal } = antd;
         const { Step } = Steps;
         const { Option } = Select;
 
@@ -60,7 +60,7 @@
                 movement: "後屈 (Extension)",
                 coords: [
                     { x: 92, y: 92, side: "右" },
-                    { x: 108, y: 92, side: "left" }
+                    { x: 108, y: 92, side: "左" }
                 ]
             },
             fibular: {
@@ -183,7 +183,7 @@
                         id: "tibialis",
                         name: "前脛骨筋起始部 (左右2枚)",
                         meridian: "SFL (Superficial Front Line / 表層フロントライン)",
-                        desc: "すねの外側の筋肉（お皿の下から指4本分下、すね of 骨の外側約1横指のくぼみ）。足首のスムーズな背屈と接地時の推進力を最大化し、ブレーキロスを最小限に抑えます。",
+                        desc: "すねの外側の筋肉（お皿の下から指4本分下、すねの骨の外側約1横指のくぼみ）。足首のスムーズな背屈と接地時の推進力を最大化し、ブレーキロスを最小限に抑えます。",
                         view: "front",
                         coords: [
                             { x: 68, y: 310, side: "右" },
@@ -218,7 +218,7 @@
                         id: "subclavius",
                         name: "鎖骨下筋・小胸筋周囲 (左右2枚)",
                         meridian: "Arm Lines (深層フロントアームライン)",
-                        desc: "鎖骨の外側1/3のすぐ下にあるくぼみ（大胸筋上部付近）。巻き肩をリセットし、スイング時の体幹の深い体幹捻転をスムーズにします。",
+                        desc: "鎖骨の外側1/3 of すぐ下にあるくぼみ（大胸筋上部付近）。巻き肩をリセットし、スイング時の体幹の深い体幹捻転をスムーズにします。",
                         view: "front",
                         coords: [
                             { x: 82, y: 80, side: "右" },
@@ -288,12 +288,29 @@
             // Selected base patches IDs (derived from ROM evaluation)
             const [selectedBasePatches, setSelectedBasePatches] = React.useState([]);
             
-            // Admin coordinate adjustment states
+            // Admin coordinate adjustment and database management states
             const [isAdmin, setIsAdmin] = React.useState(false);
             const [editMode, setEditMode] = React.useState(false);
             const [selectedPoint, setSelectedPoint] = React.useState(null);
             const [isSpecsModalOpen, setIsSpecsModalOpen] = React.useState(false);
+            const [isAdminModalOpen, setIsAdminModalOpen] = React.useState(false);
+            const [adminTab, setAdminTab] = React.useState('edit'); // 'edit', 'add', 'patches'
             
+            // Admin forms input fields states
+            const [adminSelectedSport, setAdminSelectedSport] = React.useState(null);
+            const [adminSportName, setAdminSportName] = React.useState("");
+            const [adminSportDesc, setAdminSportDesc] = React.useState("");
+            const [adminSportCategory, setAdminSportCategory] = React.useState("running");
+            const [adminSportChains, setAdminSportChains] = React.useState("");
+
+            const [newSportId, setNewSportId] = React.useState("");
+            const [newSportName, setNewSportName] = React.useState("");
+            const [newSportDesc, setNewSportDesc] = React.useState("");
+            const [newSportCategory, setNewSportCategory] = React.useState("running");
+            const [newSportChains, setNewSportChains] = React.useState("");
+
+            const [adminPatchCategory, setAdminPatchCategory] = React.useState("running");
+
             // Persistent Coordinates loaded from localStorage or initialized with defaults
             const [basePatchPool, setBasePatchPool] = React.useState(() => {
                 const saved = localStorage.getItem('bclab_custom_base_pool');
@@ -481,7 +498,7 @@
                     const pwd = prompt("管理者パスワードを入力してください:");
                     if (pwd === 'bclab2009') {
                         setIsAdmin(true);
-                        showToast("管理者認証に成功しました。座標調整が可能です。");
+                        showToast("管理者認証に成功しました。ヘッダーの「管理画面」を開けます。");
                     } else if (pwd !== null) {
                         showToast("パスワードが正しくありません。");
                     }
@@ -532,13 +549,14 @@
 
             // Reset coordinates to database defaults
             const handleResetCoordinates = () => {
-                if (confirm("座標データをすべて初期位置（デフォルト）に戻しますか？")) {
+                if (confirm("全ての貼付データ（種目の追加状況や座標値）を完全に初期位置（デフォルト）に戻しますか？")) {
                     localStorage.removeItem('bclab_custom_base_pool');
                     localStorage.removeItem('bclab_custom_sports_data');
                     setBasePatchPool(INITIAL_BASE_PATCH_POOL);
                     setCoordinates(INITIAL_PROTOCOL_DATA);
                     setSelectedPoint(null);
-                    showToast("座標をデフォルト状態にリセットしました。");
+                    setSelectedSport(null);
+                    showToast("データベースをデフォルト状態にリセットしました。");
                 }
             };
 
@@ -655,6 +673,29 @@
                                     <i className="fa-solid fa-house" style={{ marginRight: "4px" }}></i> ホーム
                                 </Button>
                             )}
+                            
+                            {/* React Admin Management button */}
+                            {isAdmin && (
+                                <Button 
+                                    size="small" 
+                                    onClick={() => {
+                                        setIsAdminModalOpen(true);
+                                        const firstSport = Object.keys(coordinates.sportsOptions)[0];
+                                        if (firstSport) {
+                                            setAdminSelectedSport(firstSport);
+                                            const sp = coordinates.sportsOptions[firstSport];
+                                            setAdminSportName(sp.name);
+                                            setAdminSportDesc(sp.desc);
+                                            setAdminSportCategory(sp.category);
+                                            setAdminSportChains(sp.chains);
+                                        }
+                                    }}
+                                    style={{ background: "rgba(255,100,200,0.12)", borderColor: "rgba(255,100,200,0.35)", color: "var(--accent)", fontSize: "11px" }}
+                                >
+                                    <i className="fa-solid fa-database" style={{ marginRight: "4px" }}></i> 管理画面
+                                </Button>
+                            )}
+
                             <div className="adhesive-badge" style={{ background: "rgba(0, 240, 255, 0.1)", border: "1px solid rgba(0, 240, 255, 0.3)" }}>
                                 <i className="fa-solid fa-circle-dot" style={{ color: "var(--secondary)" }}></i>
                                 <span>パッチ枚数: <strong style={{ color: "var(--secondary)" }}>
@@ -1290,7 +1331,7 @@
                                         {/* Visualizer container: Front and Back side-by-side */}
                                         <div className="visualizer-container">
                                             
-                                            {/* Front view silhouette (Palms indicators removed as requested) */}
+                                            {/* Front view silhouette */}
                                             <div className="visualizer-pane">
                                                 <div className="visualizer-title">前面 (FRONT)</div>
                                                 <div className="body-svg-wrapper">
@@ -1333,7 +1374,7 @@
                                                 </div>
                                             </div>
 
-                                            {/* Back view silhouette (Soles indicators removed as requested) */}
+                                            {/* Back view silhouette */}
                                             <div className="visualizer-pane">
                                                 <div className="visualizer-title">背面 (BACK)</div>
                                                 <div className="body-svg-wrapper">
@@ -1497,7 +1538,351 @@
                             </div>
                         </div>
                     </div>
-                    
+
+                    {/* React Admin Console Modal Panel */}
+                    <Modal
+                        title={<span style={{ color: "var(--secondary)" }}><i className="fa-solid fa-database"></i> 貼付データ・競技種目管理画面 (管理者専用)</span>}
+                        visible={isAdminModalOpen}
+                        onCancel={() => setIsAdminModalOpen(false)}
+                        footer={null}
+                        width={500}
+                        bodyStyle={{ background: "#111317", color: "#fff", padding: "20px" }}
+                        style={{ top: 40 }}
+                    >
+                        <div style={{ marginBottom: "16px", textAlign: "center" }}>
+                            <Radio.Group value={adminTab} onChange={(e) => setAdminTab(e.target.value)} size="small">
+                                <Radio.Button value="edit" style={{ background: adminTab === 'edit' ? 'var(--secondary)' : '#232325', color: '#fff' }}>種目情報の編集</Radio.Button>
+                                <Radio.Button value="add" style={{ background: adminTab === 'add' ? 'var(--secondary)' : '#232325', color: '#fff' }}>新規種目追加</Radio.Button>
+                                <Radio.Button value="patches" style={{ background: adminTab === 'patches' ? 'var(--secondary)' : '#232325', color: '#fff' }}>パッチ情報編集</Radio.Button>
+                            </Radio.Group>
+                        </div>
+
+                        {/* Tab 1: Edit Existing Sport Category */}
+                        {adminTab === 'edit' && (
+                            <div>
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>対象種目を選択</label>
+                                    <Select
+                                        style={{ width: "100%" }}
+                                        value={adminSelectedSport}
+                                        onChange={(val) => {
+                                            setAdminSelectedSport(val);
+                                            const sp = coordinates.sportsOptions[val];
+                                            if (sp) {
+                                                setAdminSportName(sp.name);
+                                                setAdminSportDesc(sp.desc);
+                                                setAdminSportCategory(sp.category);
+                                                setAdminSportChains(sp.chains);
+                                            }
+                                        }}
+                                        dropdownStyle={{ background: "#111317", border: "1px solid rgba(255,255,255,0.08)" }}
+                                    >
+                                        {Object.values(coordinates.sportsOptions).map(sport => (
+                                            <Option key={sport.id} value={sport.id} style={{ color: "#fff", background: "#111317" }}>{sport.name}</Option>
+                                        ))}
+                                    </Select>
+                                </div>
+
+                                {adminSelectedSport && (
+                                    <div>
+                                        <div style={{ marginBottom: "12px" }}>
+                                            <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>表示名称</label>
+                                            <input 
+                                                type="text" 
+                                                className="admin-input" 
+                                                value={adminSportName} 
+                                                onChange={(e) => setAdminSportName(e.target.value)} 
+                                                style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px" }}
+                                            />
+                                        </div>
+
+                                        <div style={{ marginBottom: "12px" }}>
+                                            <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>連動する筋膜ライン (Focus Chains)</label>
+                                            <input 
+                                                type="text" 
+                                                className="admin-input" 
+                                                value={adminSportChains} 
+                                                onChange={(e) => setAdminSportChains(e.target.value)} 
+                                                style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px" }}
+                                            />
+                                        </div>
+
+                                        <div style={{ marginBottom: "12px" }}>
+                                            <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>強化パッチカテゴリー (筋膜タイプ)</label>
+                                            <Select
+                                                style={{ width: "100%" }}
+                                                value={adminSportCategory}
+                                                onChange={(val) => setAdminSportCategory(val)}
+                                                dropdownStyle={{ background: "#111317", border: "1px solid rgba(255,255,255,0.08)" }}
+                                            >
+                                                <Option value="running" style={{ color: "#fff", background: "#111317" }}>ランニング系 (SBL/SFL)</Option>
+                                                <Option value="swing" style={{ color: "#fff", background: "#111317" }}>スイング系 (DFL/Arm Lines)</Option>
+                                                <Option value="agility" style={{ color: "#fff", background: "#111317" }}>アジリティ系 (LL/SBL)</Option>
+                                            </Select>
+                                        </div>
+
+                                        <div style={{ marginBottom: "16px" }}>
+                                            <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>種目の動作特性説明</label>
+                                            <textarea 
+                                                className="admin-input" 
+                                                value={adminSportDesc} 
+                                                onChange={(e) => setAdminSportDesc(e.target.value)} 
+                                                rows="2"
+                                                style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px", resize: "none" }}
+                                            />
+                                        </div>
+
+                                        <div style={{ display: "flex", gap: "8px" }}>
+                                            <Button 
+                                                type="primary" 
+                                                style={{ flex: 1.5 }}
+                                                onClick={() => {
+                                                    setCoordinates(prev => {
+                                                        const next = JSON.parse(JSON.stringify(prev));
+                                                        next.sportsOptions[adminSelectedSport] = {
+                                                            id: adminSelectedSport,
+                                                            name: adminSportName,
+                                                            desc: adminSportDesc,
+                                                            category: adminSportCategory,
+                                                            chains: adminSportChains
+                                                        };
+                                                        return next;
+                                                    });
+                                                    showToast("種目情報を一時保存しました。確定保存ボタンで確定してください。");
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-save"></i> 情報を一時更新
+                                            </Button>
+                                            <Button 
+                                                danger 
+                                                style={{ flex: 1 }}
+                                                onClick={() => {
+                                                    if (confirm("この競技種目をデータベースから削除しますか？")) {
+                                                        setCoordinates(prev => {
+                                                            const next = JSON.parse(JSON.stringify(prev));
+                                                            delete next.sportsOptions[adminSelectedSport];
+                                                            return next;
+                                                        });
+                                                        setSelectedSport(null);
+                                                        const keys = Object.keys(coordinates.sportsOptions).filter(k => k !== adminSelectedSport);
+                                                        if (keys.length > 0) {
+                                                            setAdminSelectedSport(keys[0]);
+                                                            const sp = coordinates.sportsOptions[keys[0]];
+                                                            setAdminSportName(sp.name);
+                                                            setAdminSportDesc(sp.desc);
+                                                            setAdminSportCategory(sp.category);
+                                                            setAdminSportChains(sp.chains);
+                                                        } else {
+                                                            setAdminSelectedSport(null);
+                                                        }
+                                                        showToast("種目を削除しました。");
+                                                    }
+                                                }}
+                                            >
+                                                <i className="fa-solid fa-trash-can"></i> 削除
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        )}
+
+                        {/* Tab 2: Create New Sport Category */}
+                        {adminTab === 'add' && (
+                            <div>
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>新規種目ID（半角小文字英数、重複不可）</label>
+                                    <input 
+                                        type="text" 
+                                        className="admin-input" 
+                                        value={newSportId} 
+                                        onChange={(e) => setNewSportId(e.target.value.toLowerCase())} 
+                                        placeholder="例: handball"
+                                        style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px" }}
+                                    />
+                                </div>
+
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>表示名称（番号と種目名）</label>
+                                    <input 
+                                        type="text" 
+                                        className="admin-input" 
+                                        value={newSportName} 
+                                        onChange={(e) => setNewSportName(e.target.value)} 
+                                        placeholder="例: 13. ハンドボール"
+                                        style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px" }}
+                                    />
+                                </div>
+
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}> Focus Chains（筋膜ライン）</label>
+                                    <input 
+                                        type="text" 
+                                        className="admin-input" 
+                                        value={newSportChains} 
+                                        onChange={(e) => setNewSportChains(e.target.value)} 
+                                        placeholder="例: LL / SBL フォーカス"
+                                        style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px" }}
+                                    />
+                                </div>
+
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>カスタムカテゴリー（筋膜タイプ）</label>
+                                    <Select
+                                        style={{ width: "100%" }}
+                                        value={newSportCategory}
+                                        onChange={(val) => setNewSportCategory(val)}
+                                        dropdownStyle={{ background: "#111317", border: "1px solid rgba(255,255,255,0.08)" }}
+                                    >
+                                        <Option value="running" style={{ color: "#fff", background: "#111317" }}>ランニング系 (SBL/SFL)</Option>
+                                        <Option value="swing" style={{ color: "#fff", background: "#111317" }}>スイング系 (DFL/Arm Lines)</Option>
+                                        <Option value="agility" style={{ color: "#fff", background: "#111317" }}>アジリティ系 (LL/SBL)</Option>
+                                    </Select>
+                                </div>
+
+                                <div style={{ marginBottom: "16px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>コンセプト・説明</label>
+                                    <textarea 
+                                        className="admin-input" 
+                                        value={newSportDesc} 
+                                        onChange={(e) => setNewSportDesc(e.target.value)} 
+                                        rows="2"
+                                        placeholder="例: 急激な方向転換と空中の姿勢制御力を高めるアプローチ"
+                                        style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "6px 10px", fontSize: "12px", resize: "none" }}
+                                    />
+                                </div>
+
+                                <Button 
+                                    type="primary" 
+                                    block 
+                                    onClick={() => {
+                                        if (!newSportId || !newSportName) {
+                                            showToast("種目IDと表示名称を入力してください。");
+                                            return;
+                                        }
+                                        setCoordinates(prev => {
+                                            const next = JSON.parse(JSON.stringify(prev));
+                                            next.sportsOptions[newSportId] = {
+                                                id: newSportId,
+                                                name: newSportName,
+                                                desc: newSportDesc,
+                                                category: newSportCategory,
+                                                chains: newSportChains
+                                            };
+                                            return next;
+                                        });
+                                        showToast("新規競技種目を追加しました！「確定保存」ボタンで保存してください。");
+                                        setNewSportId("");
+                                        setNewSportName("");
+                                        setNewSportDesc("");
+                                        setNewSportChains("");
+                                    }}
+                                >
+                                    <i className="fa-solid fa-plus"></i> 新規競技種目を追加
+                                </Button>
+                            </div>
+                        )}
+
+                        {/* Tab 3: Edit Custom Patches Info */}
+                        {adminTab === 'patches' && (
+                            <div>
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>編集するパッチグループ</label>
+                                    <Select
+                                        style={{ width: "100%" }}
+                                        value={adminPatchCategory}
+                                        onChange={(val) => setAdminPatchCategory(val)}
+                                        dropdownStyle={{ background: "#111317", border: "1px solid rgba(255,255,255,0.08)" }}
+                                    >
+                                        <Option value="running" style={{ color: "#fff", background: "#111317" }}>ランニング系 (SBL/SFL)</Option>
+                                        <Option value="swing" style={{ color: "#fff", background: "#111317" }}>スイング系 (DFL/Arm Lines)</Option>
+                                        <Option value="agility" style={{ color: "#fff", background: "#111317" }}>アジリティ系 (LL/SBL)</Option>
+                                    </Select>
+                                </div>
+
+                                <div style={{ maxHeight: "250px", overflowY: "auto", display: "flex", flexDirection: "column", gap: "12px", marginTop: "12px" }}>
+                                    {coordinates.customPatches[adminPatchCategory]?.map((patch, idx) => (
+                                        <div key={patch.id} style={{ background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", padding: "10px", borderRadius: "6px" }}>
+                                            <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "4px" }}>パッチポイント {idx + 1}</div>
+                                            
+                                            <div style={{ marginBottom: "6px" }}>
+                                                <label style={{ fontSize: "9px", color: "var(--text-muted)" }}>表示名称</label>
+                                                <input 
+                                                    type="text" 
+                                                    value={patch.name} 
+                                                    onChange={(e) => {
+                                                        const newName = e.target.value;
+                                                        setCoordinates(prev => {
+                                                            const next = JSON.parse(JSON.stringify(prev));
+                                                            next.customPatches[adminPatchCategory][idx].name = newName;
+                                                            return next;
+                                                        });
+                                                    }} 
+                                                    style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "4px 8px", fontSize: "11px" }}
+                                                />
+                                            </div>
+                                            
+                                            <div style={{ marginBottom: "6px" }}>
+                                                <label style={{ fontSize: "9px", color: "var(--text-muted)" }}>経絡ライン（Anatomy Trains）</label>
+                                                <input 
+                                                    type="text" 
+                                                    value={patch.meridian} 
+                                                    onChange={(e) => {
+                                                        const newMeridian = e.target.value;
+                                                        setCoordinates(prev => {
+                                                            const next = JSON.parse(JSON.stringify(prev));
+                                                            next.customPatches[adminPatchCategory][idx].meridian = newMeridian;
+                                                            return next;
+                                                        });
+                                                    }} 
+                                                    style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "4px 8px", fontSize: "11px" }}
+                                                />
+                                            </div>
+
+                                            <div>
+                                                <label style={{ fontSize: "9px", color: "var(--text-muted)" }}>貼り方説明</label>
+                                                <textarea 
+                                                    value={patch.desc} 
+                                                    rows="2"
+                                                    onChange={(e) => {
+                                                        const newDesc = e.target.value;
+                                                        setCoordinates(prev => {
+                                                            const next = JSON.parse(JSON.stringify(prev));
+                                                            next.customPatches[adminPatchCategory][idx].desc = newDesc;
+                                                            return next;
+                                                        });
+                                                    }} 
+                                                    style={{ width: "100%", background: "rgba(0,0,0,0.3)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: "4px", color: "#fff", padding: "4px 8px", fontSize: "11px", resize: "none" }}
+                                                />
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Modal Footer Controls */}
+                        <div style={{ display: "flex", gap: "8px", borderTop: "1px solid rgba(255,255,255,0.06)", paddingTop: "15px", marginTop: "15px" }}>
+                            <Button 
+                                style={{ flex: 1 }} 
+                                onClick={handleResetCoordinates}
+                                danger
+                            >
+                                デフォルト初期化
+                            </Button>
+                            <Button 
+                                type="primary" 
+                                style={{ flex: 1.5 }} 
+                                onClick={() => {
+                                    handleFinalizeCoordinates();
+                                    setIsAdminModalOpen(false);
+                                }}
+                            >
+                                <i className="fa-solid fa-circle-check"></i> 確定保存して閉じる
+                            </Button>
+                        </div>
+                    </Modal>
+
                 </div>
             );
         }
