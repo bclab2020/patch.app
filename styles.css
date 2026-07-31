@@ -31,9 +31,6 @@ body {
     background-color: #03050a;
     color: var(--text-main);
     font-family: var(--font-outfit);
-    display: flex;
-    justify-content: center;
-    align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
 }
@@ -162,7 +159,6 @@ body {
 /* Main Viewport styling */
 .app-main {
     flex: 1;
-    overflow-y: auto;
     padding: 16px;
     position: relative;
     scrollbar-width: none; /* Hide scrollbars */
@@ -1625,6 +1621,12 @@ body {
 
 /* PC & Tablet Screen Responsive Optimizations */
 @media (min-width: 768px) {
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     /* 1. App Frame setup for Desktop Dashboard */
     .app-container {
         max-width: 800px;
@@ -1638,6 +1640,7 @@ body {
     
     .app-main {
         padding: 20px;
+        overflow-y: auto;
     }
     
     /* 2. Home View Grid layout */
