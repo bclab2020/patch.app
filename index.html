@@ -482,8 +482,82 @@
             });
         }
 
+        const CONSENT_VERSION = "2026-08-v1";
+        
+        const TERMS_TEXT = `【BC Lab シリコンパッチ ガイドアプリ 利用規約】
+
+1. 本アプリの目的
+本アプリは、BC Labが提供する感覚フィードバック用シリコンパッチの正しい貼付位置、使用上の注意、および競技シーンでの運用ガイドを提供するシステムです。
+
+2. 安全な使用について
+ユーザーは本アプリに示される貼付ガイドおよび「使用上の注意」に従ってパッチをご使用ください。手掌（手のひら）および足底（足の裏）は、強い摩擦や発汗によりパッチが剥がれて不意の事故につながる恐れがあるため、貼付を行わないでください。
+
+3. 未成年者の利用制限
+18歳未満の未成年者の方が本アプリを利用する場合、必ず保護者または適切な指導者と一緒に本規約を含む内容を確認し、同意を得た上でご利用ください。
+
+4. 免責事項
+本アプリに掲載される情報は一般的なガイドラインであり、専門的な医療診断や治療を代替するものではありません。使用中に皮膚や体調に異変を感じた場合は、ただちに使用を中止し、医師の指示に従ってください。`;
+
+        const PRIVACY_TEXT = `【BC Lab シリコンパッチ ガイドアプリ プライバシーポリシー】
+
+1. 個人情報の定義と取り扱い
+本アプリは、ユーザーの「可動域自己評価履歴（VASスコア）」などのデータを、デバイスのローカルストレージ（localStorage）にのみ記録します。
+
+2. 外部送信の有無
+入力された評価スコアや同意履歴の情報は、すべてユーザーのブラウザ内に安全に留められ、BC Labのサーバーや第三者のサーバーへ自動で収集・送信されることはありません。
+
+3. データの管理と削除
+記録された診断データや同意情報は、ブラウザのキャッシュクリアまたはアプリ内の「履歴リセット」ボタンをタップすることで、いつでもデバイス上から完全に消去することができます。`;
+
+        const USAGE_TEXT = `【BC Lab シリコンパッチ 使用上の注意】
+
+1. 貼付位置の制限
+- 足の裏（足底腱膜）および手のひら（手掌）は、極度な発汗やシューズ内摩擦によりパッチが剥がれやすいため、絶対に貼付しないでください。
+
+2. 皮膚の保護と異常への対処
+- 貼付部位の皮膚に傷、湿疹、アレルギーがある場合は使用を避けてください。
+- 使用中または使用後に、皮膚の赤み、かゆみ、腫れ、かぶれなどの異常が現れた場合は、すぐにパッチを剥がして使用を中止し、皮膚科専門医等にご相談ください。
+- 長時間の連続貼付は皮膚への負担となります。適切な時間で取り外し、皮膚を休めてください。
+
+3. 保管上の注意
+- パッチは乳幼児の手の届かない場所に保管してください。
+- 直射日光や高温多湿を避け、清潔な容器で保管してください。`;
+
+        const SNS_GUIDE_TEXT = `【SNS投稿ガイドライン】
+
+BC Lab シリコンパッチの利用や改善効果についてSNSへ投稿される際は、以下のルールを守り、安全にご活用ください。
+
+1. プライバシーと安全の配慮
+本人、保護者、チームメンバー、他者のプライバシーを保護するため、個人情報（顔写真、氏名、学校名、ゼッケンなど）の映り込みには十分ご注意ください。
+
+2. ルールの確認
+学校、部活動、所属団体、または参加する大会の規約において、パッチの使用や写真のSNS公開に制限がないかを必ず事前にご確認ください。
+
+3. 広告・宣伝表示のルール
+もし紹介に伴いタイアップ等の関係がある場合は、関係法令（ステルスマーケティング規制等）に従って「#PR」などの適切な表記を行ってください。`;
+
+        const MEDIA_POLICY_TEXT = `【写真・動画の取り扱いについて】
+
+BC Labが、ユーザーの皆様が撮影したパッチ装着時の写真や動画を公式ページ、広報資料、SNS等で紹介・利用させていただく場合のポリシーです。
+
+1. 同意の取得
+BC Labが紹介目的で皆様のメディア資料を利用する際は、必ず事前に本人、および必要に応じて保護者の明確な「個別同意」を別途取得します。
+
+2. 同意がない場合の利用制限
+事前の個別同意が得られていない写真や動画を、BC Labが公式サイト等に無断で掲載することは一切ありません。
+
+3. 同意の撤回
+一度同意された場合でも、ご連絡をいただくことで掲載の取り消し・データの削除依頼を行うことができます。`;
+
         function KineticLinkApp() {
             const [currentView, setCurrentView] = React.useState('home'); // 'home' or 'map'
+            const [hasConsented, setHasConsented] = React.useState(false);
+            const [consentAge, setConsentAge] = React.useState(null); // 'adult' | 'minor' | null
+            const [termsAccepted, setTermsAccepted] = React.useState(false);
+            const [rulesAccepted, setRulesAccepted] = React.useState(false);
+            const [parentWithChecked, setParentWithChecked] = React.useState(false);
+            const [parentConsentChecked, setParentConsentChecked] = React.useState(false);
+            const [docModalType, setDocModalType] = React.useState(null); // 'terms' | 'privacy' | 'usage' | 'sns_guide' | 'media_policy' | null
             const [currentStep, setCurrentStep] = React.useState(0);
             const [subStep, setSubStep] = React.useState('check'); // 'check' (VAS check) or 'patching' (Step 1 checklists)
             const [selectedSport, setSelectedSport] = React.useState(null);
@@ -556,6 +630,21 @@
                 custom1: false,
                 custom2: false
             });
+
+            // Consent validation effect
+            React.useEffect(() => {
+                const saved = localStorage.getItem('patchAppConsent');
+                if (saved) {
+                    try {
+                        const parsed = JSON.parse(saved);
+                        if (parsed && parsed.version === CONSENT_VERSION) {
+                            setHasConsented(true);
+                        }
+                    } catch (e) {
+                        console.error("Consent load error", e);
+                    }
+                }
+            }, []);
 
             // Service worker and notifications initializer
             React.useEffect(() => {
@@ -817,6 +906,23 @@
                     duration: 0
                 });
             };
+
+            // Handle basic consent form submission
+            const handleConsentSubmit = () => {
+                const consentData = {
+                    version: CONSENT_VERSION,
+                    acceptedAt: new Date().toISOString(),
+                    ageGroup: consentAge,
+                    guardianConfirmed: consentAge === 'minor'
+                };
+                localStorage.setItem('patchAppConsent', JSON.stringify(consentData));
+                setHasConsented(true);
+                showToast("利用同意が完了しました！アプリをご利用いただけます。");
+            };
+
+            const isConsentSubmitDisabled = !consentAge ||
+                !(termsAccepted && rulesAccepted) ||
+                (consentAge === 'minor' && !(parentWithChecked && parentConsentChecked));
 
             // Evaluate sliders and determine top 3 base patches
             const evaluateAndSetBasePatches = () => {
@@ -1230,6 +1336,19 @@
                                     <span style={{ display: "block", textAlign: "center", fontSize: "9px", color: "var(--text-muted)", marginTop: "2px" }}>
                                         ※読み終わった後は、ブラウザの「戻る」ボタンやスワイプ操作で簡単にアプリに戻れます。
                                     </span>
+                                </div>
+                            </div>
+
+                            {/* Optional Information Links */}
+                            <div className="card-glass" style={{ padding: "12px 20px", borderRadius: "12px", background: "rgba(255,255,255,0.01)", border: "1px solid rgba(255,255,255,0.04)", margin: 0 }}>
+                                <div style={{ display: "flex", justifyContent: "space-around", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+                                    <Button type="link" onClick={() => setDocModalType('sns_guide')} style={{ color: "var(--secondary)", fontSize: "12px", padding: 0, height: "auto" }}>
+                                        <i className="fa-solid fa-share-nodes" style={{ marginRight: "4px" }}></i> SNS投稿ガイド
+                                    </Button>
+                                    <span style={{ color: "rgba(255,255,255,0.1)", fontSize: "12px" }}>|</span>
+                                    <Button type="link" onClick={() => setDocModalType('media_policy')} style={{ color: "var(--secondary)", fontSize: "12px", padding: 0, height: "auto" }}>
+                                        <i className="fa-solid fa-photo-film" style={{ marginRight: "4px" }}></i> 写真・動画の利用について
+                                    </Button>
                                 </div>
                             </div>
 
@@ -2154,6 +2273,190 @@
                             </Button>
                         </div>
                     </Modal>
+
+                    {/* Consenting Gate overlay (fullscreen white-base modal) */}
+                    {!hasConsented && (
+                        <div className="consent-overlay">
+                            <div className="consent-card-white">
+                                <div className="consent-header">
+                                    <h2 className="consent-title">はじめにご確認ください</h2>
+                                </div>
+                                
+                                <div className="consent-body">
+                                    <p style={{ margin: 0, fontSize: "13px", color: "#475569", fontWeight: "bold" }}>
+                                        このアプリは、BC Lab シリコンパッチの貼付方法、使用上の注意、運用ルールを案内するためのガイドアプリです。
+                                    </p>
+                                    
+                                    <div className="consent-section">
+                                        <h4 className="consent-section-title">
+                                            <i className="fa-solid fa-circle-exclamation"></i> 使用上の重要事項
+                                        </h4>
+                                        <p className="consent-para">
+                                            本製品は、医師による診断・治療・処方の代替を目的とするものではありません。皮膚状態や体調に不安がある場合は、使用を中止し、必要に応じて医療機関へご相談ください。
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="consent-section">
+                                        <h4 className="consent-section-title">
+                                            <i className="fa-solid fa-gavel"></i> ルールの優先適用
+                                        </h4>
+                                        <p className="consent-para">
+                                            競技会、学校、部活動、大会、チームのルールがある場合は、それらが本アプリの案内よりも優先されます。公式戦、大会会場、学校管理下の活動中に使用する場合は、必ず事前に各ルールをご確認ください。
+                                        </p>
+                                    </div>
+                                    
+                                    <div className="consent-section">
+                                        <h4 className="consent-section-title">
+                                            <i className="fa-solid fa-user-check"></i> 年齢確認と保護者確認
+                                        </h4>
+                                        <p className="consent-para">
+                                            18歳未満の方は、保護者と一緒に内容を確認してください。
+                                        </p>
+                                        
+                                        <div style={{ marginTop: "12px" }}>
+                                            <span style={{ fontSize: "11px", color: "#64748b", fontWeight: "bold", display: "block", marginBottom: "4px" }}>年齢確認：あなたに当てはまるものを選択してください。</span>
+                                            <div className="consent-age-selector">
+                                                <div 
+                                                    className={`consent-age-btn ${consentAge === 'adult' ? 'selected' : ''}`}
+                                                    onClick={() => {
+                                                        setConsentAge('adult');
+                                                        setParentWithChecked(false);
+                                                        setParentConsentChecked(false);
+                                                    }}
+                                                >
+                                                    私は18歳以上です
+                                                </div>
+                                                <div 
+                                                    className={`consent-age-btn ${consentAge === 'minor' ? 'selected' : ''}`}
+                                                    onClick={() => setConsentAge('minor')}
+                                                >
+                                                    私は18歳未満です
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {consentAge === 'minor' && (
+                                        <div className="consent-minor-section">
+                                            <h4 className="consent-section-title" style={{ color: "#be123c" }}>
+                                                <i className="fa-solid fa-users" style={{ color: "#be123c" }}></i> 保護者確認事項
+                                            </h4>
+                                            <p className="consent-para" style={{ color: "#9f1239", fontSize: "12px", marginBottom: "8px" }}>
+                                                18歳未満の方による本アプリの利用には、保護者の確認が必要です。
+                                            </p>
+                                            <div className="consent-checkbox-group">
+                                                <label className="consent-label">
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={parentWithChecked} 
+                                                        onChange={(e) => setParentWithChecked(e.target.checked)}
+                                                    />
+                                                    <span>保護者と一緒に内容を確認しました</span>
+                                                </label>
+                                                <label className="consent-label">
+                                                    <input 
+                                                        type="checkbox" 
+                                                        checked={parentConsentChecked} 
+                                                        onChange={(e) => setParentConsentChecked(e.target.checked)}
+                                                    />
+                                                    <span>保護者が、本アプリの利用に同意しています</span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    )}
+                                    
+                                    <div className="consent-checkbox-group" style={{ borderTop: "1px solid #f1f5f9", paddingTop: "14px" }}>
+                                        <label className="consent-label">
+                                            <input 
+                                                type="checkbox" 
+                                                checked={termsAccepted} 
+                                                onChange={(e) => setTermsAccepted(e.target.checked)}
+                                            />
+                                            <span>
+                                                利用規約、プライバシーポリシー、および使用上の注意を確認しました
+                                            </span>
+                                        </label>
+                                        <label className="consent-label">
+                                            <input 
+                                                type="checkbox" 
+                                                checked={rulesAccepted} 
+                                                onChange={(e) => setRulesAccepted(e.target.checked)}
+                                            />
+                                            <span>
+                                                競技規程、学校・大会・チームのルールが優先されることを理解しました
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+                                
+                                <div className="consent-footer">
+                                    <Button 
+                                        type="primary" 
+                                        size="large" 
+                                        block 
+                                        disabled={isConsentSubmitDisabled}
+                                        onClick={handleConsentSubmit}
+                                        style={{ 
+                                            height: "44px", 
+                                            fontSize: "14px", 
+                                            fontWeight: "bold",
+                                            borderRadius: "10px",
+                                            background: isConsentSubmitDisabled ? "#cbd5e1" : "#2563eb",
+                                            borderColor: isConsentSubmitDisabled ? "#cbd5e1" : "#2563eb",
+                                            color: isConsentSubmitDisabled ? "#94a3b8" : "#ffffff"
+                                        }}
+                                    >
+                                        同意して次へ
+                                    </Button>
+                                    
+                                    <div className="consent-sublinks">
+                                        <span className="consent-link" onClick={() => setDocModalType('terms')}>利用規約を見る</span>
+                                        <span style={{ color: "#cbd5e1" }}>|</span>
+                                        <span className="consent-link" onClick={() => setDocModalType('privacy')}>プライバシーポリシーを見る</span>
+                                        <span style={{ color: "#cbd5e1" }}>|</span>
+                                        <span className="consent-link" onClick={() => setDocModalType('usage')}>使用上の注意を見る</span>
+                                    </div>
+                                    
+                                    <p className="consent-note">※ 同意内容は、利用日時とあわせて記録されます。</p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+
+                    {/* Secondary Terms/Privacy/Usage Modals */}
+                    {docModalType && (
+                        <div className="consent-doc-modal-overlay" onClick={() => setDocModalType(null)}>
+                            <div className="consent-doc-modal" onClick={(e) => e.stopPropagation()}>
+                                <div className="consent-doc-header">
+                                    <h4 className="consent-doc-title">
+                                        {docModalType === 'terms' && "利用規約"}
+                                        {docModalType === 'privacy' && "プライバシーポリシー"}
+                                        {docModalType === 'usage' && "使用上の注意"}
+                                        {docModalType === 'sns_guide' && "SNS投稿ガイドライン"}
+                                        {docModalType === 'media_policy' && "写真・動画の取り扱いポリシー"}
+                                    </h4>
+                                    <button 
+                                        onClick={() => setDocModalType(null)} 
+                                        style={{ background: "none", border: "none", fontSize: "18px", color: "var(--text-muted)", cursor: "pointer" }}
+                                    >
+                                        <i className="fa-solid fa-xmark"></i>
+                                    </button>
+                                </div>
+                                <div className="consent-doc-body" style={{ whiteSpace: "pre-wrap" }}>
+                                    {docModalType === 'terms' && TERMS_TEXT}
+                                    {docModalType === 'privacy' && PRIVACY_TEXT}
+                                    {docModalType === 'usage' && USAGE_TEXT}
+                                    {docModalType === 'sns_guide' && SNS_GUIDE_TEXT}
+                                    {docModalType === 'media_policy' && MEDIA_POLICY_TEXT}
+                                </div>
+                                <div className="consent-doc-footer">
+                                    <Button type="primary" size="small" onClick={() => setDocModalType(null)}>
+                                        閉じる
+                                    </Button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
 
                 </div>
             );
