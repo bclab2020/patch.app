@@ -633,6 +633,13 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
 
             // Consent validation effect
             React.useEffect(() => {
+                // Developer/Testing bypass via URL query parameter (e.g., ?bypass or ?dev or ?consent)
+                const query = new URLSearchParams(window.location.search);
+                if (query.has('bypass') || query.has('dev') || query.has('consent')) {
+                    setHasConsented(true);
+                    return;
+                }
+
                 const saved = localStorage.getItem('patchAppConsent');
                 if (saved) {
                     try {
