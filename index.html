@@ -1757,7 +1757,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                         }}
                                                                     >
                                                                         <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
-                                                                        <text x={coord.x} y={coord.y - 9} fontSize="7" fill="#fff" textAnchor="middle" fontWeight="bold" stroke="#000" strokeWidth="0.8" paintOrder="stroke">{coord.side}</text>
+                                                                        
                                                                     </g>
                                                                 );
                                                             })
@@ -1800,7 +1800,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                         }}
                                                                     >
                                                                         <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
-                                                                        <text x={coord.x} y={coord.y - 9} fontSize="7" fill="#fff" textAnchor="middle" fontWeight="bold" stroke="#000" strokeWidth="0.8" paintOrder="stroke">{coord.side}</text>
+                                                                        
                                                                     </g>
                                                                 );
                                                             })
@@ -1826,7 +1826,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                             <div className="dpad-container card-glass" style={{ padding: "12px", border: "1px dashed var(--secondary)", borderRadius: "8px", background: "rgba(0,0,0,0.4)" }}>
                                                 <div className="dpad-status" style={{ textAlign: "center", fontSize: "11px", marginBottom: "8px" }}>
                                                     <span style={{ color: "var(--secondary)", fontWeight: "bold" }}><i className="fa-solid fa-arrows-up-down-left-right"></i> D-PAD 座標チューナー</span><br />
-                                                    <span style={{ color: "#fff" }}>対象: {selectedPoint ? `${selectedPoint.name} (${selectedPoint.side})` : <span style={{ color: "var(--accent)" }}>図の点を選択してください</span>}</span><br />
+                                                    <span style={{ color: "#fff" }}>対象: {selectedPoint ? selectedPoint.name : <span style={{ color: "var(--accent)" }}>図の点を選択してください</span>}</span><br />
                                                     {selectedPoint && <span>X: <strong style={{ color: "var(--secondary)" }}>{selectedPoint.x}</strong> , Y: <strong style={{ color: "var(--secondary)" }}>{selectedPoint.y}</strong></span>}
                                                 </div>
                                                 
@@ -1947,6 +1947,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 <Radio.Button value="edit" style={{ background: adminTab === 'edit' ? 'var(--secondary)' : '#232325', color: '#fff' }}>種目情報の編集</Radio.Button>
                                 <Radio.Button value="add" style={{ background: adminTab === 'add' ? 'var(--secondary)' : '#232325', color: '#fff' }}>新規種目追加</Radio.Button>
                                 <Radio.Button value="patches" style={{ background: adminTab === 'patches' ? 'var(--secondary)' : '#232325', color: '#fff' }}>パッチ情報編集</Radio.Button>
+                                <Radio.Button value="coords" style={{ background: adminTab === 'coords' ? 'var(--secondary)' : '#232325', color: '#fff' }}>パッチ座標調整</Radio.Button>
                             </Radio.Group>
                         </div>
 
@@ -2256,6 +2257,141 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         </div>
                                     );
                                 })()}
+                            </div>
+                        )}
+
+                        {/* Tab 4: Coordinate adjustment D-pad */}
+                        {adminTab === 'coords' && (
+                            <div>
+                                <div style={{ marginBottom: "12px" }}>
+                                    <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>調整するパッチ部位を選択</label>
+                                    <Select
+                                        style={{ width: "100%" }}
+                                        value={adminPatchId}
+                                        onChange={(val) => {
+                                            setAdminPatchId(val);
+                                            const isBase = basePatchPool[val] !== undefined;
+                                            const p = isBase ? basePatchPool[val] : customPatchPool[val];
+                                            if (p) {
+                                                setSelectedPoint({
+                                                    id: p.id,
+                                                    name: p.name,
+                                                    view: p.view,
+                                                    type: isBase ? 'base' : 'custom',
+                                                    coordIdx: 0,
+                                                    x: p.coords[0].x,
+                                                    y: p.coords[0].y
+                                                });
+                                            }
+                                        }}
+                                        dropdownStyle={{ background: "#111317", border: "1px solid rgba(255,255,255,0.08)" }}
+                                    >
+                                        <OptGroup label="ベースパッチ (4部位)">
+                                            {Object.values(basePatchPool).map(p => (
+                                                <Option key={p.id} value={p.id} style={{ color: "#fff", background: "#111317" }}>ベース: {p.name}</Option>
+                                            ))}
+                                        </OptGroup>
+                                        <OptGroup label="カスタムパッチ (18部位)">
+                                            {Object.values(customPatchPool).map(p => (
+                                                <Option key={p.id} value={p.id} style={{ color: "#fff", background: "#111317" }}>カスタム: {p.name}</Option>
+                                            ))}
+                                        </OptGroup>
+                                    </Select>
+                                </div>
+
+                                {selectedPoint && (
+                                    <div style={{ display: "flex", flexDirection: "column", gap: "12px", alignItems: "center" }}>
+                                        <div style={{ width: "100%" }}>
+                                            <label style={{ fontSize: "11px", color: "var(--text-muted)", display: "block", marginBottom: "4px" }}>調整する側を選択</label>
+                                            <Radio.Group 
+                                                value={selectedPoint.coordIdx} 
+                                                onChange={(e) => {
+                                                    const idx = e.target.value;
+                                                    const isBase = selectedPoint.type === 'base';
+                                                    const p = isBase ? basePatchPool[selectedPoint.id] : customPatchPool[selectedPoint.id];
+                                                    if (p && p.coords[idx]) {
+                                                        setSelectedPoint({
+                                                            ...selectedPoint,
+                                                            coordIdx: idx,
+                                                            x: p.coords[idx].x,
+                                                            y: p.coords[idx].y
+                                                        });
+                                                    }
+                                                }}
+                                                size="small"
+                                                style={{ width: "100%" }}
+                                            >
+                                                <Radio.Button value={0} style={{ width: "50%", textAlign: "center", background: selectedPoint.coordIdx === 0 ? 'var(--secondary)' : '#232325', color: '#fff' }}>1点目 (左側想定)</Radio.Button>
+                                                <Radio.Button value={1} style={{ width: "50%", textAlign: "center", background: selectedPoint.coordIdx === 1 ? 'var(--secondary)' : '#232325', color: '#fff' }}>2点目 (右側想定)</Radio.Button>
+                                            </Radio.Group>
+                                        </div>
+
+                                        <div style={{ display: "flex", gap: "20px", width: "100%", background: "rgba(0,0,0,0.2)", borderRadius: "8px", padding: "10px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                            <div style={{ width: "100px", height: "200px", background: "rgba(0, 0, 0, 0.3)", borderRadius: "6px", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                                <svg viewBox="0 0 200 400" style={{ width: "100%", height: "100%" }}>
+                                                    <image href={selectedPoint.view === 'front' ? 'body_front.png' : 'body_back.png'} x="0" y="0" width="200" height="400" />
+                                                    {(() => {
+                                                        const p = selectedPoint.type === 'base' ? basePatchPool[selectedPoint.id] : customPatchPool[selectedPoint.id];
+                                                        if (!p) return null;
+                                                        return p.coords.map((coord, idx) => {
+                                                            const isEditing = selectedPoint.coordIdx === idx;
+                                                            return (
+                                                                <circle 
+                                                                    key={idx} 
+                                                                    cx={coord.x} 
+                                                                    cy={coord.y} 
+                                                                    r={isEditing ? "8" : "5"} 
+                                                                    fill={isEditing ? "var(--secondary)" : "var(--primary)"} 
+                                                                    stroke="#000" 
+                                                                    strokeWidth="1.5" 
+                                                                    style={{ cursor: "pointer" }}
+                                                                    onClick={() => {
+                                                                        setSelectedPoint({
+                                                                            ...selectedPoint,
+                                                                            coordIdx: idx,
+                                                                            x: coord.x,
+                                                                            y: coord.y
+                                                                        });
+                                                                    }}
+                                                                />
+                                                            );
+                                                        });
+                                                    })()}
+                                                </svg>
+                                            </div>
+
+                                            <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                                                <div style={{ textAlign: "center", fontSize: "11px", marginBottom: "6px" }}>
+                                                    <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>X: {selectedPoint.x} , Y: {selectedPoint.y}</span>
+                                                    <div style={{ fontSize: "9px", color: "var(--text-muted)" }}>※D-padキーまたは図の点をタップして調整します。</div>
+                                                </div>
+
+                                                <div className="dpad-keys" style={{ display: "grid", gridTemplateColumns: "repeat(3, 30px)", gridTemplateRows: "repeat(3, 30px)", gap: "4px", justifyContent: "center" }}>
+                                                    <div></div>
+                                                    <button className="btn" onClick={() => handleMove(0, -2)} style={{ padding: 0, width: "30px", height: "30px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }}><i className="fa-solid fa-caret-up"></i></button>
+                                                    <div></div>
+                                                    
+                                                    <button className="btn" onClick={() => handleMove(-2, 0)} style={{ padding: 0, width: "30px", height: "30px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }}><i className="fa-solid fa-caret-left"></i></button>
+                                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", color: "var(--secondary)" }}><i className="fa-solid fa-circle" style={{ fontSize: "4px" }}></i></div>
+                                                    <button className="btn" onClick={() => handleMove(2, 0)} style={{ padding: 0, width: "30px", height: "30px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }}><i className="fa-solid fa-caret-right"></i></button>
+                                                    
+                                                    <div></div>
+                                                    <button className="btn" onClick={() => handleMove(0, 2)} style={{ padding: 0, width: "30px", height: "30px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }}><i className="fa-solid fa-caret-down"></i></button>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style={{ display: "flex", gap: "8px", width: "100%", marginTop: "6px" }}>
+                                            <Button type="primary" style={{ flex: 1, fontSize: "11px" }} onClick={handleFinalizeCoordinates}>
+                                                <i className="fa-solid fa-save"></i> 調整座標を確定保存
+                                            </Button>
+                                            <Button type="default" style={{ flex: 1, fontSize: "11px" }} onClick={handleExportCoordinates}>
+                                                <i className="fa-solid fa-download"></i> コード貼付用JSON出力
+                                            </Button>
+                                        </div>
+                                    </div>
+                                )}
                             </div>
                         )}
 
