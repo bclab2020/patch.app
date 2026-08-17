@@ -1371,11 +1371,19 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 <p style={{ margin: "0 0 6px 0" }}>
                                     *3 **体性感覚皮質の再マッピング**: パッチ表面の微細突起突起刺激により脳の小脳および体性感覚野における該当部位の「ホムンクルス表現領域（アライメント解像度）」を拡大し、運動連鎖の遅延（コンマ数秒の遅れ）を軽減します。(※本プロトコルは感覚入力最適化による運動学習サポート効果を提供するものです。)
                                 </p>
+                                <p style={{ margin: "0 0 6px 0" }}>
+                                    *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
+                                </p>
+                                <p style={{ margin: "0 0 6px 0" }}>
+                                    *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
+                                </p>
                                 <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
                                 <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
                                     【学術参考文献】<br />
                                     - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
-                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.
+                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.<br />
+                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)<br />
+                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)
                                 </p>
                             </footer>
                         </div>
@@ -1705,19 +1713,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                                             <h4 style={{ margin: 0, color: "var(--text-main)" }}><i className="fa-solid fa-street-view"></i> 3D 感覚受容器マッピング</h4>
                                             
-                                            {/* Coordinate Adjustment Toggle (Only visible if Admin) */}
-                                            {isAdmin && (
-                                                <Button 
-                                                    size="small"
-                                                    type={editMode ? "primary" : "default"}
-                                                    danger={editMode}
-                                                    onClick={() => { setEditMode(!editMode); setSelectedPoint(null); }}
-                                                    style={{ fontSize: "10px" }}
-                                                >
-                                                    <i className="fa-solid fa-pen-to-square" style={{ marginRight: "4px" }}></i>
-                                                    {editMode ? "調整終了" : "座標調整"}
-                                                </Button>
-                                            )}
+
                                         </div>
 
                                         {/* Visualizer container: Front and Back side-by-side */}
@@ -1738,23 +1734,8 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                     <g 
                                                                         key={`${p.id}-${idx}`}
                                                                         className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
-                                                                        onMouseEnter={() => !editMode && setHoveredPointId(p.id)}
-                                                                        onMouseLeave={() => !editMode && setHoveredPointId(null)}
-                                                                        onClick={() => {
-                                                                            if (editMode) {
-                                                                                setSelectedPoint({
-                                                                                    id: p.id,
-                                                                                    name: p.name,
-                                                                                    side: coord.side,
-                                                                                    view: p.view,
-                                                                                    type: p.type,
-                                                                                    coordIdx: idx,
-                                                                                    x: coord.x,
-                                                                                    y: coord.y,
-                                                                                    category: p.type === 'custom' ? getSelectedSportData()?.category : null
-                                                                                });
-                                                                            }
-                                                                        }}
+                                                                        onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                        onMouseLeave={() => setHoveredPointId(null)}
                                                                     >
                                                                         <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
                                                                         
@@ -1781,23 +1762,8 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                     <g 
                                                                         key={`${p.id}-${idx}`}
                                                                         className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
-                                                                        onMouseEnter={() => !editMode && setHoveredPointId(p.id)}
-                                                                        onMouseLeave={() => !editMode && setHoveredPointId(null)}
-                                                                        onClick={() => {
-                                                                            if (editMode) {
-                                                                                setSelectedPoint({
-                                                                                    id: p.id,
-                                                                                    name: p.name,
-                                                                                    side: coord.side,
-                                                                                    view: p.view,
-                                                                                    type: p.type,
-                                                                                    coordIdx: idx,
-                                                                                    x: coord.x,
-                                                                                    y: coord.y,
-                                                                                    category: p.type === 'custom' ? getSelectedSportData()?.category : null
-                                                                                });
-                                                                            }
-                                                                        }}
+                                                                        onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                        onMouseLeave={() => setHoveredPointId(null)}
                                                                     >
                                                                         <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
                                                                         
@@ -1821,44 +1787,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                             </span>
                                         </div>
 
-                                        {/* Dynamic D-pad panel for Coordinate Adjustments */}
-                                        {editMode && (
-                                            <div className="dpad-container card-glass" style={{ padding: "12px", border: "1px dashed var(--secondary)", borderRadius: "8px", background: "rgba(0,0,0,0.4)" }}>
-                                                <div className="dpad-status" style={{ textAlign: "center", fontSize: "11px", marginBottom: "8px" }}>
-                                                    <span style={{ color: "var(--secondary)", fontWeight: "bold" }}><i className="fa-solid fa-arrows-up-down-left-right"></i> D-PAD 座標チューナー</span><br />
-                                                    <span style={{ color: "#fff" }}>対象: {selectedPoint ? selectedPoint.name : <span style={{ color: "var(--accent)" }}>図の点を選択してください</span>}</span><br />
-                                                    {selectedPoint && <span>X: <strong style={{ color: "var(--secondary)" }}>{selectedPoint.x}</strong> , Y: <strong style={{ color: "var(--secondary)" }}>{selectedPoint.y}</strong></span>}
-                                                </div>
-                                                
-                                                <div className="dpad-keys" style={{ display: "grid", gridTemplateColumns: "repeat(3, 36px)", gridTemplateRows: "repeat(3, 36px)", gap: "4px", justifyContent: "center", margin: "10px 0" }}>
-                                                    <div></div>
-                                                    <button className="btn" onClick={() => handleMove(0, -2)} style={{ padding: 0, width: "36px", height: "36px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }} disabled={!selectedPoint}><i className="fa-solid fa-caret-up"></i></button>
-                                                    <div></div>
-                                                    
-                                                    <button className="btn" onClick={() => handleMove(-2, 0)} style={{ padding: 0, width: "36px", height: "36px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }} disabled={!selectedPoint}><i className="fa-solid fa-caret-left"></i></button>
-                                                    <div style={{ display: "flex", alignItems: "center", justifyContent: "center", color: "var(--secondary)" }}><i className="fa-solid fa-circle" style={{ fontSize: "6px" }}></i></div>
-                                                    <button className="btn" onClick={() => handleMove(2, 0)} style={{ padding: 0, width: "36px", height: "36px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }} disabled={!selectedPoint}><i className="fa-solid fa-caret-right"></i></button>
-                                                    
-                                                    <div></div>
-                                                    <button className="btn" onClick={() => handleMove(0, 2)} style={{ padding: 0, width: "36px", height: "36px", background: "rgba(255,255,255,0.08)", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", border: "1px solid rgba(255,255,255,0.15)", borderRadius: "4px" }} disabled={!selectedPoint}><i className="fa-solid fa-caret-down"></i></button>
-                                                    <div></div>
-                                                </div>
-                                                
-                                                <div style={{ display: "flex", justifyContent: "center", gap: "8px", marginTop: "8px" }}>
-                                                    <Button size="small" type="primary" onClick={handleFinalizeCoordinates} style={{ fontSize: "10px", height: "24px" }}>
-                                                        <i className="fa-solid fa-circle-check"></i> この座標で確定保存
-                                                    </Button>
-                                                    <Button size="small" type="dashed" onClick={handleResetCoordinates} danger style={{ fontSize: "10px", height: "24px", color: "#ff4d4f" }}>
-                                                        <i className="fa-solid fa-arrow-rotate-left"></i> デフォルト値に戻す
-                                                    </Button>
-                                                </div>
-                                                <div style={{ textAlign: "center", marginTop: "8px" }}>
-                                                    <Button size="small" onClick={handleExportCoordinates} style={{ fontSize: "10px", height: "22px", background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#fff" }}>
-                                                        <i className="fa-solid fa-download"></i> 座標JSONデータを出力
-                                                    </Button>
-                                                </div>
-                                            </div>
-                                        )}
+
                                     </div>
                                 </Col>
 
@@ -1876,11 +1805,15 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 <p style={{ margin: "0 0 6px 0" }}>
                                     *3 **体性感覚皮質の再マッピング**: パッチ表面の微細突起突起刺激により脳の小脳および体性感覚野における該当部位の「ホムンクルス表現領域（アライメント解像度）」を拡大し、運動連鎖の遅延（コンマ数秒の遅れ）を軽減します。(※本プロトコルは感覚入力最適化による運動学習サポート効果を提供するものです。)
                                 </p>
+                                <p style={{ margin: "0 0 6px 0" }}>
+                                    *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
+                                </p>
                                 <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
                                 <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
                                     【学術参考文献】<br />
                                     - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
-                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.
+                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.<br />
+                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)
                                 </p>
                             </footer>
                         </div>
@@ -1923,7 +1856,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
                                             </p>
                                             <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px" }}>
-                                                脳（小脳・体性感覚野）の「予測誤差」をリセットし、防衛的な関節ロック（脳の無意識のブレーキ）を解除。即座に柔軟性（可動域）とバランス力を劇的に改善します。
+                                                筋膜経線（Anatomy Trains）のテンセグリティ調律に加え、各関節の可動性（Mobility）と安定性（Stability）を引き出すジョイント・バイ・ジョイント設計を統合。脳の予測誤差による関節ロックを解除し、全身の健全な連動性を劇的に引き出します。
                                             </p>
                                         </div>
                                     </div>
