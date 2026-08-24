@@ -1428,67 +1428,6 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         </p>
                                                     </div>
 
-                                                    {/* ROM Diagnostic Guide Toggle */}
-                                                    <div style={{ marginBottom: "16px", background: "rgba(0, 240, 255, 0.04)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px", padding: "10px 14px" }}>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                                            <span style={{ fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}>
-                                                                <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準ガイド
-                                                            </span>
-                                                            <Button 
-                                                                type="link" 
-                                                                size="small" 
-                                                                onClick={() => setShowRomGuide(!showRomGuide)} 
-                                                                style={{ padding: 0, height: "auto", fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}
-                                                            >
-                                                                {showRomGuide ? "ガイドを閉じる ▲" : "判定ガイドを開く ▼"}
-                                                            </Button>
-                                                        </div>
-                                                        
-                                                        {showRomGuide && (
-                                                            <div style={{ marginTop: "10px", borderTop: "1px dashed rgba(0, 240, 255, 0.15)", paddingTop: "10px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
-                                                                <div>
-                                                                    <strong style={{ color: "#fff" }}>① 前屈 (SBLライン評価)</strong>
-                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
-                                                                        <li>正常 (0-2): 手のひらが床にベタッと届く</li>
-                                                                        <li>軽度 (3-5): 指先が床にギリギリ届く〜届かない (床から10cm未満)</li>
-                                                                        <li>中度 (6-8): 指先がすね (脛骨の中間) までしか届かない</li>
-                                                                        <li>高度 (9-10): 指先が膝までしか届かない、または曲げると痛む</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div>
-                                                                    <strong style={{ color: "#fff" }}>② 後屈 (SFLライン評価)</strong>
-                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
-                                                                        <li>正常 (0-2): 天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</li>
-                                                                        <li>軽・中度 (3-6): 斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</li>
-                                                                        <li>高度 (7-10): 顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div>
-                                                                    <strong style={{ color: "#fff" }}>③ 側屈 (LLライン評価)</strong>
-                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
-                                                                        <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
-                                                                        <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
-                                                                        <li>高度 (7-10): 中指の先が太ももの中間までしか届かない、または痛む</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div>
-                                                                    <strong style={{ color: "#fff" }}>④ 回旋 (SPLライン評価)</strong>
-                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
-                                                                        <li>正常 (0-2): お尻を締め膝を伸ばして顔を胸に固定し、肩のラインが正面から70度以上回る</li>
-                                                                        <li>中度 (3-6): 肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</li>
-                                                                        <li>高度 (7-10): ほとんどねじれない (30度未満)、またはねじると痛む</li>
-                                                                    </ul>
-                                                                </div>
-                                                                <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
-                                                                    <strong>【判定基準の学術的・臨床的ソース】</strong><br />
-                                                                    - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提唱)<br />
-                                                                    - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
-                                                                    - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
-                                                                </div>
-                                                            </div>
-                                                        )}
-                                                    </div>
-
                                                     <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
                                                         {/* Slider 1: Flexion */}
                                                         <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -1496,7 +1435,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                 <span style={{ color: "#fff", fontWeight: "bold" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
                                                                 <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.flexion} / 10</span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>かがんだ時に、ももの裏やふくらはぎがつっぱる・手が床に届かない</div>
+                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 手のひらが床に届く / [中度] すねまで / [高度] 膝まで、または痛む</div>
                                                             <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
                                                         </div>
 
@@ -1848,6 +1787,54 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--secondary)" }}></span> カスタム強化パッチ (4枚)
                                             </span>
                                         </div>
+
+                                        {/* ROM Diagnostic Reference Guide (Only visible in Step 1 VAS check) */}
+                                        {currentStep === 0 && subStep === 'check' && (
+                                            <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
+                                                <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "2px" }}>
+                                                    <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準目安
+                                                </div>
+                                                <div>
+                                                    <strong style={{ color: "#fff" }}>① 前屈 (SBLライン評価)</strong>
+                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
+                                                        <li>正常 (0-2): 手のひらが床にベタッと届く</li>
+                                                        <li>軽度 (3-5): 指先が床にギリギリ届く〜届かない (床から10cm未満)</li>
+                                                        <li>中度 (6-8): 指先がすね (脛骨の中間) までしか届かない</li>
+                                                        <li>高度 (9-10): 指先が膝までしか届かない、または曲げると痛む</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <strong style={{ color: "#fff" }}>② 後屈 (SFLライン評価)</strong>
+                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
+                                                        <li>正常 (0-2): 天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</li>
+                                                        <li>軽・中度 (3-6): 斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</li>
+                                                        <li>高度 (7-10): 顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <strong style={{ color: "#fff" }}>③ 側屈 (LLライン評価)</strong>
+                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
+                                                        <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
+                                                        <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
+                                                        <li>高度 (7-10): 中指の先が太ももの中間までしか届かない、または痛む</li>
+                                                    </ul>
+                                                </div>
+                                                <div>
+                                                    <strong style={{ color: "#fff" }}>④ 回旋 (SPLライン評価)</strong>
+                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
+                                                        <li>正常 (0-2): お尻を締め膝を伸ばして顔を胸に固定し、肩のラインが正面から70度以上回る</li>
+                                                        <li>中度 (3-6): 肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</li>
+                                                        <li>高度 (7-10): ほとんどねじれない (30度未満)、またはねじると痛む</li>
+                                                    </ul>
+                                                </div>
+                                                <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
+                                                    <strong>【判定基準の学術的・臨床的ソース】</strong><br />
+                                                    - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提唱)<br />
+                                                    - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
+                                                    - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
+                                                </div>
+                                            </div>
+                                        )}
 
 
                                     </div>
