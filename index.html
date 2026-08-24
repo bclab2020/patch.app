@@ -618,6 +618,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
             });
             const [selectedConcern, setSelectedConcern] = React.useState(null);
             const [adminPatchId, setAdminPatchId] = React.useState(null);
+            const [showRomGuide, setShowRomGuide] = React.useState(false);
 
             // Checkbox states to ensure active interaction
             const [baseChecked, setBaseChecked] = React.useState({
@@ -1427,6 +1428,67 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         </p>
                                                     </div>
 
+                                                    {/* ROM Diagnostic Guide Toggle */}
+                                                    <div style={{ marginBottom: "16px", background: "rgba(0, 240, 255, 0.04)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px", padding: "10px 14px" }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                                                            <span style={{ fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}>
+                                                                <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準ガイド
+                                                            </span>
+                                                            <Button 
+                                                                type="link" 
+                                                                size="small" 
+                                                                onClick={() => setShowRomGuide(!showRomGuide)} 
+                                                                style={{ padding: 0, height: "auto", fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}
+                                                            >
+                                                                {showRomGuide ? "ガイドを閉じる ▲" : "判定ガイドを開く ▼"}
+                                                            </Button>
+                                                        </div>
+                                                        
+                                                        {showRomGuide && (
+                                                            <div style={{ marginTop: "10px", borderTop: "1px dashed rgba(0, 240, 255, 0.15)", paddingTop: "10px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
+                                                                <div>
+                                                                    <strong style={{ color: "#fff" }}>① 前屈 (SBLライン評価)</strong>
+                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
+                                                                        <li>正常 (0-2): 手のひらが床にベタッと届く</li>
+                                                                        <li>軽度 (3-5): 指先が床にギリギリ届く〜届かない (床から10cm未満)</li>
+                                                                        <li>中度 (6-8): 指先がすね (脛骨の中間) までしか届かない</li>
+                                                                        <li>高度 (9-10): 指先が膝までしか届かない、または曲げると痛む</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div>
+                                                                    <strong style={{ color: "#fff" }}>② 後屈 (SFLライン評価)</strong>
+                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
+                                                                        <li>正常 (0-2): 天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</li>
+                                                                        <li>軽・中度 (3-6): 斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</li>
+                                                                        <li>高度 (7-10): 顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div>
+                                                                    <strong style={{ color: "#fff" }}>③ 側屈 (LLライン評価)</strong>
+                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
+                                                                        <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
+                                                                        <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
+                                                                        <li>高度 (7-10): 中指の先が太ももの中間までしか届かない、または痛む</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div>
+                                                                    <strong style={{ color: "#fff" }}>④ 回旋 (SPLライン評価)</strong>
+                                                                    <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px" }}>
+                                                                        <li>正常 (0-2): お尻を締め膝を伸ばして顔を胸に固定し、肩のラインが正面から70度以上回る</li>
+                                                                        <li>中度 (3-6): 肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</li>
+                                                                        <li>高度 (7-10): ほとんどねじれない (30度未満)、またはねじると痛む</li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
+                                                                    <strong>【判定基準の学術的・臨床的ソース】</strong><br />
+                                                                    - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提唱)<br />
+                                                                    - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
+                                                                    - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+
                                                     <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
                                                         {/* Slider 1: Flexion */}
                                                         <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
@@ -1444,7 +1506,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                 <span style={{ color: "#fff", fontWeight: "bold" }}>② 後屈 (Extension) - 体前面ライン (SFL)</span>
                                                                 <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.extension} / 10</span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>後ろに反らした時に、腰に詰まる感じや前ももが張る</div>
+                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 天井と顔が平行に見上がる / [中度] 斜め上まで / [高度] 反らせない・痛む</div>
                                                             <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
                                                         </div>
 
@@ -1454,7 +1516,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                 <span style={{ color: "#fff", fontWeight: "bold" }}>③ 側屈 (Lateral Flexion) - 体側面ライン (LL)</span>
                                                                 <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.lateral} / 10</span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>体を左右に傾けた時に、横腹や腰の外側が引っかかる・曲げにくい</div>
+                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 中指が膝の横を越えて下がる / [中度] 膝皿上部まで / [高度] 太もも中間まで</div>
                                                             <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
                                                         </div>
 
@@ -1464,7 +1526,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                 <span style={{ color: "#fff", fontWeight: "bold" }}>④ 回旋 (Rotation) - 体らせんライン (SPL)</span>
                                                                 <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.rotation} / 10</span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>体をねじった時に、背中の突っ張りや左右の向きにくさがある</div>
+                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] お尻を締め顔を正面固定で肩ラインがほぼ真横を向く / [中度] 斜め前まで</div>
                                                             <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
                                                         </div>
                                                     </div>
