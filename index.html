@@ -1394,11 +1394,26 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                             
                             {/* Core Constraints Warning */}
                             <Alert
-                                message="【重要】NG貼付ゾーンの厳守"
-                                description="足の裏（足底腱膜）および手のひら（手掌）は、極度な発汗やシューズ内摩擦によりパッチが剥がれやすいため、絶対に貼付しないでください。本プロトコルはNGゾーンを排除して全身の姿勢反射経路を最適化するシステムです。"
-                                type="warning"
-                                showIcon
-                                icon={<i className="fa-solid fa-ban" style={{ color: "#ff007f", fontSize: "16px" }}></i>}
+                                message={<span style={{ fontWeight: "bold", fontSize: "12px", color: "var(--accent)" }}><i className="fa-solid fa-circle-exclamation"></i> 【重要】パッチご使用時の正しいケアと注意点</span>}
+                                description={
+                                    <div style={{ fontSize: "11px", marginTop: "4px", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "6px" }}>
+                                        <div>
+                                            <strong style={{ color: "#fff" }}>① 連続使用は1回あたり「8時間以内」を厳守</strong><br />
+                                            <span style={{ color: "var(--text-muted)" }}>【順応防止と皮膚保護】長時間貼り続けると、皮膚の機械受容器（感覚神経）が刺激に慣れて反応が鈍くなり（感覚順応）、姿勢反射の補正効果が低下します。また皮膚のムレやかぶれを防ぐ目的もあります。</span>
+                                        </div>
+                                        <div>
+                                            <strong style={{ color: "#fff" }}>② 使用後はパッチの「シリコン突起面」を必ず洗浄する</strong><br />
+                                            <span style={{ color: "var(--text-muted)" }}>【感覚入力の鮮度維持】突起の隙間に皮脂や汗、皮フの汚れなどが蓄積すると、皮膚受容器への的確な点接触（ピンポイントな圧刺激）が鈍くなってしまいます。使用後はぬるま湯や中性洗剤で優しく洗い、常に突起面を清潔に露出させてください。</span>
+                                        </div>
+                                        <div>
+                                            <strong style={{ color: "#fff" }}>③ 「1ヶ月」を目安にパッチ本体を新品に交換する</strong><br />
+                                            <span style={{ color: "var(--text-muted)" }}>【突起先端の摩耗対策】踏み込みや運動摩擦により、シリコン突起（硬度Shore A50）の先端が摩耗・変形すると受容器への刺激効率が著しく低下します。常に設計通りの効果を得るための交換目安です。</span>
+                                        </div>
+                                    </div>
+                                }
+                                type="info"
+                                showIcon={false}
+                                style={{ background: "rgba(0, 240, 255, 0.03)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px" }}
                             />
 
                             {/* AntD Steps Indicator */}
