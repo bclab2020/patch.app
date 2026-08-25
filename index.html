@@ -182,6 +182,22 @@
                 desc: "前腕の背側。ラケットやバット握力の持続、インパクト時の当たり負けを防ぎます。",
                 view: "front",
                 coords: [{ x: 44, y: 150, side: "右" }, { x: 156, y: 150, side: "左" }]
+            },
+            medial_ankle: {
+                id: "medial_ankle",
+                name: "内果下部後方・後脛骨筋腱部 (左右2枚)",
+                meridian: "DFL (Deep Front Line) / 脛骨神経感覚ゲート",
+                desc: "内くるぶしの下後方。脛骨神経（内側足底皮枝）を刺激し、後脛骨筋の反射的収縮をトリガー。足底内側アーチの潰れ（プロネーション）を防ぎ、支持基底面の剛性を高めます。",
+                view: "front",
+                coords: [{ x: 84, y: 360, side: "右" }, { x: 116, y: 360, side: "左" }]
+            },
+            lateral_ankle: {
+                id: "lateral_ankle",
+                name: "外果下部側方・腓骨筋腱部 (左右2枚)",
+                meridian: "LL (Lateral Line) / 腓腹神経感覚ゲート",
+                desc: "外くるぶしの下側方。腓腹神経を刺激し、腓骨筋群の反射的共収縮をトリガー。足首の外側ブレ（サピネーション）を強力に制動し、ステップや重心動揺をミリ秒単位で制御します。",
+                view: "front",
+                coords: [{ x: 68, y: 360, side: "右" }, { x: 132, y: 360, side: "左" }]
             }
         };
 
@@ -191,7 +207,7 @@
                 id: "achilles",
                 name: "アキレス腱遠位部 (左右2枚)",
                 meridian: "SBL (Superficial Back Line / 表層バックライン)",
-                desc: "前屈制限に対応。アキレス腱の付着部付近（かかとの骨の上端から指1.5本分上）。下肢後面の張力を緩め、前屈可動域を向上させます。",
+                desc: "前屈制限に対応。アキレス腱の付着部付近。SBL（表層後面ライン）の緊張を緩和し、下腿三頭筋の伸張反射（SSC）の応答感度を高めるとともに、前屈可動域を向上させます。",
                 view: "back",
                 movement: "前屈 (Flexion)",
                 coords: [
@@ -203,7 +219,7 @@
                 id: "sternum",
                 name: "胸骨体・大胸筋付着部 (左右2枚)",
                 meridian: "SFL (Superficial Front Line / 表層フロントライン)",
-                desc: "後屈制限に対応。胸骨体両脇（第4・第5肋軟骨の高さ）。大胸筋・胸骨周囲の筋膜テンションを緩め、体幹後屈時の詰まり感を解消します。",
+                desc: "後屈制限に対応。胸骨体両脇。SFL（表層前面ライン）のテンションを緩和。体幹後屈時の詰まり感を解消するとともに、ジャンプやスプリント時の胸椎伸展（Mobility）連鎖を促進します。",
                 view: "front",
                 movement: "後屈 (Extension)",
                 coords: [
@@ -215,7 +231,7 @@
                 id: "fibular",
                 name: "腓骨頭外側 (左右2枚)",
                 meridian: "LL (Lateral Line / ラテラルライン)",
-                desc: "側屈制限に対応。腓骨頭の直下外側（長腓骨筋部）。体幹の外側支持力と傾き可動域の左右差を整えます。",
+                desc: "側屈制限に対応。腓骨頭の直下外側。LL（ラテラルライン）の外側支持力を高め、膝関節の回旋ブレをロック（Stability）し、切り返し動作の反応速度を向上させます。",
                 view: "front",
                 movement: "側屈 (Lateral Flexion)",
                 coords: [
@@ -227,7 +243,7 @@
                 id: "scapula",
                 name: "肩甲骨内側縁 (左右2枚)",
                 meridian: "Arm Lines & SPL (スパイラルライン)",
-                desc: "回旋制限に対応。肩甲骨の内側縁（背骨と肩甲骨内側の中間）。胸郭のひねり動作における防御ロックを外します。",
+                desc: "回旋制限に対応。肩甲骨の内側縁。SPL（スパイラルライン）とアームラインを調律。胸郭のひねり動作における脳の防御ロックを外し、肩甲胸郭関節の機能的滑りを高めます。",
                 view: "back",
                 movement: "回旋 (Rotation)",
                 coords: [
@@ -1661,6 +1677,51 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 </div>
                                             </div>
 
+                                            {/* Three-Pillar Priority Analysis Card */}
+                                            {(() => {
+                                                const sportData = getSelectedSportData();
+                                                if (!sportData) return null;
+                                                
+                                                let priorityTitle = "";
+                                                let priorityReason = "";
+                                                let p1 = "★★☆";
+                                                let p2 = "★★☆";
+                                                let p3 = "★★☆";
+                                                
+                                                if (sportData.category === "agility") {
+                                                    priorityTitle = "【最優先】神経生理学（短潜時運動反射）";
+                                                    priorityReason = "切り返しや接地時のブレを瞬時に制御するため、皮神経支配（脛骨・腓腹神経）から脊髄運動反射（30ms以下）をトリガーする感覚フィードバックを最優先します。";
+                                                    p1 = "★☆☆ [筋膜経線]";
+                                                    p2 = "★★☆ [JbJ設計]";
+                                                    p3 = "★★★ [神経生理] (最優先)";
+                                                } else if (sportData.category === "swing") {
+                                                    priorityTitle = "【最優先】筋膜経線（Anatomy Trains）";
+                                                    priorityReason = "回旋運動（スイング・投球）におけるねじれ戻り（弾性SSC）を活かすため、スパイラルライン（SPL）やアームラインのマクロな張力伝達を最優先します。";
+                                                    p1 = "★★★ [筋膜経線] (最優先)";
+                                                    p2 = "★☆☆ [JbJ設計]";
+                                                    p3 = "★★☆ [神経生理]";
+                                                } else { // running
+                                                    priorityTitle = "【最優先】筋膜経線 × 神経生理（伸張反射）";
+                                                    priorityReason = "スプリントや跳躍時の爆発的キックのため、SBL・SFLの力学張力と、アキレス腱等の腱紡錘伸張反射（SSC）の協調を最優先します。";
+                                                    p1 = "★★★ [筋膜経線] (最優先)";
+                                                    p2 = "★☆☆ [JbJ設計]";
+                                                    p3 = "★★★ [神経生理] (最優先)";
+                                                }
+                                                
+                                                return (
+                                                    <div style={{ marginBottom: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "10px 14px", fontSize: "11px", lineHeight: "1.4" }}>
+                                                        <div style={{ display: "flex", gap: "6px", marginBottom: "6px", flexWrap: "wrap" }}>
+                                                            <span style={{ background: "rgba(0, 240, 255, 0.1)", color: "var(--secondary)", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p3}</span>
+                                                            <span style={{ background: "rgba(0, 255, 127, 0.1)", color: "#00ff7f", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p1}</span>
+                                                            <span style={{ background: "rgba(255, 165, 0, 0.1)", color: "#ffa500", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p2}</span>
+                                                        </div>
+                                                        <strong style={{ color: "#ffffff", display: "block", marginBottom: "2px" }}><i className="fa-solid fa-graduation-cap"></i> 3つの柱（優先度・設計解説）:</strong>
+                                                        <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{priorityTitle}</span><br />
+                                                        <span style={{ color: "var(--text-muted)", fontSize: "10.5px" }}>{priorityReason}</span>
+                                                    </div>
+                                                );
+                                            })()}
+
                                             <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
                                                 {(() => {
                                                     const sportData = getSelectedSportData();
@@ -1872,12 +1933,16 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 <p style={{ margin: "0 0 6px 0" }}>
                                     *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
                                 </p>
+                                <p style={{ margin: "0 0 4px 0" }}>
+                                    *5 **局所皮神経支配と脊髄反射弓 (Local Cutaneous Reflex Loop)**: 内果下部の脛骨神経や外果下部の腓腹神経などの皮神経領域へ感覚刺激を入力し、中枢（脳）を経由しないミリ秒単位の脊髄運動反射ループ（後脛骨筋や腓骨筋群の即時的防御収縮）をトリガー。支持基底面（重心下端アライメント）の剛性を高め、マクロな連鎖とミクロな反射を同期させます。
+                                </p>
                                 <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
                                 <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
                                     【学術参考文献】<br />
                                     - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
                                     - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.<br />
-                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)
+                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)<br />
+                                    - Zehr, E. P., & Stein, R. B. (1999). Interaction of cutaneous and proprioceptive afferents in the control of human walking. *Journal of Neurophysiology*, 82(6), 2855-2868. (Cutaneous Reflex Loops)
                                 </p>
                             </footer>
                         </div>
@@ -1920,7 +1985,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
                                             </p>
                                             <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px" }}>
-                                                筋膜経線（Anatomy Trains）のテンセグリティ調律に加え、各関節の可動性（Mobility）と安定性（Stability）を引き出すジョイント・バイ・ジョイント設計を統合。脳の予測誤差による関節ロックを解除し、全身の健全な連動性を劇的に引き出します。
+                                                筋膜経線（Anatomy Trains）のテンセグリティ調律、関節の可動性（Mobility）と安定性（Stability）を引き出すジョイント・バイ・ジョイント設計に加え、脛骨神経や腓腹神経などの局所皮神経領域を直接刺激しミリ秒単位の脊髄運動反射弓をトリガーする感覚ゲート（センサー網）を統合。脳の予測誤差による関節ロックを解除し、マクロな筋膜連鎖とミクロな反射制御を完璧に同期させて全身の健全な連動性を引き出します。
                                             </p>
                                         </div>
                                     </div>
