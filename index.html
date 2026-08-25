@@ -153,9 +153,9 @@
             },
             splenius_capitis: {
                 id: "splenius_capitis",
-                name: "頭板状筋 (左右2枚)",
-                meridian: "SPL (Spiral Line / スパイラルライン)",
-                desc: "首の後ろ外側。頭部および頸部のブレをなくし、視線軸と体幹のねじれ運動を安定させます。",
+                name: "後頭下三角・頭板状筋部 (左右2枚)",
+                meridian: "SBL / SPL (表層バック / スパイラル)",
+                desc: "【神経生理】大後頭神経(C2)と全身で最も筋紡錘が密集する後頭下三角を刺激し、前庭動眼反射(VOR)および緊張性頚反射を最適化。頭部動揺を防ぎ視線軸と空間認知を安定させます。【JbJ】頚椎の安定(Stability)。【筋膜】SBL/SPLの起点として軸回旋を制御。",
                 view: "back",
                 coords: [{ x: 88, y: 55, side: "右" }, { x: 112, y: 55, side: "左" }]
             },
@@ -267,10 +267,10 @@
                         { id: "sprint_2", name: "2. ピッチ（足を回す速さ）を高めたい", patchIds: ["rectus_femoris", "tibialis_anterior"] },
                         { id: "sprint_3", name: "3. ストライド（一歩の歩幅）を広げたい", patchIds: ["gluteus_maximus", "adductors"] },
                         { id: "sprint_4", name: "4. 後半の失速を防ぎたい (骨盤前傾の維持)", patchIds: ["erector_spinae", "rectus_femoris"] },
-                        { id: "sprint_5", name: "5. 接地時のブレを抑えたい (グラウンディング強化)", patchIds: ["tibialis_anterior", "gluteus_medius"] },
+                        { id: "sprint_5", name: "5. 接地時のブレを抑えたい (グラウンディング強化)", patchIds: ["tibialis_anterior", "lateral_ankle"] },
                         { id: "sprint_6", name: "6. 腕振りの推進力を高めたい", patchIds: ["trapezius", "serratus_anterior"] },
                         { id: "sprint_7", name: "7. 跳躍時の踏み切りパワーを最大化したい", patchIds: ["gastrocnemius", "rectus_femoris"] },
-                        { id: "sprint_8", name: "8. 空中姿勢を安定させたい", patchIds: ["obliques", "erector_spinae"] },
+                        { id: "sprint_8", name: "8. 空中姿勢を安定させたい", patchIds: ["splenius_capitis", "erector_spinae"] },
                         { id: "sprint_9", name: "9. ハムストリングスへの過度な負担を減らしたい", patchIds: ["gluteus_maximus", "gastrocnemius"] },
                         { id: "sprint_10", name: "10. 体幹のバネ（伸張反射）を利用して走りたい", patchIds: ["thoracolumbar", "subclavius"] }
                     ]
@@ -284,12 +284,12 @@
                     concerns: [
                         { id: "soccer_1", name: "1. キックの飛距離・スピードを向上させたい", patchIds: ["rectus_femoris", "adductors"] },
                         { id: "soccer_2", name: "2. ダッシュの第一歩目を速くしたい (瞬発力)", patchIds: ["gastrocnemius", "gluteus_maximus"] },
-                        { id: "soccer_3", name: "3. 急激な切り返しのブレを減らしたい (アジリティ)", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
+                        { id: "soccer_3", name: "3. 急激な切り返しのブレを減らしたい (アジリティ)", patchIds: ["gluteus_medius", "lateral_ankle"] },
                         { id: "soccer_4", name: "4. 競り合い・対人の強さを高めたい (フィジカル)", patchIds: ["erector_spinae", "obliques"] },
                         { id: "soccer_5", name: "5. トラップ時の足元の柔軟性を高めたい", patchIds: ["tibialis_anterior", "adductors"] },
                         { id: "soccer_6", name: "6. ヘディングの跳躍力を上げたい", patchIds: ["gastrocnemius", "rectus_femoris"] },
                         { id: "soccer_7", name: "7. ロングパス of コントロールを安定させたい", patchIds: ["adductors", "obliques"] },
-                        { id: "soccer_8", name: "8. ドリブル時の細かいステップを速くしたい", patchIds: ["tibialis_anterior", "gluteus_medius"] },
+                        { id: "soccer_8", name: "8. ドリブル時の細かいステップを速くしたい", patchIds: ["tibialis_anterior", "lateral_ankle"] },
                         { id: "soccer_9", name: "9. 後半の走力・持久力を維持したい (疲労軽減)", patchIds: ["gastrocnemius", "erector_spinae"] },
                         { id: "soccer_10", name: "10. スローインの飛距離を伸ばしたい", patchIds: ["serratus_anterior", "subclavius"] }
                     ]
@@ -304,11 +304,11 @@
                         { id: "baseball_1", name: "1. 球速を上げたい (投球フォーム安定)", patchIds: ["infraspinatus", "thoracolumbar"] },
                         { id: "baseball_2", name: "2. コントロールを良くしたい (リリース安定)", patchIds: ["epicondyle_medial", "subclavius"] },
                         { id: "baseball_3", name: "3. バットスイングを速くしたい (回転力向上)", patchIds: ["obliques", "wrist_extensors"] },
-                        { id: "baseball_4", name: "4. ミート力を高めたい (スイング軸の安定)", patchIds: ["erector_spinae", "tensor_fasciae_latae"] },
+                        { id: "baseball_4", name: "4. ミート力を高めたい (スイング軸の安定)", patchIds: ["splenius_capitis", "obliques"] },
                         { id: "baseball_5", name: "5. ダッシュ・一歩目を速くしたい (盗塁・走塁)", patchIds: ["gastrocnemius", "gluteus_medius"] },
                         { id: "baseball_6", name: "6. 送球時の肩肘の負担を減らしたい", patchIds: ["epicondyle_lateral", "subclavius"] },
                         { id: "baseball_7", name: "7. 股関節の開きを抑えたい (壁の作成)", patchIds: ["adductors", "tensor_fasciae_latae"] },
-                        { id: "baseball_8", name: "8. 捕球時の反応・アジリティを高めたい", patchIds: ["gluteus_maximus", "tibialis_anterior"] },
+                        { id: "baseball_8", name: "8. 捕球時の反応・アジリティを高めたい", patchIds: ["medial_ankle", "tibialis_anterior"] },
                         { id: "baseball_9", name: "9. 遠投の飛距離を伸ばしたい", patchIds: ["serratus_anterior", "obliques"] },
                         { id: "baseball_10", name: "10. 体幹のねじれ戻しを強くしたい", patchIds: ["thoracolumbar", "obliques"] }
                     ]
@@ -321,8 +321,8 @@
                     desc: "アドレス時の重心安定、体幹（スイング軸）の安定を促す",
                     concerns: [
                         { id: "golf_1", name: "1. ドライバーの飛距離を伸ばしたい (ヘッドスピード)", patchIds: ["obliques", "wrist_extensors"] },
-                        { id: "golf_2", name: "2. スイング軸のブレをなくしたい (ミート率向上)", patchIds: ["erector_spinae", "thoracolumbar"] },
-                        { id: "golf_3", name: "3. アドレスの重心をドッシリと安定させたい", patchIds: ["adductors", "tibialis_anterior"] },
+                        { id: "golf_2", name: "2. スイング軸のブレをなくしたい (ミート率向上)", patchIds: ["splenius_capitis", "thoracolumbar"] },
+                        { id: "golf_3", name: "3. アドレスの重心をドッシリと安定させたい", patchIds: ["adductors", "medial_ankle"] },
                         { id: "golf_4", name: "4. テイクバックでの肩の捻転を深くしたい", patchIds: ["serratus_anterior", "trapezius"] },
                         { id: "golf_5", name: "5. インパクトでの左肘の抜け・手首の力みを抑えたい", patchIds: ["epicondyle_lateral", "subclavius"] },
                         { id: "golf_6", name: "6. フォロースルーで腰が引けるのを抑えたい (スウェー防止)", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
@@ -343,10 +343,10 @@
                         { id: "tennis_2", name: "2. フォアハンドスピンを強化したい", patchIds: ["wrist_extensors", "obliques"] },
                         { id: "tennis_3", name: "3. バックハンドを安定させたい", patchIds: ["epicondyle_lateral", "trapezius"] },
                         { id: "tennis_4", name: "4. ボレーの面ブレを抑制したい (インパクト安定)", patchIds: ["epicondyle_medial", "subclavius"] },
-                        { id: "tennis_5", name: "5. サイドステップの一歩目を速くしたい", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
-                        { id: "tennis_6", name: "6. 前後へのダッシュ・切り返しを俊敏にしたい", patchIds: ["gastrocnemius", "tibialis_anterior"] },
+                        { id: "tennis_5", name: "5. サイドステップの一歩目を速くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
+                        { id: "tennis_6", name: "6. 前後へのダッシュ・切り返しを俊敏にしたい", patchIds: ["tibialis_anterior", "lateral_ankle"] },
                         { id: "tennis_7", name: "7. 手首やひじへの衝撃・疲労を和らげたい", patchIds: ["epicondyle_lateral", "wrist_extensors"] },
-                        { id: "tennis_8", name: "8. ストローク中のスイング軸を安定させたい", patchIds: ["erector_spinae", "thoracolumbar"] },
+                        { id: "tennis_8", name: "8. ストローク中のスイング軸を安定させたい", patchIds: ["splenius_capitis", "thoracolumbar"] },
                         { id: "tennis_9", name: "9. 股関節の沈み込みをスムーズにしたい (タメの形成)", patchIds: ["gluteus_maximus", "adductors"] },
                         { id: "tennis_10", name: "10. 体幹の回旋エネルギーをスイングに伝えたい", patchIds: ["obliques", "subclavius"] }
                     ]
@@ -359,13 +359,13 @@
                     desc: "ジャンプ到達点アップ、着地時の関節保護とクイックネス強化",
                     concerns: [
                         { id: "basketball_1", name: "1. ジャンプ時の到達高度を高めたい (リバウンド向上)", patchIds: ["gastrocnemius", "gluteus_maximus"] },
-                        { id: "basketball_2", name: "2. クロスオーバードリブル時の切り返しを鋭くしたい", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
-                        { id: "basketball_3", name: "3. 急ストップ時の制動力を高めたい", patchIds: ["rectus_femoris", "tibialis_anterior"] },
-                        { id: "basketball_4", name: "4. シュートの安定性とリリース感覚を磨きたい", patchIds: ["epicondyle_medial", "wrist_extensors"] },
-                        { id: "basketball_5", name: "5. ディフェンス時のスライドステップを速くしたい", patchIds: ["gluteus_medius", "adductors"] },
-                        { id: "basketball_6", name: "6. 着地時の膝・足首への衝撃負担を軽減したい", patchIds: ["tibialis_anterior", "gastrocnemius"] },
+                        { id: "basketball_2", name: "2. クロスオーバードリブル時の切り返しを鋭くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
+                        { id: "basketball_3", name: "3. 急ストップ時の制動力を高めたい", patchIds: ["rectus_femoris", "medial_ankle"] },
+                        { id: "basketball_4", name: "4. シュートの安定性とリリース感覚を磨きたい", patchIds: ["splenius_capitis", "wrist_extensors"] },
+                        { id: "basketball_5", name: "5. ディフェンス時のスライドステップを速くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
+                        { id: "basketball_6", name: "6. 着地時の膝・足首への衝撃負担を軽減したい", patchIds: ["tibialis_anterior", "medial_ankle"] },
                         { id: "basketball_7", name: "7. コンタクトプレイで当たり負けしない軸を作りたい", patchIds: ["erector_spinae", "obliques"] },
-                        { id: "basketball_8", name: "8. パスのスピードとコントロールを高めたい", patchIds: ["subclavius", "wrist_extensors"] },
+                        { id: "basketball_8", name: "8. パスのスピード and コントロールを高めたい", patchIds: ["subclavius", "wrist_extensors"] },
                         { id: "basketball_9", name: "9. 速攻（ファストブレイク）でのスプリント速度を高めたい", patchIds: ["rectus_femoris", "gluteus_maximus"] },
                         { id: "basketball_10", name: "10. ディフェンス時に腕を大きく張るリーチ力を高めたい", patchIds: ["serratus_anterior", "trapezius"] }
                     ]
@@ -379,7 +379,7 @@
                     concerns: [
                         { id: "rugby_1", name: "1. コンタクト・タックル時の体幹強度を最大化したい", patchIds: ["erector_spinae", "obliques"] },
                         { id: "rugby_2", name: "2. スクラム時の踏ん張る力（推進力）を高めたい", patchIds: ["gluteus_maximus", "gastrocnemius"] },
-                        { id: "rugby_3", name: "3. タックルをかわすステップの切れを良くしたい", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
+                        { id: "rugby_3", name: "3. タックルをかわすステップの切れを良くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
                         { id: "rugby_4", name: "4. タックル時の首・肩周囲の防衛力を高めたい", patchIds: ["splenius_capitis", "trapezius"] },
                         { id: "rugby_5", name: "5. 加速時のスプリント力を向上させたい", patchIds: ["rectus_femoris", "gluteus_maximus"] },
                         { id: "rugby_6", name: "6. キャッチング時の手のブレ・弾きを減らしたい", patchIds: ["wrist_extensors", "epicondyle_medial"] },
@@ -418,9 +418,9 @@
                         { id: "volleyball_1", name: "1. スパイク時のジャンプ高度（最高到達点）を上げたい", patchIds: ["gastrocnemius", "gluteus_maximus"] },
                         { id: "volleyball_2", name: "2. スパイクのスイングスピードと強さを高めたい", patchIds: ["infraspinatus", "serratus_anterior"] },
                         { id: "volleyball_3", name: "3. ブロック時の跳躍と空中での姿勢制御を高めたい", patchIds: ["erector_spinae", "obliques"] },
-                        { id: "volleyball_4", name: "4. レシーブ時のステップ（一歩目の俊敏性）を速くしたい", patchIds: ["gluteus_medius", "tibialis_anterior"] },
+                        { id: "volleyball_4", name: "4. レシーブ時のステップ（一歩目の俊敏性）を速くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
                         { id: "volleyball_5", name: "5. レシーブ（面作り）での腕のブレを抑えたい", patchIds: ["epicondyle_lateral", "subclavius"] },
-                        { id: "volleyball_6", name: "6. スパイク後の着地時の関節負担（ジャンパー膝等）を減らしたい", patchIds: ["rectus_femoris", "tibialis_anterior"] },
+                        { id: "volleyball_6", name: "6. スパイク後の着地時の関節負担（ジャンパー膝等）を減らしたい", patchIds: ["rectus_femoris", "medial_ankle"] },
                         { id: "volleyball_7", name: "7. トス（セッター）の指先・手首のタッチ精度を高めたい", patchIds: ["wrist_extensors", "epicondyle_medial"] },
                         { id: "volleyball_8", name: "8. ジャンプサーブの威力と飛距離を高めたい", patchIds: ["obliques", "subclavius"] },
                         { id: "volleyball_9", name: "9. フライングレシーブ後の起き上がりを俊敏にしたい", patchIds: ["rectus_femoris", "gluteus_maximus"] },
@@ -436,14 +436,14 @@
                     concerns: [
                         { id: "badminton_1", name: "1. スマッシュの最大球速と角度を向上させたい", patchIds: ["wrist_extensors", "infraspinatus"] },
                         { id: "badminton_2", name: "2. フォア奥へのフットワーク（踏み込みとタメ）を良くしたい", patchIds: ["gluteus_maximus", "adductors"] },
-                        { id: "badminton_3", name: "3. ラウンド奥からの切り返し・戻りを速くしたい", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
-                        { id: "badminton_4", name: "4. ネット前（ヘアピン・プッシュ）のステップを鋭くしたい", patchIds: ["tibialis_anterior", "rectus_femoris"] },
+                        { id: "badminton_3", name: "3. ラウンド奥からの切り返し・戻りを速くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
+                        { id: "badminton_4", name: "4. ネット前（ヘアピン・プッシュ）のステップを鋭くしたい", patchIds: ["tibialis_anterior", "medial_ankle"] },
                         { id: "badminton_5", name: "5. バックハンドのクリアを遠くまで飛ばしたい", patchIds: ["epicondyle_lateral", "trapezius"] },
                         { id: "badminton_6", name: "6. 連続スマッシュ時の腕・肩の疲労と力みを抑制したい", patchIds: ["epicondyle_lateral", "subclavius"] },
                         { id: "badminton_7", name: "7. 低空戦（ドライブ）でのリアクションスピードを上げたい", patchIds: ["gluteus_medius", "tibialis_anterior"] },
                         { id: "badminton_8", name: "8. ジャンプスマッシュ時の跳躍バランスを高めたい", patchIds: ["gastrocnemius", "erector_spinae"] },
                         { id: "badminton_9", name: "9. ドロップやカットなどの繊細なリストワークを安定させたい", patchIds: ["wrist_extensors", "epicondyle_medial"] },
-                        { id: "badminton_10", name: "10. フットワーク停止時の足首・膝のブレを防ぎたい", patchIds: ["tibialis_anterior", "tensor_fasciae_latae"] }
+                        { id: "badminton_10", name: "10. フットワーク停止時の足首・膝のブレを防ぎたい", patchIds: ["tibialis_anterior", "lateral_ankle"] }
                     ]
                 },
                 tabletennis: {
@@ -453,11 +453,11 @@
                     chains: "DFL / Arm Lines フォーカス",
                     desc: "微小ステップ時の敏捷性と手首のミリ単位コントロール",
                     concerns: [
-                        { id: "tabletennis_1", name: "1. ドライブのスピードと威力（前腕の加速）を高めたい", patchIds: ["wrist_extensors", "obliques"] },
-                        { id: "tabletennis_2", name: "2. 左右への微細なステップ・フットワーク向上", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
+                        { id: "tabletennis_1", name: "1. ドライブのスピード and 威力（前腕の加速）を高めたい", patchIds: ["wrist_extensors", "obliques"] },
+                        { id: "tabletennis_2", name: "2. 左右への微細なステップ・フットワーク向上", patchIds: ["gluteus_medius", "lateral_ankle"] },
                         { id: "tabletennis_3", name: "3. 低い姿勢（前傾姿勢）を長時間ラクに維持したい", patchIds: ["erector_spinae", "gastrocnemius"] },
-                        { id: "tabletennis_4", name: "4. レシーブ時の踏み込み一歩目の反応を鋭くしたい", patchIds: ["tibialis_anterior", "rectus_femoris"] },
-                        { id: "tabletennis_5", name: "5. バックハンドドライブのブレをなくし安定させたい", patchIds: ["epicondyle_lateral", "trapezius"] },
+                        { id: "tabletennis_4", name: "4. レシーブ時の踏み込み一歩目の反応を鋭くしたい", patchIds: ["tibialis_anterior", "medial_ankle"] },
+                        { id: "tabletennis_5", name: "5. バックハンドドライブ of ブレをなくし安定させたい", patchIds: ["epicondyle_lateral", "trapezius"] },
                         { id: "tabletennis_6", name: "6. ツッツキやフリックなどの指先・手首のタッチ精度を高めたい", patchIds: ["wrist_extensors", "epicondyle_medial"] },
                         { id: "tabletennis_7", name: "7. フォアハンドスイング時の体幹の軸ブレを防ぎたい", patchIds: ["thoracolumbar", "adductors"] },
                         { id: "tabletennis_8", name: "8. カットマンの粘り強いフットワークと可動域を高めたい", patchIds: ["gluteus_maximus", "adductors"] },
@@ -473,11 +473,11 @@
                     desc: "グラウンディング（踏ん張り）の強化と引き込み握力の維持",
                     concerns: [
                         { id: "judo_1", name: "1. 引き込み・組み手の握力と持続力を高めたい", patchIds: ["wrist_extensors", "epicondyle_medial"] },
-                        { id: "judo_2", name: "2. 畳への踏ん張り・土台（グラウンディング）を強固にしたい", patchIds: ["tibialis_anterior", "gluteus_maximus"] },
+                        { id: "judo_2", name: "2. 畳への踏ん張り・土台（グラウンディング）を強固にしたい", patchIds: ["tibialis_anterior", "medial_ankle"] },
                         { id: "judo_3", name: "3. 背負い投げなどの腰の沈み込みをスムーズにしたい", patchIds: ["gluteus_maximus", "adductors"] },
                         { id: "judo_4", name: "4. 足技（内股・大外刈り等）の足を振り上げる力を高めたい", patchIds: ["rectus_femoris", "adductors"] },
                         { id: "judo_5", name: "5. 相手の出足に対する受け・踏ん張り（体軸）を強化したい", patchIds: ["erector_spinae", "obliques"] },
-                        { id: "judo_6", name: "6. 投げをこらえる際の外側の踏ん張りを強くしたい", patchIds: ["gluteus_medius", "tensor_fasciae_latae"] },
+                        { id: "judo_6", name: "6. 投げをこらえる際の外側の踏ん張りを強くしたい", patchIds: ["gluteus_medius", "lateral_ankle"] },
                         { id: "judo_7", name: "7. 崩し時の上半身の引きつけパワーを爆発させたい", patchIds: ["serratus_anterior", "subclavius"] },
                         { id: "judo_8", name: "8. 技の切り替え・連続攻撃 of 回旋スピードを上げたい", patchIds: ["thoracolumbar", "obliques"] },
                         { id: "judo_9", name: "9. 組み手争い時の肩・首周りの過緊張・力みを防ぎたい", patchIds: ["trapezius", "splenius_capitis"] },
@@ -486,19 +486,7 @@
                 }
             }
         };
-
-        // Helper to output toasts
-        function showToast(msg) {
-            notification.destroy();
-            notification.open({
-                message: msg,
-                duration: 2.5,
-                placement: "bottomRight",
-                style: { background: "#111317", color: "#fff", border: "1px solid rgba(255,255,255,0.08)" }
-            });
-        }
-
-        const CONSENT_VERSION = "2026-08-v1";
+        const CONSENT_VERSION = "2026-08-v1";        const CONSENT_VERSION = "2026-08-v1";
         
         const TERMS_TEXT = `【BC Lab シリコンパッチ ガイドアプリ 利用規約】
 
@@ -1934,8 +1922,8 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                     *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
                                 </p>
                                 <p style={{ margin: "0 0 4px 0" }}>
-                                    *5 **局所皮神経支配と脊髄反射弓 (Local Cutaneous Reflex Loop)**: 内果下部の脛骨神経や外果下部の腓腹神経などの皮神経領域へ感覚刺激を入力し、中枢（脳）を経由しないミリ秒単位の脊髄運動反射ループ（後脛骨筋や腓骨筋群の即時的防御収縮）をトリガー。支持基底面（重心下端アライメント）の剛性を高め、マクロな連鎖とミクロな反射を同期させます。
-                                </p>
+                                     *5 **全身の7大感覚ゲートと脊髄反射弓 (Local Cutaneous Reflex Loop)**: 頚部前庭（大後頭神経）、脊柱（後枝皮枝）、骨盤（上臀皮神経）、膝（伏在・総腓骨神経）、肩甲（鎖骨上・肩甲上神経）、肘腕（橈骨・尺骨・正中神経）、足関節（脛骨・腓腹神経）の全身7箇所に設定された「感覚ゲート（センサー網）」を直接刺激し、中枢（脳）を経由しないミリ秒単位の脊髄運動反射ループをトリガー。マクロな連鎖とミクロな反射を完璧に同期させます。
+                                 </p>
                                 <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
                                 <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
                                     【学術参考文献】<br />
@@ -1984,8 +1972,20 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                             <p style={{ margin: 0, color: "var(--text-muted)", fontSize: "11px" }}>
                                                 皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
                                             </p>
-                                            <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px" }}>
-                                                筋膜経線（Anatomy Trains）のテンセグリティ調律、関節の可動性（Mobility）と安定性（Stability）を引き出すジョイント・バイ・ジョイント設計に加え、脛骨神経や腓腹神経などの局所皮神経領域を直接刺激しミリ秒単位の脊髄運動反射弓をトリガーする感覚ゲート（センサー網）を統合。脳の予測誤差による関節ロックを解除し、マクロな筋膜連鎖とミクロな反射制御を完璧に同期させて全身の健全な連動性を引き出します。
+                                            <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11.5px", lineHeight: "1.6" }}>
+                                                本システムは、筋膜経線（Anatomy Trains）のテンセグリティ調律と、関節の可動性（Mobility）および安定性（Stability）を引き出すジョイント・バイ・ジョイント設計をベースに、**全身の「7大感覚ゲート（センサー網）」**を統合した先進的な感覚フィードバック機構です。
+                                            </p>
+                                            <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px", lineHeight: "1.5" }}>
+                                                ① **頚部・前庭ゲート**（後頭下三角/大後頭神経 C2による視線軸・前庭反射安定）<br />
+                                                ② **脊柱・体幹ゲート**（胸腰椎部/後枝皮枝・起立反射）<br />
+                                                ③ **股関節・骨盤ゲート**（臀部/上臀皮神経・後大腿皮神経）<br />
+                                                ④ **膝関節ゲート**（内側広筋・腓骨頭/伏在・総腓骨神経）<br />
+                                                ⑤ **肩甲・肩関節ゲート**（棘下筋・鎖骨下筋/肩甲上・鎖骨上神経）<br />
+                                                ⑥ **肘・手首ゲート**（内外上顆/橈骨・尺骨・正中神経）<br />
+                                                ⑦ **足関節ゲート**（内果・外果・アキレス腱/脛骨・腓腹神経による支持基底面制御）
+                                            </p>
+                                            <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px", lineHeight: "1.5" }}>
+                                                これら高密度な皮神経および腱受容器（SA-I/SA-II）領域へ直接アプローチし、中枢（脳）を経由しないミリ秒単位の脊髄運動反射弓をトリガー。脳の予測誤差による関節ロックを解除し、マクロな筋膜連鎖とミクロな反射制御を完璧に同期させて全身の健全な連動性とパフォーマンスを引き出します。
                                             </p>
                                         </div>
                                     </div>
