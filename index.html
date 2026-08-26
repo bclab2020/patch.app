@@ -486,7 +486,7 @@
                 }
             }
         };
-        const CONSENT_VERSION = "2026-08-v1";        const CONSENT_VERSION = "2026-08-v1";
+        const CONSENT_VERSION = "2026-08-v1";
         
         const TERMS_TEXT = `【BC Lab シリコンパッチ ガイドアプリ 利用規約】
 
@@ -554,6 +554,15 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
 一度同意された場合でも、ご連絡をいただくことで掲載の取り消し・データの削除依頼を行うことができます。`;
 
         function KineticLinkApp() {
+            const showToast = (msg) => {
+                notification.info({
+                    message: "通知",
+                    description: msg,
+                    placement: "topRight",
+                    duration: 3.5
+                });
+            };
+
             const [currentView, setCurrentView] = React.useState('home'); // 'home' or 'map'
             const [hasConsented, setHasConsented] = React.useState(false);
             const [consentAge, setConsentAge] = React.useState(null); // 'adult' | 'minor' | null
