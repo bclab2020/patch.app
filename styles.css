@@ -1839,7 +1839,7 @@ body {
 }
 .body-svg-wrapper {
     width: 140px;
-    height: 280px;
+    aspect-ratio: 422 / 1024;
     position: relative;
 }
 
@@ -1963,7 +1963,7 @@ body {
     }
     .body-svg-wrapper {
         width: 110px !important;
-        height: 220px !important;
+        aspect-ratio: 422 / 1024 !important;
     }
     .visualizer-title {
         font-size: 9px !important;
