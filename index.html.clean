@@ -2512,369 +2512,163 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 style={{ background: "rgba(0, 240, 255, 0.03)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px" }}
                             />
 
-                            {/* AntD Steps Indicator */}
-                            <div style={{ marginBottom: "16px" }}>
-                                <Steps current={currentStep} size="small">
-                                    <Step title="自己診断・基本姿勢" description="動的ベース6枚決定" />
-                                    <Step title="競技別カスタム強化" description="残り4枚オート決定" />
-                                </Steps>
-                            </div>
-
                             {/* Two Columns Dashboard */}
                             <Row gutter={[20, 20]} style={{ flex: 1 }}>
                                 
                                 {/* Left Side: Wizard step controls */}
                                 <Col xs={24} md={13} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                                    
-                                    {currentStep === 0 && (
-                                        <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
-                                            {subStep === 'check' ? (
-                                                /* Sub-view A: ROM VAS Sliders Check */
-                                                <div>
-                                                    <div style={{ marginBottom: "16px" }}>
-                                                        <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-street-view"></i> 身体アライメント自己診断 (ROM Test)</h3>
-                                                        <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                            右側の「自己判定用 可動域（ROM）基準目安」を参考に、ご自身の現在の可動レベル（0: 正常 ～ 10: 高度制限）に最も近い数値をスライダーで選択してください。
-                                                        </p>
-                                                    </div>
-
-                                                    <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
-                                                        {/* Slider 1: Flexion */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.flexion} / 10</span>
-                                                            </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 手のひらが床に届く / [中度] すねまで / [高度] 膝まで、または痛む</div>
-                                                            <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
-                                                        </div>
-
-                                                        {/* Slider 2: Extension */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>② 後屈 (Extension) - 体前面ライン (SFL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.extension} / 10</span>
-                                                            </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 天井と顔が平行に見上がる / [中度] 斜め上まで / [高度] 反らせない・痛む</div>
-                                                            <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
-                                                        </div>
-
-                                                        {/* Slider 3: Lateral Flexion */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>③ 側屈 (Lateral Flexion) - 体側面ライン (LL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.lateral} / 10</span>
-                                                            </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 中指が膝の横を越えて下がる / [中度] 膝皿上部まで / [高度] 太もも中間まで</div>
-                                                            <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
-                                                        </div>
-
-                                                        {/* Slider 4: Rotation */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>④ 回旋 (Rotation) - 体らせんライン (SPL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.rotation} / 10</span>
-                                                            </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] お尻を締め顔を正面固定で肩ラインがほぼ真横を向く / [中度] 斜め前まで</div>
-                                                            <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
-                                                        </div>
-                                                    </div>
-
-                                                    <Button 
-                                                        type="primary" 
-                                                        block 
-                                                        onClick={evaluateAndSetBasePatches}
-                                                        style={{ height: "36px", fontWeight: "bold", fontSize: "13px" }}
-                                                    >
-                                                        <i className="fa-solid fa-calculator" style={{ marginRight: "6px" }}></i> 診断してベース部位を決定
-                     </Button>
+                                    <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                        {subStep === 'check' ? (
+                                            /* Sub-view A: ROM VAS Sliders Check */
+                                            <div>
+                                                <div style={{ marginBottom: "16px" }}>
+                                                    <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-street-view"></i> 身体アライメント自己診断 (ROM Test)</h3>
+                                                    <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                        右側の「自己判定用 可動域（ROM）基準目安」を参考に、ご自身の現在の可動レベル（0: 正常 ～ 10: 高度制限）に最も近い数値をスライダーで選択してください。
+                                                    </p>
                                                 </div>
-                                            ) : (
-                                                /* Sub-view B: Show selected base patches with checklists */
-                                                <div>
-                                                    <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                                        <div>
-                                                            <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-shield-halved"></i> STEP 1: 姿勢土台の安定化</h3>
-                                                            <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                                診断の結果、あなたの制限特性に適合した以下の3エリア（合計6枚）が決定しました。
-                                                            </p>
+
+                                                <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
+                                                    {/* Slider 1: Flexion */}
+                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
+                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
+                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.flexion} / 10</span>
                                                         </div>
-                                                        <Button 
-                                                            size="small" 
-                                                            onClick={() => setSubStep('check')}
-                                                            style={{ fontSize: "10px", background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#fff" }}
-                                                        >
-                                                            <i className="fa-solid fa-rotate-left"></i> 再測定する
-                                                        </Button>
+                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 手のひらが床に届く / [中度] すねまで / [高度] 膝まで、または痛む</div>
+                                                        <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
                                                     </div>
 
-                                                    {/* Rotation Clinical Advice Banner */}
-                                                    {vasScores.rotation >= 5 && (
-                                                        <div style={{ 
-                                                            marginBottom: "12px", 
-                                                            background: "rgba(255, 45, 85, 0.05)", 
-                                                            border: "1px solid rgba(255, 45, 85, 0.25)", 
-                                                            borderRadius: "8px", 
-                                                            padding: "10px 14px",
-                                                            fontSize: "11.5px",
-                                                            lineHeight: "1.4"
-                                                        }}>
-                                                            <div style={{ color: "var(--patch-base)", fontWeight: "bold", marginBottom: "4px" }}>
-                                                                <i className="fa-solid fa-triangle-exclamation"></i> 回旋可動域制限に対する臨床アプローチ推奨
-                                                            </div>
-                                                            <div style={{ color: "var(--text-main)" }}>
-                                                                回旋制限（VAS: {vasScores.rotation}/10）には、肩甲骨（Rhomboids）だけでなく、回旋運動の主軸である **胸腰椎移行部（T12-L1）** や、土台となる **腰仙部（起立筋腰部）** が深く関与しています。もしカスタムパッチを別途お持ちの場合は、これら2点への追加貼付が有効です。
-                                                            </div>
+                                                    {/* Slider 2: Extension */}
+                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
+                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>② 後屈 (Extension) - 体前面ライン (SFL)</span>
+                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.extension} / 10</span>
                                                         </div>
-                                                    )}
-
-                                                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                                                        {selectedBasePatches.map(patchId => {
-                                                            const p = basePatchPool[patchId];
-                                                            if (!p) return null;
-                                                            return (
-                                                                <div 
-                                                                    key={p.id}
-                                                                    className="info-card" 
-                                                                    style={{ 
-                                                                        margin: 0, 
-                                                                        borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
-                                                                        background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
-                                                                    }}
-                                                                    onMouseEnter={() => setHoveredPointId(p.id)}
-                                                                    onMouseLeave={() => setHoveredPointId(null)}
-                                                                >
-                                                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-                                                                        <div style={{ flex: 1 }}>
-                                                                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                                                                                <span style={{ fontSize: "9px", color: "var(--primary)", background: "rgba(0, 240, 255, 0.08)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold" }}>{p.movement}適合</span>
-                                                                                <span style={{ fontSize: "9px", color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
-                                                                            </div>
-                                                                            <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
-                                                                            <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
-                                                                        </div>
-                                                                        <Checkbox 
-                                                                            checked={baseChecked[p.id]} 
-                                                                            onChange={(e) => setBaseChecked({ ...baseChecked, [p.id]: e.target.checked })}
-                                                                            style={{ transform: "scale(1.25)", marginTop: "4px" }}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            );
-                                                        })}
+                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 天井と顔が平行に見上がる / [中度] 斜め上まで / [高度] 反らせない・痛む</div>
+                                                        <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
                                                     </div>
 
-                                                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px" }}>
-                                                        <Button 
-                                                            type="primary" 
-                                                            disabled={!selectedBasePatches.every(patchId => baseChecked[patchId])} 
-                                                            onClick={() => setCurrentStep(1)}
-                                                            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
-                                                        >
-                                                            次へ進む <i className="fa-solid fa-arrow-right"></i>
-                                                        </Button>
+                                                    {/* Slider 3: Lateral Flexion */}
+                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
+                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>③ 側屈 (Lateral Flexion) - 体側面ライン (LL)</span>
+                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.lateral} / 10</span>
+                                                        </div>
+                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 中指が膝の横を越えて下がる / [中度] 膝皿上部まで / [高度] 太もも中間まで</div>
+                                                        <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
+                                                    </div>
+
+                                                    {/* Slider 4: Rotation */}
+                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
+                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
+                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>④ 回旋 (Rotation) - 体らせんライン (SPL)</span>
+                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.rotation} / 10</span>
+                                                        </div>
+                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] お尻を締め顔を正面固定で肩ラインがほぼ真横を向く / [中度] 斜め前まで</div>
+                                                        <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
                                                     </div>
                                                 </div>
-                                            )}
-                                        </div>
-                                    )}
 
-                                    {currentStep === 1 && (
-                                        <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
-                                            <div style={{ marginBottom: "16px" }}>
-                                                <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-gamepad"></i> STEP 2: 競技カテゴリ・動作特性の選択</h3>
-                                                <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                    ご自身の競技特性や現在の主要な課題に最も合致するカテゴリを、現在サポートされている12の種目から選択してください。
-                                                </p>
-                                            </div>
-
-                                            <div style={{ marginBottom: "20px" }}>
-                                                <label style={{ display: "block", color: "var(--text-muted)", fontSize: "11px", marginBottom: "6px", fontWeight: "bold" }}>対象競技種目</label>
-                                                <Select
-                                                    showSearch
-                                                    style={{ width: '100%' }}
-                                                    placeholder="競技種目を選択してください"
-                                                    optionFilterProp="children"
-                                                    value={selectedSport}
-                                                    onChange={handleSportSelect}
-                                                    dropdownStyle={{ background: '#111317', border: '1px solid rgba(255,255,255,0.08)' }}
-                                                >
-                                                    {Object.values(coordinates.sportsOptions).map(sport => (
-                                                        <Option key={sport.id} value={sport.id} style={{ color: '#fff', background: '#111317' }}>
-                                                            {sport.name}
-                                                        </Option>
-                                                    ))}
-                                                </Select>
-                                            </div>
-
-                                            {selectedSport && (
-                                                <div style={{ marginBottom: "20px" }}>
-                                                    <label style={{ display: "block", color: "var(--text-muted)", fontSize: "11px", marginBottom: "6px", fontWeight: "bold" }}>強化したい具体的な課題・悩み（上位10項目）</label>
-                                                    <Select
-                                                        style={{ width: '100%' }}
-                                                        placeholder="解決したい課題・悩みを選択してください"
-                                                        value={selectedConcern}
-                                                        onChange={(val) => {
-                                                            setSelectedConcern(val);
-                                                        }}
-                                                        dropdownStyle={{ background: '#111317', border: '1px solid rgba(255,255,255,0.08)' }}
-                                                    >
-                                                        {coordinates.sportsOptions[selectedSport]?.concerns?.map(concern => (
-                                                            <Option key={concern.id} value={concern.id} style={{ color: '#fff', background: '#111317' }}>
-                                                                {concern.name}
-                                                            </Option>
-                                                        ))}
-                                                    </Select>
-                                                </div>
-                                            )}
-
-                                            {selectedSport && (
-                                                <Card 
-                                                    style={{ 
-                                                        borderColor: "var(--secondary)", 
-                                                        background: "rgba(0, 240, 255, 0.04)",
-                                                        marginBottom: "16px"
-                                                    }}
-                                                >
-                                                    <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
-                                                        <div style={{ 
-                                                            width: "40px", 
-                                                            height: "40px", 
-                                                            borderRadius: "50%", 
-                                                            background: "var(--secondary)", 
-                                                            display: "flex",
-                                                            alignItems: "center",
-                                                            justifyContent: "center",
-                                                            color: "var(--text-dark)"
-                                                        }}>
-                                                            {getSelectedSportData()?.category === 'running' && <i className="fa-solid fa-person-running" style={{ fontSize: "18px" }}></i>}
-                                                            {getSelectedSportData()?.category === 'swing' && <i className="fa-solid fa-golf-ball-tee" style={{ fontSize: "18px" }}></i>}
-                                                            {getSelectedSportData()?.category === 'agility' && <i className="fa-solid fa-basketball" style={{ fontSize: "18px" }}></i>}
-                                                        </div>
-                                                        <div style={{ flex: 1 }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
-                                                                <h4 style={{ margin: 0, color: "#ffffff", fontSize: "16px", fontWeight: "bold" }}>{getSelectedSportData()?.name}</h4>
-                                                                <span style={{ fontSize: "9px", color: "var(--secondary)", background: "rgba(0,240,255,0.1)", padding: "2px 8px", borderRadius: "10px", fontWeight: "bold" }}>
-                                                                    {getSelectedSportData()?.chains}
-                                                                </span>
-                                                            </div>
-                                                            <p style={{ margin: "6px 0 0 0", fontSize: "12px", color: "var(--text-main)", lineHeight: "1.4" }}>
-                                                                {getSelectedSportData()?.desc}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                </Card>
-                                            )}
-
-                                            {selectedSport && selectedConcern && (
-                                                /* Four-Pillar Priority Analysis Card */
-                                                <div>
-                                                    {(() => {
-                                                        const sportData = getSelectedSportData();
-                                                        if (!sportData) return null;
-                                                        
-                                                        let priorityTitle = "";
-                                                        let priorityReason = "";
-                                                        let p1 = "★★☆";
-                                                        let p2 = "★★☆";
-                                                        let p3 = "★★☆";
-                                                        let p4 = "★★☆";
-                                                        
-                                                        if (sportData.category === "agility") {
-                                                            priorityTitle = "【最優先】神経生理学 ＞ JbJ設計 ＞ 解剖運動学（冠状面・側屈安定）";
-                                                            priorityReason = "切り返しや接地時のブレを瞬時に制御するため、感覚フィードバック反射を最優先しつつ、冠状面（側屈）における左右非対称な傾き（中臀筋等による骨盤水平アライメント）を力学的に補正します。";
-                                                            p1 = "★☆☆ [筋膜経線]";
-                                                            p2 = "★★☆ [JbJ設計]";
-                                                            p3 = "★★★ [神経生理] (最優先)";
-                                                            p4 = "★★☆ [解剖運動学] (側屈安定)";
-                                                        } else if (sportData.category === "swing") {
-                                                            priorityTitle = "【最優先】筋膜経線 × 解剖運動学（水平面・回旋軸安定）";
-                                                            priorityReason = "回旋運動（スイング・投球）におけるねじれ戻り（弾性SSC）を最大化し、胸腰椎移行部（T12-L1）や骨盤回旋の回転ブレを解剖運動学的に最小化することで、軸のブレない高速な回転モーメントを伝達します。";
-                                                            p1 = "★★★ [筋膜経線] (最優先)";
-                                                            p2 = "★☆☆ [JbJ設計]";
-                                                            p3 = "★★☆ [神経生理]";
-                                                            p4 = "★★★ [解剖運動学] (最優先・回旋軸)";
-                                                        } else { // running
-                                                            priorityTitle = "【最優先】筋膜経線 × 神経生理 ＞ 解剖運動学（矢状面・屈伸軌道）";
-                                                            priorityReason = "SBL/SFLの張力と腱反射を同期させて推進力を最大化し、矢状面（屈曲・伸展）における関節運動アライメント（股関節の伸展可動性と腰椎代償動作の防止）を最適化します。";
-                                                            p1 = "★★★ [筋膜経線] (最優先)";
-                                                            p2 = "★★☆ [JbJ設計]";
-                                                            p3 = "★★★ [神経生理] (最優先)";
-                                                            p4 = "★☆☆ [解剖運動学] (屈伸軌道)";
-                                                        }
-                                                        
-                                                        return (
-                                                            <div style={{ marginBottom: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "10px 14px", fontSize: "11px", lineHeight: "1.4" }}>
-                                                                <div style={{ display: "flex", gap: "6px", marginBottom: "6px", flexWrap: "wrap" }}>
-                                                                    <span style={{ background: "rgba(0, 240, 255, 0.1)", color: "var(--secondary)", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p3}</span>
-                                                                    <span style={{ background: "rgba(0, 255, 127, 0.1)", color: "#00ff7f", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p1}</span>
-                                                                    <span style={{ background: "rgba(255, 165, 0, 0.1)", color: "#ffa500", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p2}</span>
-                                                                    <span style={{ background: "rgba(255, 100, 200, 0.1)", color: "var(--accent)", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p4}</span>
-                                                                </div>
-                                                                <strong style={{ color: "#ffffff", display: "block", marginBottom: "2px" }}><i className="fa-solid fa-graduation-cap"></i> 4つの柱（優先度・設計解説）:</strong>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{priorityTitle}</span><br />
-                                                                <span style={{ color: "var(--text-muted)", fontSize: "10.5px" }}>{priorityReason}</span>
-                                                            </div>
-                                                        );
-                                                    })()}
-
-                                                    {/* Auto-applied Custom Patches List */}
-                                                    <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "12px" }}>
-                                                        <span style={{ fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}><i className="fa-solid fa-circle-check"></i> 推奨強化パッチ（4枚自動貼付済）</span>
-                                                        {(() => {
-                                                            const sportData = getSelectedSportData();
-                                                            if (!sportData || !selectedConcern) return null;
-                                                            const concern = sportData.concerns?.find(c => c.id === selectedConcern);
-                                                            if (!concern) return null;
-                                                            return concern.patchIds.map((patchId, idx) => {
-                                                                const p = customPatchPool[patchId];
-                                                                if (!p) return null;
-                                                                return (
-                                                                    <div 
-                                                                        key={p.id}
-                                                                        className="info-card" 
-                                                                        style={{ 
-                                                                            margin: 0, 
-                                                                            borderColor: "rgba(0,255,127,0.25)",
-                                                                            background: "rgba(0, 255, 127, 0.02)"
-                                                                        }}
-                                                                    >
-                                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-                                                                            <div style={{ flex: 1 }}>
-                                                                                <span style={{ fontSize: "9px", color: "var(--secondary)", background: "rgba(0,255,127,0.1)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
-                                                                                <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
-                                                                                <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
-                                                                            </div>
-                                                                            <div style={{ color: "var(--secondary)", fontSize: "16px", marginTop: "4px", marginRight: "4px" }}>
-                                                                                <i className="fa-solid fa-circle-check"></i>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                );
-                                                            });
-                                                        })()}
-                                                    </div>
-                                                </div>
-                                            )}
-
-                                            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
-                                                <Button 
-                                                    onClick={() => setCurrentStep(0)}
-                                                    style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.15)", color: "#ffffff" }}
-                                                >
-                                                    <i className="fa-solid fa-arrow-left" style={{ marginRight: "6px" }}></i> 戻る
-                                                </Button>
                                                 <Button 
                                                     type="primary" 
-                                                    disabled={!selectedSport || !selectedConcern}
-                                                    onClick={handleCompleteProtocol}
-                                                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                                    block 
+                                                    onClick={evaluateAndSetBasePatches}
+                                                    style={{ height: "36px", fontWeight: "bold", fontSize: "13px" }}
                                                 >
-                                                    <i className="fa-solid fa-circle-check"></i> プロトコル貼付完了
+                                                    <i className="fa-solid fa-calculator" style={{ marginRight: "6px" }}></i> 診断してベース部位を決定
                                                 </Button>
                                             </div>
-                                        </div>
-                                    )}
+                                        ) : (
+                                            /* Sub-view B: Show selected base patches with checklists */
+                                            <div>
+                                                <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                                                    <div>
+                                                        <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-shield-halved"></i> STEP 1: 姿勢土台の安定化</h3>
+                                                        <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                            診断の結果、あなたの制限特性に適合した以下の3エリア（合計6枚）が決定しました。
+                                                        </p>
+                                                    </div>
+                                                    <Button 
+                                                        size="small" 
+                                                        onClick={() => setSubStep('check')}
+                                                        style={{ fontSize: "10px", background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#fff" }}
+                                                    >
+                                                        <i className="fa-solid fa-rotate-left"></i> 再測定する
+                                                    </Button>
+                                                </div>
+
+                                                {/* Rotation Clinical Advice Banner */}
+                                                {vasScores.rotation >= 5 && (
+                                                    <div style={{ 
+                                                        marginBottom: "12px", 
+                                                        background: "rgba(255, 45, 85, 0.05)", 
+                                                        border: "1px solid rgba(255, 45, 85, 0.25)", 
+                                                        borderRadius: "8px", 
+                                                        padding: "10px 14px",
+                                                        fontSize: "11.5px",
+                                                        lineHeight: "1.4"
+                                                    }}>
+                                                        <div style={{ color: "var(--patch-base)", fontWeight: "bold", marginBottom: "4px" }}>
+                                                            <i className="fa-solid fa-triangle-exclamation"></i> 回旋可動域制限に対する臨床アプローチ推奨
+                                                        </div>
+                                                        <div style={{ color: "var(--text-main)" }}>
+                                                            回旋制限（VAS: {vasScores.rotation}/10）には、肩甲骨（Rhomboids）だけでなく、回旋運動の主軸である **胸腰椎移行部（T12-L1）** や、土台となる **腰仙部（起立筋腰部）** が深く関与しています。もしカスタムパッチを別途お持ちの場合は、これら2点への追加貼付が有効です。
+                                                        </div>
+                                                    </div>
+                                                )}
+
+                                                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                                    {selectedBasePatches.map(patchId => {
+                                                        const p = basePatchPool[patchId];
+                                                        if (!p) return null;
+                                                        return (
+                                                            <div 
+                                                                key={p.id}
+                                                                className="info-card" 
+                                                                style={{ 
+                                                                    margin: 0, 
+                                                                    borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
+                                                                    background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
+                                                                }}
+                                                                onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                onMouseLeave={() => setHoveredPointId(null)}
+                                                            >
+                                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+                                                                    <div style={{ flex: 1 }}>
+                                                                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                                                                            <span style={{ fontSize: "9px", color: "var(--primary)", background: "rgba(0, 240, 255, 0.08)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold" }}>{p.movement}適合</span>
+                                                                            <span style={{ fontSize: "9px", color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
+                                                                        </div>
+                                                                        <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
+                                                                        <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
+                                                                    </div>
+                                                                    <Checkbox 
+                                                                        checked={baseChecked[p.id]} 
+                                                                        onChange={(e) => setBaseChecked({ ...baseChecked, [p.id]: e.target.checked })}
+                                                                        style={{ transform: "scale(1.25)", marginTop: "4px" }}
+                                                                    />
+                                                                </div>
+                                                            </div>
+                                                        );
+                                                    })}
+                                                </div>
+
+                                                {/* Complete Protocol Button */}
+                                                <div style={{ marginTop: "16px" }}>
+                                                    <Button 
+                                                        type="primary" 
+                                                        block
+                                                        disabled={!selectedBasePatches.every(patchId => baseChecked[patchId])} 
+                                                        onClick={handleCompleteProtocol}
+                                                        style={{ height: "40px", fontWeight: "bold", fontSize: "13px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                                    >
+                                                        <i className="fa-solid fa-circle-check"></i> プロトコル貼付完了
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        )}
+                                    </div>
                                 </Col>
 
                                 {/* Right Side: 2D Anatomical Map Overlays */}
@@ -2892,7 +2686,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         const isDotSelected = selectedPoint && selectedPoint.id === p.id && selectedPoint.coordIdx === idx;
                                                         return (
                                                             <g 
-                                                                key={`${p.id}-${idx}`}
+                                                                key={p.id + '-' + idx}
                                                                 className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
                                                                 onMouseEnter={() => setHoveredPointId(p.id)}
                                                                 onMouseLeave={() => setHoveredPointId(null)}
@@ -2919,7 +2713,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         const isDotSelected = selectedPoint && selectedPoint.id === p.id && selectedPoint.coordIdx === idx;
                                                         return (
                                                             <g 
-                                                                key={`${p.id}-${idx}`}
+                                                                key={p.id + '-' + idx}
                                                                 className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
                                                                 onMouseEnter={() => setHoveredPointId(p.id)}
                                                                 onMouseLeave={() => setHoveredPointId(null)}
@@ -2938,13 +2732,10 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                                             <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-base)" }}></span> ベースパッチ (6枚)
                                         </span>
-                                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                                            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-custom)" }}></span> カスタム強化パッチ (4枚)
-                                        </span>
                                     </div>
 
                                     {/* ROM Diagnostic Reference Guide (Only visible in Step 1 VAS check) */}
-                                    {currentStep === 0 && subStep === 'check' && (
+                                    {subStep === 'check' && (
                                         <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
                                             <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "2px" }}>
                                                 <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準目安
@@ -2971,7 +2762,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
                                                     <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
                                                     <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
-                                                    <li>高度 (7-10): 中指の先が太も目の中間までしか届かない、または痛む</li>
+                                                    <li>高度 (7-10): 中指の先が太ももの中間までしか届かない、または痛む</li>
                                                 </ul>
                                             </div>
                                             <div>
@@ -2984,7 +2775,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                             </div>
                                             <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
                                                 <strong>【判定基準の学術的・臨床的ソース】</strong><br />
-                                                - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提供)<br />
+                                                - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提唱)<br />
                                                 - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
                                                 - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
                                             </div>
@@ -3009,7 +2800,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                     *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
                                 </p>
                                 <p style={{ margin: "0 0 4px 0" }}>
-                                     *5 **全身の7大感覚ゲートと脊髄反射弓 (Local Cutaneous Reflex Loop)**: 頚部前庭（大後頭神経）、脊柱（後枝皮枝）、骨盤（上臀皮神経）、膝（伏在・総腓骨神経）、肩甲（鎖骨上・肩甲上神経）、肘腕（橈骨・尺骨・正中神経）、足関節（脛骨・腓腹神経）の全身7箇所に設定された「感覚ゲート（センサー網）」を直接刺激し、中枢（脳）を経由しないミリ秒単位 of 脊髄運動反射ループをトリガー。マクロな連鎖とミクロな反射を完璧に同期させます。
+                                     *5 **全身の7大感覚ゲートと脊髄反射弓 (Local Cutaneous Reflex Loop)**: 頚部前庭（大後頭神経）、脊柱（後枝皮枝）、骨盤（上臀皮神経）、膝（伏在・総腓骨神経）、肩甲（鎖骨上・肩甲上神経）、肘腕（橈骨・尺骨・正中神経）、足関節（脛骨・腓腹神経）の全身7箇所に設定された「感覚ゲート（センサー網）」を直接刺激し、中枢（脳）を経由しないミリ秒単位の脊髄運動反射ループをトリガー。マクロな連鎖とミクロな反射を完璧に同期させます。
                                  </p>
                                 <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
                                 <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
@@ -3021,17 +2812,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 </p>
                             </footer>
                         </div>
-                    )}
-                    </div>
-
-                    {/* Product Details Custom Modal */}
-                    <div id="productDetailsModal" className="modal-backdrop" style={{ display: isSpecsModalOpen ? 'flex' : 'none' }}>
-                        <div className="modal-content" style={{ maxWidth: "600px", width: "95%", maxHeight: "85vh", overflowY: "auto" }}>
-                            <div className="modal-header">
-                                <h3 style={{ color: "var(--secondary)", fontSize: "14px", margin: 0, fontWeight: 800, display: "flex", alignItems: "center", gap: "8px" }}>
-                                    <i className="fa-solid fa-box-open"></i> KINETIC-LINK 109 プロダクト詳細解説
-                                </h3>
-                                <button className="modal-close-btn" onClick={() => setIsSpecsModalOpen(false)}>&times;</button>
+                    `;>&times;</button>
                             </div>
                             <div className="modal-body" style={{ padding: "15px 0" }}>
                                 <div className="details-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", alignItems: "start" }}>
