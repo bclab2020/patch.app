@@ -11,6 +11,12 @@
     --secondary-glow: rgba(0, 240, 255, 0.3);
     --accent: #ff007f; /* Electric Pink */
     
+    /* Highly visible patch specific color variables */
+    --patch-base: #ff2d55; /* Neon Coral/Pink (was green) */
+    --patch-base-glow: rgba(255, 45, 85, 0.4);
+    --patch-custom: #ffea00; /* Neon Sun Yellow (was cyan) */
+    --patch-custom-glow: rgba(255, 234, 0, 0.4);
+    
     --text-main: #f8fafc;
     --text-muted: #94a3b8;
     --text-dark: #0f172a;
@@ -1853,30 +1859,50 @@ body {
     transition: all 0.3s ease;
 }
 .anatomy-dot.base circle {
-    fill: var(--primary) !important;
+    fill: var(--patch-base) !important;
     stroke: #000 !important;
 }
 .anatomy-dot.custom circle {
-    fill: var(--secondary) !important;
+    fill: var(--patch-custom) !important;
     stroke: #000 !important;
 }
 .anatomy-dot.highlighted circle {
-    r: 8 !important;
-    filter: drop-shadow(0 0 8px var(--secondary));
+    r: 10 !important;
 }
-.anatomy-dot.active circle {
-    animation: pointGlow 1.5s infinite alternate;
+.anatomy-dot.base.highlighted circle {
+    filter: drop-shadow(0 0 10px var(--patch-base));
+}
+.anatomy-dot.custom.highlighted circle {
+    filter: drop-shadow(0 0 10px var(--patch-custom));
+}
+.anatomy-dot.base.active circle {
+    animation: basePointGlow 1.5s infinite alternate;
+}
+.anatomy-dot.custom.active circle {
+    animation: customPointGlow 1.5s infinite alternate;
 }
 
-@keyframes pointGlow {
+@keyframes basePointGlow {
     0% {
-        r: 5;
+        r: 6.5;
         stroke-width: 2;
     }
     100% {
-        r: 8;
-        stroke-width: 4;
-        filter: drop-shadow(0 0 6px rgba(0, 240, 255, 0.8));
+        r: 9.5;
+        stroke-width: 3.5;
+        filter: drop-shadow(0 0 8px var(--patch-base));
+    }
+}
+
+@keyframes customPointGlow {
+    0% {
+        r: 6.5;
+        stroke-width: 2;
+    }
+    100% {
+        r: 9.5;
+        stroke-width: 3.5;
+        filter: drop-shadow(0 0 8px var(--patch-custom));
     }
 }
 
@@ -1970,8 +1996,8 @@ body {
         letter-spacing: 0.5px !important;
     }
     .anatomy-dot circle {
-        r: 4.5px !important;
-        stroke-width: 1.2px !important;
+        r: 6px !important;
+        stroke-width: 1.5px !important;
     }
     .anatomy-dot text {
         font-size: 6px !important;

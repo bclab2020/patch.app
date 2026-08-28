@@ -2899,7 +2899,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                         onMouseEnter={() => setHoveredPointId(p.id)}
                                                                         onMouseLeave={() => setHoveredPointId(null)}
                                                                     >
-                                                                        <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
+                                                                        <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "9.5" : "6.5"} stroke={isDotSelected ? "#ffffff" : "#000000"} strokeWidth={isDotSelected ? "3" : "2"} />
                                                                         
                                                                     </g>
                                                                 );
@@ -2927,7 +2927,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                         onMouseEnter={() => setHoveredPointId(p.id)}
                                                                         onMouseLeave={() => setHoveredPointId(null)}
                                                                     >
-                                                                        <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "7" : "5"} stroke={isDotSelected ? "#00f0ff" : "#000"} strokeWidth={isDotSelected ? "2.5" : "1.5"} />
+                                                                        <circle cx={coord.x} cy={coord.y} r={isDotSelected ? "9.5" : "6.5"} stroke={isDotSelected ? "#ffffff" : "#000000"} strokeWidth={isDotSelected ? "3" : "2"} />
                                                                         
                                                                     </g>
                                                                 );
@@ -2942,10 +2942,10 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         {/* Color Keys */}
                                         <div style={{ display: "flex", justifyContent: "center", gap: "16px", fontSize: "11px", color: "var(--text-muted)" }}>
                                             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                                                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--primary)" }}></span> ベースパッチ (6枚)
+                                                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-base)" }}></span > ベースパッチ (6枚)
                                             </span>
                                             <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
-                                                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--secondary)" }}></span> カスタム強化パッチ (4枚)
+                                                <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-custom)" }}></span > カスタム強化パッチ (4枚)
                                             </span>
                                         </div>
 
@@ -3499,10 +3499,10 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                                     key={idx} 
                                                                     cx={coord.x} 
                                                                     cy={coord.y} 
-                                                                    r={isEditing ? "8" : "5"} 
-                                                                    fill={isEditing ? "var(--secondary)" : "var(--primary)"} 
+                                                                    r={isEditing ? "10" : "6.5"} 
+                                                                    fill={isEditing ? "var(--patch-custom)" : "var(--patch-base)"} 
                                                                     stroke="#000" 
-                                                                    strokeWidth="1.5" 
+                                                                    strokeWidth={isEditing ? "2.5" : "1.5"} 
                                                                     style={{ cursor: "pointer" }}
                                                                     onClick={() => {
                                                                         setSelectedPoint({
