@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>B.C. Lab 4パッチ・スクリーニングプロトコル【現場客観検証＆継続運用シート】</title>
+  <style>
+    /* Reset & Foundation */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", Meiryo, sans-serif;
+      line-height: 1.48;
+      color: #1e293b;
+      background: #f1f5f9;
+      font-size: 9.3pt;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* Screen Floating Print Bar */
+    .no-print-bar {
+      position: fixed;
+      top: 12px;
+      right: 12px;
+      z-index: 9999;
+      background: #ffffff;
+      padding: 8px 16px;
+      border-radius: 30px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      font-size: 12px;
+      font-weight: 600;
+      color: #334155;
+    }
+    .print-btn {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 6px 18px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .print-btn:hover { background: #0369a1; }
+
+    /* A4 Page Container */
+    .a4-page {
+      width: 210mm;
+      min-height: 297mm;
+      padding: 10mm 13mm 10mm 13mm;
+      margin: 18px auto;
+      background: #ffffff;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.08);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Print Rules */
+    @page {
+      size: A4 portrait;
+      margin: 9mm 12mm 9mm 12mm;
+    }
+    @media print {
+      body {
+        background: #ffffff !important;
+        font-size: 9pt;
+      }
+      .no-print-bar { display: none !important; }
+      .a4-page {
+        width: 100% !important;
+        min-height: auto !important;
+        height: auto !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        box-shadow: none !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        display: block !important;
+      }
+      .a4-page:last-child {
+        page-break-after: avoid !important;
+        break-after: avoid !important;
+      }
+    }
+
+    /* Header & Footer */
+    .page-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid #0284c7;
+      padding-bottom: 4px;
+      margin-bottom: 6px;
+      font-size: 8.5pt;
+      color: #0369a1;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+    .page-footer {
+      margin-top: auto;
+      padding-top: 4px;
+      border-top: 1px solid #cbd5e1;
+      display: flex;
+      justify-content: space-between;
+      font-size: 7.8pt;
+      color: #64748b;
+    }
+    @media print {
+      .page-footer {
+        margin-top: 8px;
+        padding-top: 3px;
+      }
+    }
+
+    /* Badges & Titles */
+    .doc-badge {
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: 800;
+      color: #0369a1;
+      background: #e0f2fe;
+      padding: 2px 7px;
+      border-radius: 3px;
+      margin-bottom: 2px;
+    }
+    h1.main-title {
+      font-size: 13.5pt;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.25;
+      margin-bottom: 2px;
+    }
+    .main-subtitle {
+      font-size: 9.1pt;
+      color: #475569;
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+    h2.section-title {
+      font-size: 9.8pt;
+      font-weight: 800;
+      color: #0f172a;
+      background: #f1f5f9;
+      padding: 3.5px 7px;
+      border-left: 3.5px solid #0284c7;
+      border-radius: 0 4px 4px 0;
+      margin-top: 6px;
+      margin-bottom: 5px;
+    }
+
+    /* Cards & Grids */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 7px;
+      margin: 4px 0;
+    }
+    .card {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
+      padding: 6px 9px;
+    }
+    .card-accent {
+      border-left: 3.5px solid #0284c7;
+    }
+    .card-title {
+      font-size: 9pt;
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 2px;
+    }
+    .card-body {
+      font-size: 8.5pt;
+      color: #334155;
+      line-height: 1.42;
+    }
+
+    /* Structural Theory Rows */
+    .theory-row {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid #0284c7;
+      border-radius: 4px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+    .theory-header {
+      font-size: 9.1pt;
+      font-weight: 700;
+      color: #0f172a;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .theory-body {
+      font-size: 8.5pt;
+      color: #334155;
+      line-height: 1.42;
+    }
+
+    /* Tables */
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 4px 0;
+      font-size: 8.6pt;
+    }
+    table.data-table th, table.data-table td {
+      border: 1px solid #cbd5e1;
+      padding: 5px 7px;
+      text-align: left;
+      vertical-align: middle;
+      line-height: 1.38;
+    }
+    table.data-table th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 8.7pt;
+    }
+
+    /* Protocol Steps */
+    .step-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #0284c7;
+      border-radius: 4px;
+      padding: 5px 9px;
+      margin-bottom: 4.5px;
+    }
+    .step-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2px;
+    }
+    .step-name {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #0f172a;
+    }
+    .step-tag {
+      font-size: 7.8pt;
+      font-weight: 700;
+      background: #e0f2fe;
+      color: #0284c7;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .step-content {
+      font-size: 8.4pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    /* Q&A Boxes */
+    .qa-box {
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-left: 3.5px solid #0284c7;
+      border-radius: 4px;
+      padding: 5px 9px;
+      margin-bottom: 4px;
+      font-size: 8.4pt;
+      line-height: 1.38;
+    }
+    .qa-q {
+      font-weight: 700;
+      color: #0369a1;
+      margin-bottom: 1px;
+    }
+    .qa-a {
+      color: #334155;
+    }
+
+    /* Recurring Talk Boxes */
+    .talk-box {
+      background: #ffffff;
+      border: 1px solid #cbd5e1;
+      border-left: 4px solid #0284c7;
+      border-radius: 4px;
+      padding: 6px 9px;
+      margin-bottom: 5px;
+    }
+    .talk-title {
+      font-size: 9pt;
+      font-weight: 800;
+      color: #0369a1;
+      margin-bottom: 2px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .talk-badge {
+      font-size: 7.6pt;
+      font-weight: 700;
+      background: #e0f2fe;
+      color: #0284c7;
+      padding: 1px 6px;
+      border-radius: 3px;
+    }
+    .talk-body {
+      font-size: 8.4pt;
+      color: #334155;
+      line-height: 1.4;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="no-print-bar">
+    <span>B.C. Lab 現場客観検証シート (A4・全3ページ)</span>
+    <button class="print-btn" onclick="window.print()">🖨️ PDF印刷 / 保存</button>
+  </div>
+
+  <!-- ===================================================================
+       PAGE 1: 客観検証コンセプト ＆ 4枚貼付位置 ＆ 生理学的機序モデル
+       =================================================================== -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>B.C. LAB CLINICAL & FIELD SCREENING PROTOCOL</span>
+      <span>PAGE 1 / 3</span>
+    </div>
+
+    <div class="doc-badge">RAPID FIELD EVALUATION SPECIFICATION</div>
+    <h1 class="main-title">B.C. Lab 4パッチ・スクリーニングプロトコル（現場客観検証シート）</h1>
+    <div class="main-subtitle">〜着衣のまま実施可能。後頭下・アキレス腱の2極介入による可動域変化の客観的検証〜</div>
+
+    <h2 class="section-title">1. なぜ「後頭下 ＋ アキレス腱（4枚）」から開始するのか？（評価の客観性・利便性）</h2>
+    <div class="grid-2">
+      <div class="card card-accent">
+        <div class="card-title">① 着衣の着脱が不要（検証の再現性・即時性）</div>
+        <div class="card-body">
+          大学研究室、体育館、グラウンド脇等において、スーツや運動着を着脱することなく検証可能。露出部位は<strong>「首の後ろ」</strong>と<strong>「足首の後ろ」</strong>の2箇所のみであり、被験者への過剰な負担をかけずに同一条件での即時測定が成立します。
+        </div>
+      </div>
+      <div class="card card-accent">
+        <div class="card-title">② 最上流と最下流を結ぶ「二極介入（バイポーラ・アプローチ）」</div>
+        <div class="card-body">
+          全身の筋緊張ゲインを統括する「後頭下受容器群（C1-C2）」と、地面からの床反力を受容する「アキレス腱遠位部」。この2極を同時に介入することで、表層バックライン（SBL）および脊柱硬膜管の過剰張力を力学的に均等化し、<strong>中枢性の筋性防御を解除</strong>します。
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">2. 貼付部位と解剖学的ランドマーク</h2>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th style="width: 20%;">区分・枚数</th>
+          <th style="width: 28%;">解剖学的貼付部位</th>
+          <th>ランドマークおよび貼付手順</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>中枢マスター</strong><br><small style="color:#0284c7;">左右2枚</small></td>
+          <td><strong>後頭下筋群</strong><br><small style="color:#64748b;">（大後頭直筋・上頭斜筋・下頭斜筋）</small></td>
+          <td>外後頭隆起の下方、頭蓋骨と第1頚椎（環椎）の間のくぼみ（後頭下三角部）に、正中線を挟んで左右対称に貼付します。<br><small style="color:#475569;">※ 毛髪の生え際直下の陥凹部に密着させて貼付します。</small></td>
+        </tr>
+        <tr>
+          <td><strong>抗重力ベース</strong><br><small style="color:#0284c7;">左右2枚</small></td>
+          <td><strong>アキレス腱遠位部</strong><br><small style="color:#64748b;">（踵骨付着部上方）</small></td>
+          <td>内果・外果（くるぶし）の高さにおけるアキレス腱後方部に、左右対称に貼付します。<br><small style="color:#475569;">※ ソックスをわずかに引き下げるのみで貼付可能です。</small></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 class="section-title">3. 作用機序の科学的解説（平易な論理モデル）</h2>
+    <p style="margin-bottom:4px; font-size:8.5pt; color:#64748b;">
+      ※ 主観的思い込み（プラセボ）ではなく、解剖生理学的に確立された生体反射モデルに基づきます。
+    </p>
+
+    <!-- 論理1 -->
+    <div class="theory-row">
+      <div class="theory-header">
+        <span>① 筋性防御（保護性スパズム）の中枢性解除</span>
+        <span style="font-size:8pt; color:#0284c7; font-weight:700;">中枢原点リキャリブレーション</span>
+      </div>
+      <div class="theory-body">
+        柔軟性の低下や前屈制限の本質は、筋組織自体の器質的短縮ではなく、中枢神経系が関節障害を防ぐために発動させている無意識の過剰緊張（保護性筋スパズム）に起因します。後頭下筋群の精密受容器（筋紡錘密度242個/g）への微細刺激により、脳幹網様体のγ運動ニューロン過興奮が鎮静化され、全身の過剰な筋性ブレーキが反射的に解除されます。
+      </div>
+    </div>
+
+    <!-- 論理2 -->
+    <div class="theory-row">
+      <div class="theory-header">
+        <span>② 表層バックライン（SBL）と硬膜管の引張応力均等化</span>
+        <span style="font-size:8pt; color:#0284c7; font-weight:700;">筋膜連鎖 ＆ 筋硬膜架橋</span>
+      </div>
+      <div class="theory-body">
+        生体は独立した単体筋の集合ではなく、頭蓋から足底まで連続する筋膜網および脊髄硬膜管（Dural Tube）によって力学的に連結されています。張力ラインの最上流（後頭下）と最下流（アキレス腱）を同時に除圧することで、中間部（胸背部・腰部・大腿後面）の引張応力が均等化され、全身の屈曲・回旋可動域が力学的に拡大します。
+      </div>
+    </div>
+
+    <!-- 論理3 -->
+    <div class="theory-row">
+      <div class="theory-header">
+        <span>③ 皮膚感覚入力による反射性脱力（皮膚筋反射）</span>
+        <span style="font-size:8pt; color:#0284c7; font-weight:700;">Cutaneous-Muscular Reflex</span>
+      </div>
+      <div class="theory-body">
+        Model-109の109個の精密突起が皮膚の低閾値機械受容器（Aβ線維）を持続的に刺激します。求心性シグナルが脊髄後角の抑制性介在ニューロンを賦活し、標的筋群のα・γ運動ニューロンプールをシナプス前抑制します。機械的圧迫やマッサージを伴わずに、生理反射によって深層筋の弛緩が即時誘導されます（Zehr & Stein, 1999）。
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>B.C. Lab Co., Ltd. Clinical & Field Operations | Confidential</span>
+      <span>PAGE 1 / 3</span>
+    </div>
+  </div>
+
+
+  <!-- ===================================================================
+       PAGE 2: 客観的測定プロトコル ＆ 10枚展開理論 ＆ 学術Q&A
+       =================================================================== -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>B.C. LAB CLINICAL & FIELD SCREENING PROTOCOL</span>
+      <span>PAGE 2 / 3</span>
+    </div>
+
+    <h2 class="section-title">4. 客観的可動域検証プロトコル（測定手順と統制条件）</h2>
+    <p style="margin-bottom:5px; font-size:8.5pt; color:#64748b;">
+      ※ 主観的誘導や心理的暗示を排し、数値の客観性と再現性を確保するための5ステップです。
+    </p>
+
+    <div class="step-box">
+      <div class="step-header">
+        <span class="step-name">STEP 1：事前測定（Pre-test：立位体前屈 FFD計測）</span>
+        <span class="step-tag">統制時間：30秒</span>
+      </div>
+      <div class="step-content">
+        両足を揃えて直立し、膝関節の完全伸展を保持。反動（バウンシング）を使わずに呼気とともに静かに前屈を行います。指先と床面の最短距離（FFD: Finger-Floor Distance：cm単位または指幅本数）を客観的に記録します。<br>
+        <small style="color:#64748b;">※ 指導者の要望に応じ、頚部・体幹の自動回旋角度や側屈可動域の計測でも代替可能です。</small>
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-header">
+        <span class="step-name">STEP 2：4パッチ貼付（Intervention：着衣のまま実施）</span>
+        <span class="step-tag">所要時間：60秒</span>
+      </div>
+      <div class="step-content">
+        被験者は着衣のまま立位または端座位を保持。後頭部生え際の陥凹部（後頭下筋群）に左右各1枚、左右アキレス腱後方部に各1枚を貼付します（計4枚）。衣服を脱ぐ必要はありません。
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-header">
+        <span class="step-name">STEP 3：動的受容適応（Sensory Integration：受容器入力）</span>
+        <span class="step-tag">適応時間：30秒</span>
+      </div>
+      <div class="step-content">
+        頚部を左右へ緩やかに2回ずつ回旋させ、その場で軽度な足踏みを10回実施します。関節運動に伴う固有感覚入力を中枢へフィードバックし、受容器シグナルを神経系に定着させます。
+      </div>
+    </div>
+
+    <div class="step-box" style="border-left-color:#0284c7; background:#f0f9ff;">
+      <div class="step-header">
+        <span class="step-name" style="color:#0369a1;">STEP 4：事後測定（Post-test：同一条件下での再計測）</span>
+        <span class="step-tag" style="background:#bae6fd; color:#0369a1;">検証時間：30秒</span>
+      </div>
+      <div class="step-content">
+        STEP 1と厳密に同一の条件（同一足幅、非反動、膝伸展）にて立位体前屈を再計測。床面と指先の距離の差分（前屈可動域の変化量：+○cm）を客観的に記録し、変化を確認します。
+      </div>
+    </div>
+
+    <div class="step-box">
+      <div class="step-header">
+        <span class="step-name">STEP 5：機序の客観解説（Debriefing）</span>
+        <span class="step-tag">説明時間：30秒</span>
+      </div>
+      <div class="step-content">
+        筋組織に対する牽引（ストレッチ）やマッサージを行っていないにもかかわらず可動域が変化した機序として、皮膚受容器を介した中枢性筋性防御（保護性スパズム）の反射的解除を論理的に説明します。
+      </div>
+    </div>
+
+    <h2 class="section-title">5. 「4枚（基礎可動性）」から「10枚（運動連鎖・出力最適化）」への論理的展開</h2>
+    <div style="background:#f8fafc; border:1px solid #cbd5e1; border-left:4px solid #0284c7; border-radius:4px; padding:6px 10px; font-size:8.5pt; line-height:1.44; margin-bottom:5px;">
+      <strong style="color:#0369a1; font-size:8.9pt;">【第1段階（基礎解放）から第2段階（競技力加速）への体系的移行】</strong><br>
+      <strong>■ 第1段階【4枚モデル】中枢ブレーキの解除（抑制の除去 / ニュートラル化）:</strong><br>
+      後頭下（2枚）＋ アキレス腱（2枚）の二極介入により、過剰な硬膜張力とγトーンを正常化し、全身の可動域と姿勢軸をニュートラル（ゼロ）に戻します。<br>
+      <strong>■ 第2段階【10枚モデル】運動連鎖の最適化 ＆ 推進力加速（競技特化アクセル）:</strong><br>
+      基本の4枚でブレーキを解除した土台の上に、残り6枚（運動面キーストーン：胸腰椎移行部 T12-L1 / 腸骨稜外側 / 側胸部肋骨 ＋ 競技特化部位）を配備。Joint-by-Joint理論および交差スリング（POS/AOS/LS）を稼働させることで、<strong>リバウンドジャンプ接地短縮、垂直跳び高、バットスイング速度、投球球速・スピン量</strong>などの競技特異的パフォーマンス数値を直接引き上げます。
+    </div>
+
+    <h2 class="section-title">6. 指導者・研究者からの学術的質問への論理的回答（Q&A 3選）</h2>
+    <div class="qa-box">
+      <div class="qa-q">Q1. プラセボ効果（心理的暗示）との鑑別はどのように説明されるか？</div>
+      <div class="qa-a">
+        本技術の作用機序は、解剖学的に証明された筋硬膜架橋（Hack et al., 1995）および生理学的反射である皮膚筋反射（Zehr & Stein, 1999）に基づきます。開眼・閉眼条件の比較や、被験者に事前の期待値を与えないブラインド条件下においても、筋電図（EMG）レベルでの筋放電量減少および関節可動域の有意な改善が再現されます。
+      </div>
+    </div>
+    <div class="qa-box">
+      <div class="qa-q">Q2. 一般的なキネシオロジーテープや弾性包帯との本質的な違いは何か？</div>
+      <div class="qa-a">
+        従来のキネシオロジーテープは、皮膚の牽引による皮下腔拡大や、関節の力学的支持（固定・制動）を主目的とします。本パッチは物理的な固定力を目的とせず、109個のマイクロ突起による微小触圧覚刺激を介して、神経系の感覚運動制御ループ（求心性フィードバック）を変調させる<strong>「生体情報入力インターフェース」</strong>として機能します。
+      </div>
+    </div>
+    <div class="qa-box">
+      <div class="qa-q">Q3. 可動域の改善は一過性の変化にとどまるのか、学習効果はあるのか？</div>
+      <div class="qa-a">
+        パッチ貼付中は持続的な求心入力により効果が維持されます。さらに、過剰な防御反射が解除された正常な可動域内で運動反復を行うことで、大脳皮質体性感覚野（S1）および運動野における感覚予測誤差が修正され、代償動作のない適正な運動パターンが中枢神経系に再学習（Motor Learning）されます。
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>B.C. Lab Co., Ltd. Clinical & Field Operations | Confidential</span>
+      <span>PAGE 2 / 3</span>
+    </div>
+  </div>
+
+
+  <!-- ===================================================================
+       PAGE 3: 現場導入・継続運用プロトコル【月水金ルール ＆ 減衰カーブ理論】
+       =================================================================== -->
+  <div class="a4-page">
+    <div class="page-header">
+      <span>B.C. LAB CLINICAL & FIELD SCREENING PROTOCOL</span>
+      <span>PAGE 3 / 3</span>
+    </div>
+
+    <h2 class="section-title">7. 現場導入・継続運用プロトコル【月・水・金ルール ＆ 減衰カーブ理論】</h2>
+    <div class="main-subtitle" style="margin-bottom:4px;">
+      〜「なぜ毎日貼らないのか？」「なぜ卒業させてはいけないのか？」を指導者に論理的・客観的に納得させる営業理論〜
+    </div>
+
+    <!-- Graph Image -->
+    <div style="text-align:center; margin:3px 0 5px 0;">
+      <img src="neuroplastic_decay_graph.png" alt="感覚フィードバック入力 ＆ 神経可塑性減衰カーブ" style="width:100%; max-height:205px; object-fit:contain; border:1px solid #cbd5e1; border-radius:4px; box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+    </div>
+
+    <!-- 営業トーク① -->
+    <div class="talk-box">
+      <div class="talk-title">
+        <span>【営業トーク①】なぜ「月・水・金の8時間装着（隔日運用）」を指導者に推奨するのか？</span>
+        <span class="talk-badge">ガイダンス仮説打破 ＆ 皮膚保護</span>
+      </div>
+      <div class="talk-body">
+        <strong>● 貼りっぱなしは逆効果（外部依存の弊害）:</strong> 外部刺激を毎日24時間与え続けると、脳は「自力で姿勢や関節を安定させる」努力を放棄（ガイダンス仮説：Schmidt）。また皮膚呼吸の阻害によるかぶれや、機械受容器の「刺激へのなれ（感度低下）」が生じます。<br>
+        <strong>● 貼らない日（火・木・土日）こそが脳の定着タイム:</strong> 朝貼って夕方剥がす（実質8時間装着）。翌日の貼らない日に、脳が「パッチなしで自前の筋紡錘センサーを使って正しい動きを再現する」自律復習（保持テスト）を自動実行し、睡眠中に神経回路（Late-LTP）として物理的に記憶を焼き付けます。
+      </div>
+    </div>
+
+    <!-- 営業トーク② -->
+    <div class="talk-box">
+      <div class="talk-title">
+        <span>【営業トーク②】なぜ「良くなったから卒業（使用中止）」させてはいけないのか？</span>
+        <span class="talk-badge">半減期14日 ＆ リバウンド防止</span>
+      </div>
+      <div class="talk-body">
+        <strong>● 放置すると14日で効果は半減し、1ヶ月で完全退行（赤色破線）:</strong> アスリートであっても日常の重力負荷や練習疲労、非対称な競技動作により、放置すれば約14日で脳の保護ブレーキ（筋性防御）が再燃し、28日後には元の硬い身体・エラー動作に逆戻りします。<br>
+        <strong>● 歯磨きや車の定期車検・アライメント調整と同じ生涯メンテナンス:</strong> 「一度磨いたから一生磨かなくていい」「一度アライメント調整したから一生狂わない」ということはありません。週3回の定期リキャリブレーションを継続することこそが、怪我をゼロに抑え、常にピークパフォーマンス（青色実線：85〜100%）を維持するための必須基盤です。
+      </div>
+    </div>
+
+    <!-- 営業トーク③ -->
+    <div class="talk-box" style="border-left-color:#10b981; background:#f0fdf4;">
+      <div class="talk-title" style="color:#047857;">
+        <span>【営業トーク③】競技レベル上昇に伴うチーム・大学への契約提案モデル（リカーリング展開）</span>
+        <span class="talk-badge" style="background:#dcfce7; color:#15803d;">月間消費モデル</span>
+      </div>
+      <div class="talk-body">
+        <strong>・Stage 1【中枢リセット期】（4枚×週3日 ➔ 月48枚消費/人）:</strong> チーム全員の基礎可動域拡大と姿勢ニュートラル化。<br>
+        <strong>・Stage 2【三面キーストーン期】（6枚×週3日 ➔ 月72枚消費/人）:</strong> 個々の弱点動作（後屈・回旋・側屈）を克服し運動連鎖を最適化。<br>
+        <strong>・Stage 3【ハイパフォーマンス期】（10枚×週3〜4日 ➔ 月120〜160枚消費/人）:</strong> 一流選手ほど回旋負荷が大きく筋性防御が再燃しやすいため、10枚のフルチューニングを恒久継続。競技力向上と消費枚数の拡大が完全に同期する設計です。
+      </div>
+    </div>
+
+    <div class="page-footer">
+      <span>B.C. Lab Co., Ltd. Clinical & Field Operations | Version 3.0 (Field Demo & Recurring Edition)</span>
+      <span>PAGE 3 / 3 (COMPLETE)</span>
+    </div>
+  </div>
+
+</body>
+</html>

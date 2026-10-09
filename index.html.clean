@@ -47,7 +47,7 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 129,
+                                        "x": 139,
                                         "y": 794,
                                         "side": "右"
                               },
@@ -81,16 +81,16 @@
                     "id": "gluteus_medius",
                     "name": "中臀筋部 (左右2枚)",
                     "meridian": "LL (Lateral Line / ラテラルライン)",
-                    "desc": "【神経生理】上臀神経外側皮枝を刺激し、中臀筋の水平維持反射（トレンデレンブルグ制動）をトリガー。【JbJ】股関節の外側安定と骨盤制御。【筋膜】LLの側方剛性を高め、切り返し時の左右ブレを防止。",
+                    "desc": "【神経生理】上臀神経外側皮枝を刺激し、中臀筋の水平維持反射（トレンデレンブルグ制動）を促進。【JbJ】股関節の外側安定と骨盤制御。【筋膜】LLの側方剛性を高め、切り返し時の左右ブレを防止。",
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 139,
+                                        "x": 144,
                                         "y": 486,
                                         "side": "右"
                               },
                               {
-                                        "x": 283,
+                                        "x": 288,
                                         "y": 486,
                                         "side": "左"
                               }
@@ -119,17 +119,17 @@
                     "id": "gastrocnemius",
                     "name": "腓腹筋外側頭 (左右2枚)",
                     "meridian": "SBL (Superficial Back Line / 表層バックライン)",
-                    "desc": "【神経生理】脛骨神経（腓腹神経）を介して腓腹筋外側頭の底屈伸張反射をトリガー。【JbJ】足関節の底屈可動性（Mobility）を最大化。【筋膜】SBLを介して足底からの衝撃と駆動力を上方へ高伝達。",
+                    "desc": "【神経生理】脛骨神経（腓腹神経）を介して腓腹筋外側頭の底屈伸張反射を促進。【JbJ】足関節の底屈可動性（Mobility）を最大化。【筋膜】SBLを介して足底からの衝撃と駆動力を上方へ高伝達。",
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 134,
-                                        "y": 755,
+                                        "x": 139,
+                                        "y": 765,
                                         "side": "右"
                               },
                               {
-                                        "x": 288,
-                                        "y": 755,
+                                        "x": 293,
+                                        "y": 765,
                                         "side": "左"
                               }
                     ]
@@ -142,13 +142,13 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 144,
-                                        "y": 422,
+                                        "x": 159,
+                                        "y": 382,
                                         "side": "右"
                               },
                               {
-                                        "x": 278,
-                                        "y": 422,
+                                        "x": 273,
+                                        "y": 382,
                                         "side": "左"
                               }
                     ]
@@ -157,17 +157,17 @@
                     "id": "thoracolumbar",
                     "name": "胸腰椎移行部 T12-L1 (左右2枚)",
                     "meridian": "SPL (Spiral Line / スパイラルライン)",
-                    "desc": "【神経生理】上臀皮神経（T12-L3後枝皮枝）と胸腰筋膜を刺激し、多裂筋・最長筋の姿勢起立反射を誘発。【JbJ】腰椎・胸腰移行部の剛性（Stability）を担保。【筋膜】SPLと後方Xラインの回旋軸ブレを制御。★回旋動作（スイング・投球）の主軸であり、回旋制限時には最優先アプローチ部位となります。★回旋動作（スイング・投球）の主軸であり、回旋制限時には最優先アプローチ部位となります。★回旋動作（スイング・投球）の主軸であり、回旋制限時には最優先アプローチ部位となります。",
+                    "desc": "【神経生理】上臀皮神経（T12-L3後枝皮枝）と胸腰筋膜を刺激し、多裂筋・最長筋の姿勢起立反射を誘発。【JbJ】腰椎・胸腰移行部の剛性（Stability）を担保。【筋膜】SPLと後方Xラインの回旋軸ブレを制御。",
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 180,
-                                        "y": 340,
+                                        "x": 195,
+                                        "y": 355,
                                         "side": "右"
                               },
                               {
                                         "x": 242,
-                                        "y": 340,
+                                        "y": 355,
                                         "side": "左"
                               }
                     ]
@@ -180,13 +180,13 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 78,
-                                        "y": 320,
+                                        "x": 88,
+                                        "y": 335,
                                         "side": "右"
                               },
                               {
                                         "x": 344,
-                                        "y": 320,
+                                        "y": 330,
                                         "side": "左"
                               }
                     ]
@@ -195,17 +195,17 @@
                     "id": "epicondyle_medial",
                     "name": "上腕骨内側上顆 (左右2枚)",
                     "meridian": "Arm Lines (アームライン)",
-                    "desc": "【神経生理】正中・尺骨神経（内側前腕皮神経）を刺激し、手首屈筋群の掌屈・グリップ反射をトリガー。【JbJ】肘関節の安定性（Stability）を強化。【筋膜】フロントアームラインのインパクト・コントロールを向上。",
+                    "desc": "【神経生理】正中・尺骨神経（内側前腕皮神経）を刺激し、手首屈筋群の掌屈・グリップ反射を促進。【JbJ】肘関節の安定性（Stability）を強化。【筋膜】フロントアームラインのインパクト・コントロールを向上。",
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 88,
-                                        "y": 328,
+                                        "x": 123,
+                                        "y": 353,
                                         "side": "右"
                               },
                               {
-                                        "x": 334,
-                                        "y": 328,
+                                        "x": 314,
+                                        "y": 348,
                                         "side": "左"
                               }
                     ]
@@ -214,17 +214,17 @@
                     "id": "subclavius",
                     "name": "鎖骨下筋・小胸筋周囲 (左右2枚)",
                     "meridian": "Arm Lines (深層フロントアームライン)",
-                    "desc": "【神経生理】鎖骨下筋神経および外側胸背神経を刺激し、鎖骨・肩甲骨下制反射をトリガー。【JbJ】肩甲胸郭関節の安定（Stability）をサポート。【筋膜】DFL（深層フロント）アームラインの巻き肩をリセット。",
+                    "desc": "【神経生理】鎖骨下筋神経および外側胸背神経を刺激し、鎖骨・肩甲骨下制反射を促進。【JbJ】肩甲胸郭関節の安定（Stability）をサポート。【筋膜】DFL（深層フロント）アームラインの巻き肩をリセット。",
                     "view": "front",
                     "coords": [
                               {
                                         "x": 165,
-                                        "y": 205,
+                                        "y": 215,
                                         "side": "右"
                               },
                               {
-                                        "x": 257,
-                                        "y": 205,
+                                        "x": 267,
+                                        "y": 215,
                                         "side": "左"
                               }
                     ]
@@ -237,7 +237,7 @@
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 150,
+                                        "x": 160,
                                         "y": 236,
                                         "side": "右"
                               },
@@ -252,17 +252,17 @@
                     "id": "erector_spinae",
                     "name": "脊柱起立筋腰部 (左右2枚)",
                     "meridian": "SBL (Superficial Back Line / 表層バックライン)",
-                    "desc": "【神経生理】腰髄神経後枝を刺激し、起立筋群の抗重力緊張・姿勢維持反射を活性化。【JbJ】腰椎の安定性（Stability）を担保し、骨盤後傾代償を防ぐ。【筋膜】SBL全体のテンションバランスを調整。★腰仙部・骨盤の土台を安定させ、体幹回旋のトルク出力を向上させます。★腰仙部・骨盤の土台を安定させ、体幹回旋のトルク出力を向上させます。★腰仙部・骨盤の土台を安定させ、体幹回旋のトルク出力を向上させます。",
+                    "desc": "【神経生理】腰髄神経後枝を刺激し、起立筋群の抗重力緊張・姿勢維持反射を活性化。【JbJ】腰椎の安定性（Stability）を担保し、骨盤後傾代償を防ぐ。【筋膜】SBL全体のテンションバランスを調整。",
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 180,
-                                        "y": 410,
+                                        "x": 195,
+                                        "y": 400,
                                         "side": "右"
                               },
                               {
                                         "x": 242,
-                                        "y": 410,
+                                        "y": 400,
                                         "side": "左"
                               }
                     ]
@@ -275,12 +275,12 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 170,
+                                        "x": 195,
                                         "y": 589,
                                         "side": "右"
                               },
                               {
-                                        "x": 252,
+                                        "x": 242,
                                         "y": 589,
                                         "side": "左"
                               }
@@ -294,12 +294,12 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 134,
+                                        "x": 129,
                                         "y": 512,
                                         "side": "右"
                               },
                               {
-                                        "x": 288,
+                                        "x": 303,
                                         "y": 512,
                                         "side": "左"
                               }
@@ -313,13 +313,13 @@
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 180,
-                                        "y": 141,
+                                        "x": 195,
+                                        "y": 136,
                                         "side": "右"
                               },
                               {
-                                        "x": 242,
-                                        "y": 141,
+                                        "x": 247,
+                                        "y": 136,
                                         "side": "左"
                               }
                     ]
@@ -332,7 +332,7 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 139,
+                                        "x": 149,
                                         "y": 320,
                                         "side": "右"
                               },
@@ -351,13 +351,13 @@
                     "view": "back",
                     "coords": [
                               {
-                                        "x": 165,
-                                        "y": 174,
+                                        "x": 160,
+                                        "y": 179,
                                         "side": "右"
                               },
                               {
-                                        "x": 257,
-                                        "y": 174,
+                                        "x": 272,
+                                        "y": 179,
                                         "side": "左"
                               }
                     ]
@@ -370,12 +370,12 @@
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 68,
+                                        "x": 93,
                                         "y": 384,
                                         "side": "右"
                               },
                               {
-                                        "x": 354,
+                                        "x": 344,
                                         "y": 384,
                                         "side": "左"
                               }
@@ -385,17 +385,17 @@
                     "id": "medial_ankle",
                     "name": "内果下部後方・後脛骨筋腱部 (左右2枚)",
                     "meridian": "DFL (Deep Front Line) / 脛骨神経感覚ゲート",
-                    "desc": "【神経生理】脛骨神経（内側足底皮枝）を刺激し、後脛骨筋の反射的収縮をトリガー。足底内側アーチの潰れ（プロネーション）を防ぎ、支持基底面の剛性を高めます。【JbJ】足関節の可動性（Mobility）。【筋膜】DFLを介して体幹深層への力伝達経路を構築。",
+                    "desc": "【神経生理】脛骨神経（内側足底皮枝）を刺激し、後脛骨筋の反射的収縮を促進。足底内側アーチの潰れ（プロネーション）を防ぎ、支持基底面の剛性を高めます。【JbJ】足関節の可動性（Mobility）。【筋膜】DFLを介して体幹深層への力伝達経路を構築。",
                     "view": "front",
                     "coords": [
                               {
                                         "x": 170,
-                                        "y": 922,
+                                        "y": 972,
                                         "side": "右"
                               },
                               {
-                                        "x": 252,
-                                        "y": 922,
+                                        "x": 262,
+                                        "y": 972,
                                         "side": "左"
                               }
                     ]
@@ -404,17 +404,17 @@
                     "id": "lateral_ankle",
                     "name": "外果下部側方・腓骨筋腱部 (左右2枚)",
                     "meridian": "LL (Lateral Line) / 腓腹神経感覚ゲート",
-                    "desc": "【神経生理】腓腹神経を刺激し、腓骨筋群の反射的共収縮をトリガー。足首の外側ブレ（サピネーション）を強力に制動し、ステップや重心動揺をミリ秒単位で制御します。【JbJ】足関節の可動性（Mobility）。【筋膜】LLを介して側方支持連鎖を強化。",
+                    "desc": "【神経生理】腓腹神経を刺激し、腓骨筋群の反射的共収縮を促進。足首の外側ブレ（サピネーション）を強力に制動し、ステップや重心動揺を素早くブレを制動します。【JbJ】足関節の可動性（Mobility）。【筋膜】LLを介して側方支持連鎖を強化。",
                     "view": "front",
                     "coords": [
                               {
-                                        "x": 129,
-                                        "y": 922,
+                                        "x": 134,
+                                        "y": 967,
                                         "side": "右"
                               },
                               {
-                                        "x": 293,
-                                        "y": 922,
+                                        "x": 303,
+                                        "y": 967,
                                         "side": "左"
                               }
                     ]
@@ -427,7 +427,7 @@
                     "id": "achilles",
                     "name": "アキレス腱遠位部 (左右2枚)",
                     "meridian": "SBL (Superficial Back Line / 表層バックライン)",
-                    "desc": "【神経生理】脛骨神経（下腿皮枝）および下腿三頭筋腱紡錘を刺激し、腱反射・伸張反射（SSC）の応答感度を向上。【JbJ】足関節の可動性（Mobility）を拡大。【筋膜】SBL（表層バックライン）全体の緊張を緩和し、前屈時の突っ張りを解消。",
+                    "desc": "【神経生理・機能解剖】SBL最下流アンカー。脛骨神経領域および下腿三頭筋腱受容器を刺激。【JbJ】足関節モビリティ（Mobility）を解放し、後頭下（C1-C2）との二極連動で脊柱全体の抗重力伸展・前屈軸を確立。",
                     "view": "back",
                     "movement": "前屈 (Flexion)",
                     "coords": [
@@ -443,62 +443,62 @@
                               }
                     ]
           },
-          "sternum": {
-                    "id": "sternum",
-                    "name": "胸骨体・大胸筋付着部 (左右2枚)",
-                    "meridian": "SFL (Superficial Front Line / 表層フロントライン)",
-                    "desc": "【神経生理】肋間神経前皮枝および胸骨周囲筋膜を刺激し、胸郭呼吸・姿勢制御反射を調整。【JbJ】胸椎の可動性（Mobility）を向上し、体幹後屈を滑らかに。【筋膜】SFL（表層フロントライン）を伸展・解放。",
-                    "view": "front",
+          "thoracolumbar": {
+                    "id": "thoracolumbar",
+                    "name": "胸腰椎移行部 T12-L1 (左右2枚)",
+                    "meridian": "TLJ (Thoracolumbar Junction / 胸郭伸展ヒンジ)",
+                    "desc": "【神経生理・機能解剖】胸椎（冠状面）と腰椎（矢状面）の移行部を刺激し、胸郭ユニット全体の伸展ヒンジを解放。【JbJ】胸郭・胸腰部の可動性（Mobility）を適正化し、腰椎L4-S1への代償的過負荷を防止。【筋膜】脊柱全体のしなりを回復し、体幹後屈を滑らかに。",
+                    "view": "back",
                     "movement": "後屈 (Extension)",
                     "coords": [
                               {
-                                        "x": 191,
-                                        "y": 236,
+                                        "x": 195,
+                                        "y": 355,
                                         "side": "右"
                               },
                               {
-                                        "x": 236,
-                                        "y": 236,
+                                        "x": 242,
+                                        "y": 355,
                                         "side": "左"
                               }
                     ]
           },
-          "fibular": {
-                    "id": "fibular",
-                    "name": "腓骨頭外側 (左右2枚)",
-                    "meridian": "LL (Lateral Line / ラテラルライン)",
-                    "desc": "【神経生理】総腓骨神経（外側腓腹皮神経）を介し長腓骨筋反射を誘発、外反制御をトリガー。【JbJ】膝関節の安定性（Stability）を確保し、回旋ブレをロック。【筋膜】LL（ラテラルライン）の側方張力を調律。",
-                    "view": "front",
+          "iliac_crest": {
+                    "id": "iliac_crest",
+                    "name": "腸骨稜外側・中臀筋上部 (左右2枚)",
+                    "meridian": "LL (Lateral Line / 骨盤側方スタビライザー)",
+                    "desc": "【神経生理・機能解剖】上臀神経および腰神経後枝領域を刺激し、腰方形筋（QL）の過短縮・持続スパズムを抑制。【JbJ】骨盤の冠状面水平アライメントを適正化。【筋膜】腓骨頭の遠隔迷走を排し、側屈制限の一次病変をダイレクトに解放して体幹側屈可動域を即時拡大。",
+                    "view": "back",
                     "movement": "側屈 (Lateral Flexion)",
                     "coords": [
                               {
-                                        "x": 129,
-                                        "y": 740,
+                                        "x": 144,
+                                        "y": 486,
                                         "side": "右"
                               },
                               {
-                                        "x": 303,
-                                        "y": 740,
+                                        "x": 288,
+                                        "y": 486,
                                         "side": "左"
                               }
                     ]
           },
-          "scapula": {
-                    "id": "scapula",
-                    "name": "肩甲骨内側縁 (左右2枚)",
-                    "meridian": "Arm Lines & SPL (スパイラルライン)",
-                    "desc": "【神経生理】副神経および肩甲背神経領域を刺激し、菱形筋周囲の脳の防御ロックを解除。【JbJ】肩甲胸郭関節の安定性（Stability）と円滑な滑りを両立。【筋膜】SPLおよびアームラインの上部張力を調律。※回旋軸である胸腰椎移行部（T12-L1）や腰仙部と連動し、全身のねじり運動を統合します。※回旋軸である胸腰椎移行部（T12-L1）や腰仙部と連動し、全身のねじり運動を統合します。※回旋軸である胸腰椎移行部（T12-L1）や腰仙部と連動し、全身のねじり運動を統合します。",
-                    "view": "back",
+          "lateral_ribs": {
+                    "id": "lateral_ribs",
+                    "name": "側胸部・第8-10肋骨角 (左右2枚)",
+                    "meridian": "SPL (スパイラルライン / 胸郭ケージ回旋レバー)",
+                    "desc": "【神経生理・機能解剖】肋間神経外側皮枝および前鋸筋受容器を刺激。【JbJ】腰椎（回旋わずか5°）ではなく、回旋の主働関節である胸椎（T1-T12：約35°）と肋骨ケージを直接駆動。【筋膜】体幹回旋スパイラルを整流化し、軸回旋可動域を即時拡大。",
+                    "view": "front",
                     "movement": "回旋 (Rotation)",
                     "coords": [
                               {
-                                        "x": 155,
-                                        "y": 251,
+                                        "x": 149,
+                                        "y": 320,
                                         "side": "右"
                               },
                               {
-                                        "x": 267,
-                                        "y": 251,
+                                        "x": 283,
+                                        "y": 320,
                                         "side": "左"
                               }
                     ]
@@ -517,7 +517,7 @@
                     "concerns": [
                               {
                                         "id": "sprint_1",
-                                        "name": "1. スタートダッシュ of 反応と爆発力を高めたい",
+                                        "name": "1. スタートダッシュの反応と爆発力を高めたい",
                                         "patchIds": [
                                                   "gastrocnemius",
                                                   "gluteus_maximus"
@@ -816,7 +816,7 @@
                               },
                               {
                                         "id": "golf_5",
-                                        "name": "5. インパクトでの左肘 of 抜け・手首の力みを抑えたい",
+                                        "name": "5. インパクトでの左肘の抜け・手首の力みを抑えたい",
                                         "patchIds": [
                                                   "epicondyle_lateral",
                                                   "subclavius"
@@ -1237,7 +1237,7 @@
                               },
                               {
                                         "id": "volleyball_2",
-                                        "name": "2. スパイクのスイングスピード and 強さを高めたい",
+                                        "name": "2. スパイクのスイングスピードと強さを高めたい",
                                         "patchIds": [
                                                   "infraspinatus",
                                                   "serratus_anterior"
@@ -1318,7 +1318,7 @@
                     "concerns": [
                               {
                                         "id": "badminton_1",
-                                        "name": "1. スマッシュの最大球速 and 角度を向上させたい",
+                                        "name": "1. スマッシュの最大球速と角度を向上させたい",
                                         "patchIds": [
                                                   "wrist_extensors",
                                                   "infraspinatus"
@@ -1463,7 +1463,7 @@
                               },
                               {
                                         "id": "tabletennis_8",
-                                        "name": "8. カットマンの粘り強いフットワーク and 可動域を高めたい",
+                                        "name": "8. カットマンの粘り強いフットワークと可動域を高めたい",
                                         "patchIds": [
                                                   "gluteus_maximus",
                                                   "adductors"
@@ -1605,19 +1605,57 @@
 3. データの管理と削除
 記録された診断データや同意情報は、ブラウザのキャッシュクリアまたはアプリ内の「履歴リセット」ボタンをタップすることで、いつでもデバイス上から完全に消去することができます。`;
 
-        const USAGE_TEXT = `【BC Lab シリコンパッチ 使用上の注意】
+        const USAGE_TEXT = `【BC Lab シリコンパッチ 使用上の注意・安全管理規定】
 
-1. 貼付位置の制限
-- 足の裏（足底腱膜）および手のひら（手掌）は、極度な発汗やシューズ内摩擦によりパッチが剥がれやすいため、絶対に貼付しないでください。
+本製品は、皮膚受容器への触覚刺激を通じて姿勢アライメントおよび運動感覚フィードバックをサポートするコンディショニング器具です。安全かつ効果的にご使用いただくため、以下の注意・管理基準を必ずお守りください。
 
-2. 皮膚の保護と異常への対処
-- 貼付部位の皮膚に傷、湿疹、アレルギーがある場合は使用を避けてください。
-- 使用中または使用後に、皮膚の赤み、かゆみ、腫れ、かぶれなどの異常が現れた場合は、すぐにパッチを剥がして使用を中止し、皮膚科専門医等にご相談ください。
-- 長時間の連続貼付は皮膚への負担となります。適切な時間で取り外し、皮膚を休めてください。
+1. 装着前の皮膚衛生と貼付準備
+・本製品は、必ず清潔で乾いた皮膚に使用してください。
+・貼付部位に汗、皮脂、日焼け止め、ボディクリーム、制汗剤等が付着していると、粘着力の著しい低下や皮膚の蒸れ・かぶれの原因となります。貼付前に石鹸等で洗い流すかアルコール綿やタオル等で十分に拭き取り、乾燥した状態で貼付してください。
+・テープの貼り直しは粘着力が大幅に低下し、運動中の予期せぬ脱落につながるためお避けください。
 
-3. 保管上の注意
-- パッチは乳幼児の手の届かない場所に保管してください。
-- 直射日光や高温多湿を避け、清潔な容器で保管してください。`;
+2. 装着時間（1日最長8時間以内）と脳の再教育メカニズム
+・長時間の連続使用や、汗をかいた状態での長時間の密着は、皮膚の蒸れ、発赤、かゆみ、かぶれなどを引き起こす要因となります。1日の連続使用は最長8時間以内を目安としてください。
+【8時間制限の神経生理学的理由（脳の再教育と運動学習）】
+皮膚受容器（メルケル細胞SA-I・ルフィニ終末SA-II等）に持続的な機械刺激を与え続けると、中枢神経系（脳の感覚運動野）は刺激を「定常的な背景ノイズ」と認識し、反応性を低下させる「感覚順応（シナプス馴化）」を起こします。
+また、本製品の目的はパッチの刺激に永久依存することではなく、活動時間中（最大8時間）に的確な感覚フィードバックを入力して正しいアライメントを体感させ、パッチを外した休息時間（オフ時間）において「脳が自力で正しい運動パターンを再現・自己定着（運動記憶化）」させることにあります。過度な連続装着は皮膚保護のみならず、運動学習の定着効果を損なう原因となるため、厳守してください。
+
+3. 使用後のパッチ洗浄・お手入れ方法
+・使用後は、パッチ本体を中性洗剤（食器用洗剤等）またはぬるま湯を用いて、突起面を指腹で優しく丁寧に洗浄してください。
+・洗浄後は流水で十分にすすぎ、水気を切って自然乾燥させた後、清潔なケース等に保管してください。
+・突起の隙間に皮脂や角質、埃が残留すると、皮膚受容器への点接触刺激の精度が低下します。
+・熱湯消毒、漂白剤、アルコール高濃度液への長時間の浸漬、電子レンジ・乾燥機の使用は素材劣化の原因となるため絶対に行わないでください。
+
+4. 製品素材・貼付テープの特性とアレルギー対応
+・パッチ本体素材：医療用シリコン（生体適合性シリコン）
+・付属貼付テープ：ポリエステル系ポリウレタン不織布
+・本製品の素材（シリコン樹脂、ポリウレタン不織布、アクリル系粘着剤等）に対してアレルギーの既往がある方は、使用を控えるか、使用前に医師等へご相談ください。
+・肌がデリケートな方やテープかぶれを起こしやすい方は、事前に前腕内側等の目立たない部位に短時間貼付し、皮膚に異常が生じないかパッチテストを行うことを推奨します。
+
+5. 貼付禁止部位および使用制限
+・傷、湿疹、かぶれ、炎症、化膿、日焼け直後の皮膚など、異常がある部位には絶対に使用しないでください。
+・粘膜、顔面、頭髪部位、陰部等への使用は禁止します。
+・足の裏（足底面）および手のひら（手掌面）は、極度な発汗およびシューズ内の急激なせん断摩擦によりパッチが脱落しやすく、スリップ・転倒などの重大な事故につながる恐れがあるため、絶対に貼付しないでください。
+・体内にペースメーカー等の植込み型医療機器をご使用中の方は、機器の直上および周辺への貼付をお控えください。
+
+6. 皮膚トラブル・異常発生時の対処と免責
+・使用中または使用後に、発赤、腫れ、かゆみ、痛み、発疹、水疱などの皮膚症状が生じた場合は、直ちに使用を中止してください。
+・パッチを剥がす際は、皮膚を傷めないよう皮膚を軽く押さえながら、端から毛の流れに沿ってゆっくりと剥がしてください。
+・使用中止後も皮膚の異常や痛みが持続する場合は、速やかに皮膚科等の専門医療機関を受診してください。
+・推奨使用法および禁止事項を遵守されずに発生した皮膚トラブルや事故について、当社は責任を負いかねます。
+
+7. 就寝時・入浴時の取り扱い
+・就寝中の装着は控えてください。無意識の寝返りや寝具との摩擦により、同一部位への異常圧迫や蒸れによる接触皮膚炎の原因となります。
+・入浴・サウナ・シャワーの際は必ずパッチを取り外してください。高温の温水や石鹸成分によりテープの粘着材が溶解・劣化し、皮膚トラブルや脱落の原因となります。
+
+8. 保管方法とパッチの交換目安
+・パッチ本体および専用テープは、直射日光、高温多湿、極端な低温を避け、清潔な常温環境で保管してください。
+・乳幼児やペットが誤って口に入れたり飲み込んだりしないよう、手の届かない安全な場所に厳重に保管してください。
+・パッチ本体のシリコン微細突起は、運動時の踏み込みや継続的な摩擦により先端が徐々に摩耗・変形します。設計通りの感覚入力効果を維持するため、約1ヶ月（または日常的な使用頻度に応じた適宜の期間）を目安に、新品へのお取替えを推奨します。
+
+9. 競技・指導現場における留意事項
+・学校、部活動、競技団体、大会主催者ごとの装具規定やルールが優先されます。公式試合等での着用可否については、事前に各所属団体の規定をご確認ください。
+・本製品は運動感覚のフィードバックを支援するコンディショニング器具であり、特定の疾患・障害の診断、治療、予防を目的とした医療機器ではありません。体感や運動変化には個人差があります。`;
 
         const SNS_GUIDE_TEXT = `【SNS投稿ガイドライン】
 
@@ -1728,10 +1766,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
 
             // Checkbox states to ensure active interaction
             const [baseChecked, setBaseChecked] = React.useState({
-                achilles: false,
-                sternum: false,
-                fibular: false,
-                scapula: false
+                achilles: false, thoracolumbar: false, iliac_crest: false, lateral_ribs: false
             });
             const [customChecked, setCustomChecked] = React.useState({
                 custom1: false,
@@ -2008,7 +2043,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 value={formatted}
                                 onClick={(e) => { e.target.select(); document.execCommand('copy'); showToast('コピーしました！'); }}
                             />
-                            <span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>※テキストエリアをクリックすると全選択・自動コピーされます。</span>
+                            <span style={{ fontSize: '9px', color: 'var(--text-muted)' }}>テキストエリアをクリックすると内容をコピーできます。</span>
                         </div>
                     ),
                     duration: 0
@@ -2046,9 +2081,9 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                 // Sort movements by score (high score means restriction)
                 const movements = [
                     { id: 'achilles', score: vasScores.flexion },
-                    { id: 'sternum', score: vasScores.extension },
-                    { id: 'fibular', score: vasScores.lateral },
-                    { id: 'scapula', score: vasScores.rotation }
+                    { id: 'thoracolumbar', score: vasScores.extension },
+                    { id: 'iliac_crest', score: vasScores.lateral },
+                    { id: 'lateral_ribs', score: vasScores.rotation }
                 ];
                 
                 // Sort descending. If tie, preserve order: flexion > extension > lateral > rotation
@@ -2060,10 +2095,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                 
                 // Reset check states for new base selection
                 setBaseChecked({
-                    achilles: false,
-                    sternum: false,
-                    fibular: false,
-                    scapula: false
+                    achilles: false, thoracolumbar: false, iliac_crest: false, lateral_ribs: false
                 });
 
                 showToast("動作チェックに基づき、ベースパッチの自動選定が完了しました！");
@@ -2146,9 +2178,9 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                 <i className="fa-solid fa-circle-dot" style={{ color: "var(--secondary)" }}></i>
                                 <span><span className="hide-mobile">パッチ枚数: </span><strong style={{ color: "var(--secondary)" }}>
                                     {((baseChecked.achilles && selectedBasePatches.includes('achilles')) ? 2 : 0) + 
-                                     ((baseChecked.sternum && selectedBasePatches.includes('sternum')) ? 2 : 0) + 
-                                     ((baseChecked.fibular && selectedBasePatches.includes('fibular')) ? 2 : 0) + 
-                                     ((baseChecked.scapula && selectedBasePatches.includes('scapula')) ? 2 : 0) +
+                                     ((baseChecked.thoracolumbar && selectedBasePatches.includes('thoracolumbar')) ? 2 : 0) + 
+                                     ((baseChecked.iliac_crest && selectedBasePatches.includes('iliac_crest')) ? 2 : 0) + 
+                                     ((baseChecked.lateral_ribs && selectedBasePatches.includes('lateral_ribs')) ? 2 : 0) +
                                      ((selectedSport && selectedConcern) ? 4 : 0)}
                                 </strong> / 10 枚</span>
                             </div>
@@ -2442,7 +2474,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         <i className="fa-solid fa-book-open"></i> CORE CONNECT で詳しく学ぶ
                                     </a>
                                     <span style={{ display: "block", textAlign: "center", fontSize: "9px", color: "var(--text-muted)", marginTop: "2px" }}>
-                                        ※読み終わった後は、ブラウザの「戻る」ボタンやスワイプ操作で簡単にアプリに戻れます。
+                                        （外部ページ閲覧後はブラウザの戻る操作でアプリへ復帰できます）
                                     </span>
                                 </div>
                             </div>
@@ -2461,26 +2493,28 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                             </div>
 
                             {/* Evidence Footer */}
-                            <footer style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "12px", fontSize: "10px", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                                <h5 style={{ color: "var(--text-main)", margin: "0 0 6px 0", fontSize: "11px" }}>🔬 神経生理学的エビデンス（感覚フィードバック機構）</h5>
-                                <p style={{ margin: "0 0 4px 0" }}>
-                                    *1 **SA-I 機械受容器 (Merkel細胞受容複合体)**: 物理的圧迫とせん断力に持続的（遅順応）に反応し、脳へ常に貼付部位の絶対位置情報を発信します。
-                                </p>
-                                <p style={{ margin: "0 0 4px 0" }}>
-                                    *2 **SA-II 機械受容器 (Ruffini終末)**: 皮膚の張力（引っ張り）に鋭敏に反応し、関節角度の変化や動作中の関節運動感覚（固有受容感覚：Proprioception）を高解像度化します。
-                                </p>
-                                <p style={{ margin: "0 0 6px 0" }}>
-                                    *3 **体性感覚皮質の再マッピング**: パッチ表面の微細突起突起刺激により脳の小脳および体性感覚野における該当部位の「ホムンクルス表現領域（アライメント解像度）」を拡大し、運動連鎖の遅延（コンマ数秒の遅れ）を軽減します。(※本プロトコルは感覚入力最適化による運動学習サポート効果を提供するものです。)
-                                </p>
-                                <p style={{ margin: "0 0 6px 0" }}>
-                                     *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
-                                 </p>
-                                <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
-                                <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
-                                    【学術参考文献】<br />
-                                    - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
-                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.<br />
-                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)
+                            <footer style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+                                <h5 style={{ color: "var(--text-main)", margin: "0 0 8px 0", fontSize: "11px", fontWeight: "bold" }}>神経生理学的アプローチ（感覚フィードバック機構）</h5>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>1. SA-I 機械受容器（メルケル細胞）:</strong> 物理的な圧迫とせん断力に持続的に反応し、貼付部位の位置感覚情報を中枢へ伝達します。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>2. SA-II 機械受容器（ルフィニ終末）:</strong> 皮膚の伸展張力に鋭敏に反応し、関節角度の変化や動作中の深部感覚（固有受容感覚）の認識精度を高めます。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>3. 体性感覚マップの適正化:</strong> シリコン微細突起による接触刺激が小脳および体性感覚野の感覚入力を活性化し、運動連鎖のタイムラグを低減させます。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>4. ジョイント・バイ・ジョイント連動:</strong> 各関節が担う「可動性」と「安定性」の調和理論に基づき、感覚入力によって過緊張や代償動作を抑制し、本来の滑らかな運動連鎖を促します。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>5. 全身7大感覚ゲートと脊髄反射弓:</strong> 頚部、脊柱、骨盤、膝、肩甲、肘腕、足関節の主要受容器領域への入力により、中枢を介さない素早い脊髄反射を引き出し、全身の協調的な動きを支えます。
+                                    </p>
+                                </div>
+                                <Divider style={{ margin: "10px 0 6px 0", borderColor: "rgba(255,255,255,0.06)" }} />
+                                <p style={{ margin: 0, fontSize: "9.5px", opacity: 0.8 }}>
+                                    参考論文・学術文献: Menz et al. (2005) J Neuroeng Rehabil / Proske & Gandevia (2012) Physiol Rev / Boyle (2016) New Functional Training for Sports
                                 </p>
                             </footer>
                         </div>
@@ -2488,187 +2522,497 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                         /* MAP WIZARD VIEW */
                         <div style={{ padding: "24px", display: "flex", flexDirection: "column", gap: "20px" }}>
                             
-                            {/* Core Constraints Warning */}
-                            <Alert
-                                message={<span style={{ fontWeight: "bold", fontSize: "12px", color: "var(--accent)" }}><i className="fa-solid fa-circle-exclamation"></i> 【重要】パッチご使用時の正しいケアと注意点</span>}
-                                description={
-                                    <div style={{ fontSize: "11px", marginTop: "4px", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "6px" }}>
-                                        <div>
-                                            <strong style={{ color: "#fff" }}>① 連続使用は1回あたり「8時間以内」を厳守</strong><br />
-                                            <span style={{ color: "var(--text-muted)" }}>【脳内フィードバックの最適化と順応防止】脳の感覚運動野が外部刺激を「ノイズ」として処理し始める「シナプス順応（慣れ）」を防ぎ、アライメント修正効果を最大化するための時間制限です。活動時間（8時間以内）に限定して入力し、その後オフ時間を設けることで、脳のフィードバック依存を防ぎ、正しい運動パターンの自己定着（運動学習）を促します。</span>
-                                        </div>
-                                        <div>
-                                            <strong style={{ color: "#fff" }}>② 使用後はパッチの「シリコン突起面」を必ず洗浄する</strong><br />
-                                            <span style={{ color: "var(--text-muted)" }}>【感覚入力の鮮度維持】突起の隙間に皮脂や汗、皮フの汚れなどが蓄積すると、皮膚受容器への的確な点接触（ピンポイントな圧刺激）が鈍くなってしまいます。使用後はぬるま湯や中性洗剤で優しく洗い、常に突起面を清潔に露出させてください。</span>
-                                        </div>
-                                        <div>
-                                            <strong style={{ color: "#fff" }}>③ 「1ヶ月」を目安にパッチ本体を新品に交換する</strong><br />
-                                            <span style={{ color: "var(--text-muted)" }}>【突起先端の摩耗対策】踏み込みや運動摩擦により、シリコン突起（硬度Shore A50）の先端が摩耗・変形すると受容器への刺激効率が著しく低下します。常に設計通りの効果を得るための交換目安です。</span>
-                                        </div>
-                                    </div>
-                                }
-                                type="info"
-                                showIcon={false}
-                                style={{ background: "rgba(0, 240, 255, 0.03)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px" }}
-                            />
+                            {/* Steps Indicator & Quick Guide Link */}
+                            <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "10px" }}>
+                                <div style={{ flex: 1, minWidth: "260px" }}>
+                                    <Steps current={currentStep} size="small">
+                                        <Step title="自己診断・基本姿勢" description="動的ベース6枚決定" />
+                                        <Step title="競技別カスタム強化" description="残り4枚オート決定" />
+                                    </Steps>
+                                </div>
+                                <Button 
+                                    size="small" 
+                                    onClick={() => setDocModalType('usage')}
+                                    style={{ 
+                                        color: "var(--secondary)", 
+                                        fontSize: "11px", 
+                                        display: "inline-flex", 
+                                        alignItems: "center", 
+                                        gap: "5px", 
+                                        padding: "0 10px", 
+                                        height: "30px", 
+                                        background: "rgba(0, 240, 255, 0.05)", 
+                                        borderColor: "rgba(0, 240, 255, 0.2)", 
+                                        borderRadius: "6px" 
+                                    }}
+                                >
+                                    <i className="fa-solid fa-shield-halved"></i> 使用上の注意・お手入れ
+                                </Button>
+                            </div>
 
                             {/* Two Columns Dashboard */}
                             <Row gutter={[20, 20]} style={{ flex: 1 }}>
                                 
                                 {/* Left Side: Wizard step controls */}
                                 <Col xs={24} md={13} style={{ display: "flex", flexDirection: "column", gap: "16px" }}>
-                                    <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
-                                        {subStep === 'check' ? (
-                                            /* Sub-view A: ROM VAS Sliders Check */
-                                            <div>
-                                                <div style={{ marginBottom: "16px" }}>
-                                                    <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-street-view"></i> 身体アライメント自己診断 (ROM Test)</h3>
-                                                    <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                        右側の「自己判定用 可動域（ROM）基準目安」を参考に、ご自身の現在の可動レベル（0: 正常 ～ 10: 高度制限）に最も近い数値をスライダーで選択してください。
-                                                    </p>
-                                                </div>
-
-                                                <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
-                                                    {/* Slider 1: Flexion */}
-                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
-                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.flexion} / 10</span>
-                                                        </div>
-                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 手のひらが床に届く / [中度] すねまで / [高度] 膝まで、または痛む</div>
-                                                        <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
-                                                    </div>
-
-                                                    {/* Slider 2: Extension */}
-                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>② 後屈 (Extension) - 体前面ライン (SFL)</span>
-                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.extension} / 10</span>
-                                                        </div>
-                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 天井と顔が平行に見上がる / [中度] 斜め上まで / [高度] 反らせない・痛む</div>
-                                                        <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
-                                                    </div>
-
-                                                    {/* Slider 3: Lateral Flexion */}
-                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>③ 側屈 (Lateral Flexion) - 体側面ライン (LL)</span>
-                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.lateral} / 10</span>
-                                                        </div>
-                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 中指が膝の横を越えて下がる / [中度] 膝皿上部まで / [高度] 太もも中間まで</div>
-                                                        <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
-                                                    </div>
-
-                                                    {/* Slider 4: Rotation */}
-                                                    <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                        <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                            <span style={{ color: "#fff", fontWeight: "bold" }}>④ 回旋 (Rotation) - 体らせんライン (SPL)</span>
-                                                            <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.rotation} / 10</span>
-                                                        </div>
-                                                        <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] お尻を締め顔を正面固定で肩ラインがほぼ真横を向く / [中度] 斜め前まで</div>
-                                                        <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
-                                                    </div>
-                                                </div>
-
-                                                <Button 
-                                                    type="primary" 
-                                                    block 
-                                                    onClick={evaluateAndSetBasePatches}
-                                                    style={{ height: "36px", fontWeight: "bold", fontSize: "13px" }}
-                                                >
-                                                    <i className="fa-solid fa-calculator" style={{ marginRight: "6px" }}></i> 診断してベース部位を決定
-                                                </Button>
-                                            </div>
-                                        ) : (
-                                            /* Sub-view B: Show selected base patches with checklists */
-                                            <div>
-                                                <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
-                                                    <div>
-                                                        <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-shield-halved"></i> STEP 1: 姿勢土台の安定化</h3>
+                                    
+                                    {currentStep === 0 && (
+                                        <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                            {subStep === 'check' ? (
+                                                /* Sub-view A: ROM VAS Sliders Check */
+                                                <div>
+                                                    <div style={{ marginBottom: "16px" }}>
+                                                        <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-street-view"></i> 身体アライメント自己診断 (ROM Test)</h3>
                                                         <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                            診断の結果、あなたの制限特性に適合した以下の3エリア（合計6枚）が決定しました。
+                                                            各動作の判定基準を目安に、現在の可動レベル（0: 正常 ～ 10: 高度制限）をスライダーで選択してください。
                                                         </p>
                                                     </div>
-                                                    <Button 
-                                                        size="small" 
-                                                        onClick={() => setSubStep('check')}
-                                                        style={{ fontSize: "10px", background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#fff" }}
-                                                    >
-                                                        <i className="fa-solid fa-rotate-left"></i> 再測定する
-                                                    </Button>
-                                                </div>
 
-                                                {/* Rotation Clinical Advice Banner */}
-                                                {vasScores.rotation >= 5 && (
-                                                    <div style={{ 
-                                                        marginBottom: "12px", 
-                                                        background: "rgba(255, 45, 85, 0.05)", 
-                                                        border: "1px solid rgba(255, 45, 85, 0.25)", 
-                                                        borderRadius: "8px", 
-                                                        padding: "10px 14px",
-                                                        fontSize: "11.5px",
-                                                        lineHeight: "1.4"
-                                                    }}>
-                                                        <div style={{ color: "var(--patch-base)", fontWeight: "bold", marginBottom: "4px" }}>
-                                                            <i className="fa-solid fa-triangle-exclamation"></i> 回旋可動域制限に対する臨床アプローチ推奨
-                                                        </div>
-                                                        <div style={{ color: "var(--text-main)" }}>
-                                                            回旋制限（VAS: {vasScores.rotation}/10）には、肩甲骨（Rhomboids）だけでなく、回旋運動の主軸である **胸腰椎移行部（T12-L1）** や、土台となる **腰仙部（起立筋腰部）** が深く関与しています。もしカスタムパッチを別途お持ちの場合は、これら2点への追加貼付が有効です。
-                                                        </div>
-                                                    </div>
-                                                )}
-
-                                                <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
-                                                    {selectedBasePatches.map(patchId => {
-                                                        const p = basePatchPool[patchId];
-                                                        if (!p) return null;
-                                                        return (
-                                                            <div 
-                                                                key={p.id}
-                                                                className="info-card" 
-                                                                style={{ 
-                                                                    margin: 0, 
-                                                                    borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
-                                                                    background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
-                                                                }}
-                                                                onMouseEnter={() => setHoveredPointId(p.id)}
-                                                                onMouseLeave={() => setHoveredPointId(null)}
-                                                            >
-                                                                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
-                                                                    <div style={{ flex: 1 }}>
-                                                                        <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
-                                                                            <span style={{ fontSize: "9px", color: "var(--primary)", background: "rgba(0, 240, 255, 0.08)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold" }}>{p.movement}適合</span>
-                                                                            <span style={{ fontSize: "9px", color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
-                                                                        </div>
-                                                                        <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
-                                                                        <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
-                                                                    </div>
-                                                                    <Checkbox 
-                                                                        checked={baseChecked[p.id]} 
-                                                                        onChange={(e) => setBaseChecked({ ...baseChecked, [p.id]: e.target.checked })}
-                                                                        style={{ transform: "scale(1.25)", marginTop: "4px" }}
-                                                                    />
+                                                    <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
+                                                        {/* Slider 1: Flexion */}
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.flexion <= 2 ? "#00ff7f" : vasScores.flexion <= 5 ? "var(--secondary)" : vasScores.flexion <= 8 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.flexion} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.flexion <= 2 ? "正常" : vasScores.flexion <= 5 ? "軽度制限" : vasScores.flexion <= 8 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.flexion <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.flexion <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.flexion <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>手のひらが床にベタッと届く</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "rgba(0, 240, 255, 0.12)" : "rgba(255,255,255,0.02)", border: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "1px solid var(--secondary)" : "1px solid transparent", color: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 軽度 (3-5)</span>
+                                                                    <span>指先が床にギリギリ届く〜届かない (床から10cm未満)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (6-8)</span>
+                                                                    <span>指先がすね (脛骨の中間) までしか届かない</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.flexion >= 9 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.flexion >= 9 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.flexion >= 9 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (9-10)</span>
+                                                                    <span>指先が膝までしか届かない、または曲げると痛む</span>
                                                                 </div>
                                                             </div>
-                                                        );
-                                                    })}
-                                                </div>
+                                                        </div>
 
-                                                {/* Complete Protocol Button */}
-                                                <div style={{ marginTop: "16px" }}>
+                                                        {/* Slider 2: Extension */}
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>② 後屈 (Extension) - 胸郭ユニット・胸腰部移行部 (TLJ)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.extension <= 2 ? "#00ff7f" : vasScores.extension <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.extension} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.extension <= 2 ? "正常" : vasScores.extension <= 6 ? "軽・中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.extension <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.extension <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.extension <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 正常 (0-2)</span>
+                                                                    <span>天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 軽中度 (3-6)</span>
+                                                                    <span>斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.extension >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.extension >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.extension >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 高度 (7-10)</span>
+                                                                    <span>顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Slider 3: Lateral Flexion */}
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>③ 側屈 (Lateral Flexion) - 骨盤スタビライザー・腰方形筋 (LL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.lateral <= 2 ? "#00ff7f" : vasScores.lateral <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.lateral} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.lateral <= 2 ? "正常" : vasScores.lateral <= 6 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.lateral <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.lateral <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.lateral <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (3-6)</span>
+                                                                    <span>中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.lateral >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.lateral >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.lateral >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (7-10)</span>
+                                                                    <span>中指の先が太ももの中間までしか届かない、または痛む</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {/* Slider 4: Rotation */}
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>④ 回旋 (Rotation) - 胸椎・胸郭ケージ回旋軸 (SPL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.rotation <= 2 ? "#00ff7f" : vasScores.rotation <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.rotation} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.rotation <= 2 ? "正常" : vasScores.rotation <= 6 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
+                                                            </div>
+                                                            <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.rotation <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.rotation <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.rotation <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>両腕を胸の前で組み骨盤正面保持で肩が70度以上回る (首だけで振り向かない)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (3-6)</span>
+                                                                    <span>肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.rotation >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.rotation >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.rotation >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (7-10)</span>
+                                                                    <span>ほとんどねじれない (30度未満)、またはねじると痛む</span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    {/* 判定基準の学術的・臨床的根拠 */}
+                                                    <div style={{ margin: "14px 0 16px 0", padding: "10px 14px", background: "rgba(0, 240, 255, 0.03)", border: "1px solid rgba(0, 240, 255, 0.12)", borderRadius: "8px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5" }}>
+                                                        <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "4px", display: "flex", alignItems: "center", gap: "6px" }}>
+                                                            <i className="fa-solid fa-graduation-cap"></i> 判定基準の学術的・臨床的根拠
+                                                        </div>
+                                                        <div style={{ color: "var(--text-muted)", fontSize: "10px", lineHeight: "1.5" }}>
+                                                            ・<strong>SFMA (Selective Functional Movement Assessment)</strong>: 可動域合否判定基準 (Gray Cook PT, FMS提供)<br />
+                                                            ・<strong>日本整形外科学会・日本リハビリテーション医学会</strong>: 関節可動域表示ならびに測定法 (臨床指標)<br />
+                                                            ・<strong>Anatomy Trains (筋膜経線理論)</strong>: 動作張力テスト評価 (Thomas Myers提唱)
+                                                        </div>
+                                                    </div>
+
                                                     <Button 
                                                         type="primary" 
-                                                        block
-                                                        disabled={!selectedBasePatches.every(patchId => baseChecked[patchId])} 
-                                                        onClick={handleCompleteProtocol}
-                                                        style={{ height: "40px", fontWeight: "bold", fontSize: "13px", display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                                        block 
+                                                        onClick={evaluateAndSetBasePatches}
+                                                        style={{ height: "42px", fontWeight: "bold", fontSize: "14px", borderRadius: "8px", background: "linear-gradient(135deg, #00f0ff 0%, #00a0ff 100%)", border: "none", color: "#000", boxShadow: "0 4px 15px rgba(0,240,255,0.3)" }}
                                                     >
-                                                        <i className="fa-solid fa-circle-check"></i> プロトコル貼付完了
+                                                        <i className="fa-solid fa-calculator" style={{ marginRight: "6px" }}></i> 診断してベース部位を決定
                                                     </Button>
                                                 </div>
+                                            ) : (
+                                                /* Sub-view B: Show selected base patches with checklists */
+                                                <div>
+                                                    <div style={{ marginBottom: "16px", display: "flex", justifyContent: "space-between", alignItems: "flex-start" }}>
+                                                        <div>
+                                                            <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-shield-halved"></i> STEP 1: 姿勢土台の安定化</h3>
+                                                            <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                                診断の結果、あなたの制限特性に適合した以下の3エリア（合計6枚）が決定しました。
+                                                            </p>
+                                                        </div>
+                                                        <Button 
+                                                            size="small" 
+                                                            onClick={() => setSubStep('check')}
+                                                            style={{ fontSize: "10px", background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.1)", color: "#fff" }}
+                                                        >
+                                                            <i className="fa-solid fa-rotate-left"></i> 再測定する
+                                                        </Button>
+                                                    </div>
+
+                                                    {/* Rotation Clinical Advice Banner */}
+                                                    {vasScores.rotation >= 5 && (
+                                                        <div style={{ 
+                                                            marginBottom: "12px", 
+                                                            background: "rgba(255, 45, 85, 0.05)", 
+                                                            border: "1px solid rgba(255, 45, 85, 0.25)", 
+                                                            borderRadius: "8px", 
+                                                            padding: "10px 14px",
+                                                            fontSize: "11.5px",
+                                                            lineHeight: "1.4"
+                                                        }}>
+                                                            <div style={{ color: "var(--patch-base)", fontWeight: "bold", marginBottom: "4px" }}>
+                                                                <i className="fa-solid fa-triangle-exclamation"></i> 回旋可動域制限に対する臨床アプローチ推奨
+                                                            </div>
+                                                            <div style={{ color: "var(--text-main)" }}>
+                                                                回旋制限（VAS: {vasScores.rotation}/10）に対しては、肩甲骨周辺だけでなく、体幹回旋の主軸となる胸腰椎移行部（T12-L1）や土台となる腰仙部の機能が重要です。追加パッチを使用する場合は、これら2箇所への貼付を推奨します。
+                                                            </div>
+                                                        </div>
+                                                    )}
+
+                                                    <div style={{ display: "flex", flexDirection: "column", gap: "12px" }}>
+                                                        {selectedBasePatches.map(patchId => {
+                                                            const p = basePatchPool[patchId];
+                                                            if (!p) return null;
+                                                            return (
+                                                                <div 
+                                                                    key={p.id}
+                                                                    className="info-card" 
+                                                                    style={{ 
+                                                                        margin: 0, 
+                                                                        borderColor: hoveredPointId === p.id ? "var(--secondary)" : "rgba(255,255,255,0.06)",
+                                                                        background: hoveredPointId === p.id ? "rgba(0, 240, 255, 0.03)" : "rgba(15, 23, 42, 0.3)"
+                                                                    }}
+                                                                    onMouseEnter={() => setHoveredPointId(p.id)}
+                                                                    onMouseLeave={() => setHoveredPointId(null)}
+                                                                >
+                                                                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+                                                                        <div style={{ flex: 1 }}>
+                                                                            <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
+                                                                                <span style={{ fontSize: "9px", color: "var(--primary)", background: "rgba(0, 240, 255, 0.08)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold" }}>{p.movement}適合</span>
+                                                                                <span style={{ fontSize: "9px", color: "var(--primary)", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
+                                                                            </div>
+                                                                            <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
+                                                                            <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
+                                                                        </div>
+                                                                        <Checkbox 
+                                                                            checked={baseChecked[p.id]} 
+                                                                            onChange={(e) => setBaseChecked({ ...baseChecked, [p.id]: e.target.checked })}
+                                                                            style={{ transform: "scale(1.25)", marginTop: "4px" }}
+                                                                        />
+                                                                    </div>
+                                                                </div>
+                                                            );
+                                                        })}
+                                                    </div>
+
+                                                    <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "16px" }}>
+                                                        <Button 
+                                                            type="primary" 
+                                                            disabled={!selectedBasePatches.every(patchId => baseChecked[patchId])} 
+                                                            onClick={() => setCurrentStep(1)}
+                                                            style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                                        >
+                                                            次へ進む <i className="fa-solid fa-arrow-right"></i>
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    {currentStep === 1 && (
+                                        <div className="card-glass" style={{ padding: "20px", borderRadius: "12px", flex: 1 }}>
+                                            <div style={{ marginBottom: "16px" }}>
+                                                <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-gamepad"></i> STEP 2: 競技カテゴリ・動作特性の選択</h3>
+                                                <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
+                                                    ご自身の競技特性や現在の主要な課題に最も合致するカテゴリを、現在サポートされている12の種目から選択してください。
+                                                </p>
                                             </div>
-                                        )}
-                                    </div>
+
+                                            <div style={{ marginBottom: "20px" }}>
+                                                <label style={{ display: "block", color: "var(--text-muted)", fontSize: "11px", marginBottom: "6px", fontWeight: "bold" }}>対象競技種目</label>
+                                                <Select
+                                                    showSearch
+                                                    style={{ width: '100%' }}
+                                                    placeholder="競技種目を選択してください"
+                                                    optionFilterProp="children"
+                                                    value={selectedSport}
+                                                    onChange={handleSportSelect}
+                                                    dropdownStyle={{ background: '#111317', border: '1px solid rgba(255,255,255,0.08)' }}
+                                                >
+                                                    {Object.values(coordinates.sportsOptions).map(sport => (
+                                                        <Option key={sport.id} value={sport.id} style={{ color: '#fff', background: '#111317' }}>
+                                                            {sport.name}
+                                                        </Option>
+                                                    ))}
+                                                </Select>
+                                            </div>
+
+                                            {selectedSport && (
+                                                <div style={{ marginBottom: "20px" }}>
+                                                    <label style={{ display: "block", color: "var(--text-muted)", fontSize: "11px", marginBottom: "6px", fontWeight: "bold" }}>強化したい具体的な課題・悩み（上位10項目）</label>
+                                                    <Select
+                                                        style={{ width: '100%' }}
+                                                        placeholder="解決したい課題・悩みを選択してください"
+                                                        value={selectedConcern}
+                                                        onChange={(val) => {
+                                                            setSelectedConcern(val);
+                                                        }}
+                                                        dropdownStyle={{ background: '#111317', border: '1px solid rgba(255,255,255,0.08)' }}
+                                                    >
+                                                        {coordinates.sportsOptions[selectedSport]?.concerns?.map(concern => (
+                                                            <Option key={concern.id} value={concern.id} style={{ color: '#fff', background: '#111317' }}>
+                                                                {concern.name}
+                                                            </Option>
+                                                        ))}
+                                                    </Select>
+                                                </div>
+                                            )}
+
+                                            {selectedSport && (
+                                                <Card 
+                                                    style={{ 
+                                                        borderColor: "var(--secondary)", 
+                                                        background: "rgba(0, 240, 255, 0.04)",
+                                                        marginBottom: "16px"
+                                                    }}
+                                                >
+                                                    <div style={{ display: "flex", gap: "12px", alignItems: "center" }}>
+                                                        <div style={{ 
+                                                            width: "40px", 
+                                                            height: "40px", 
+                                                            borderRadius: "50%", 
+                                                            background: "var(--secondary)", 
+                                                            display: "flex",
+                                                            alignItems: "center",
+                                                            justifyContent: "center",
+                                                            color: "var(--text-dark)"
+                                                        }}>
+                                                            {getSelectedSportData()?.category === 'running' && <i className="fa-solid fa-person-running" style={{ fontSize: "18px" }}></i>}
+                                                            {getSelectedSportData()?.category === 'swing' && <i className="fa-solid fa-golf-ball-tee" style={{ fontSize: "18px" }}></i>}
+                                                            {getSelectedSportData()?.category === 'agility' && <i className="fa-solid fa-basketball" style={{ fontSize: "18px" }}></i>}
+                                                        </div>
+                                                        <div style={{ flex: 1 }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: "4px" }}>
+                                                                <h4 style={{ margin: 0, color: "#ffffff", fontSize: "16px", fontWeight: "bold" }}>{getSelectedSportData()?.name}</h4>
+                                                                <span style={{ fontSize: "9px", color: "var(--secondary)", background: "rgba(0,240,255,0.1)", padding: "2px 8px", borderRadius: "10px", fontWeight: "bold" }}>
+                                                                    {getSelectedSportData()?.chains}
+                                                                </span>
+                                                            </div>
+                                                            <p style={{ margin: "6px 0 0 0", fontSize: "12px", color: "var(--text-main)", lineHeight: "1.4" }}>
+                                                                {getSelectedSportData()?.desc}
+                                                            </p>
+                                                        </div>
+                                                    </div>
+                                                </Card>
+                                            )}
+
+                                            {selectedSport && selectedConcern && (
+                                                /* Four-Pillar Priority Analysis Card */
+                                                <div>
+                                                    {(() => {
+                                                        const sportData = getSelectedSportData();
+                                                        if (!sportData) return null;
+                                                        
+                                                        let priorityTitle = "";
+                                                        let priorityReason = "";
+                                                        let p1 = "★★☆";
+                                                        let p2 = "★★☆";
+                                                        let p3 = "★★☆";
+                                                        let p4 = "★★☆";
+                                                        
+                                                        if (sportData.category === "agility") {
+                                                            priorityTitle = "主眼：神経生理フィードバック × 冠状面（側屈）の安定化";
+                                                            priorityReason = "切り返しや接地時のブレを瞬時に制御するため、感覚フィードバック反射を重視しつつ、中臀筋などによる骨盤水平アライメントを力学的に補正します。";
+                                                            p1 = "筋膜経線連動";
+                                                            p2 = "関節協調設計";
+                                                            p3 = "感覚フィードバック（主眼）";
+                                                            p4 = "側屈バランス安定";
+                                                        } else if (sportData.category === "swing") {
+                                                            priorityTitle = "主眼：筋膜スパイラル連鎖 × 水平面（回旋軸）の安定化";
+                                                            priorityReason = "スイングや投球動作における回旋のねじれ戻りエネルギーを高め、胸腰椎移行部や骨盤の回転軸ブレを抑えてスムーズなパワー伝達を促します。";
+                                                            p1 = "筋膜経線（主眼）";
+                                                            p2 = "関節協調設計";
+                                                            p3 = "感覚フィードバック";
+                                                            p4 = "回旋軸の安定";
+                                                        } else { // running
+                                                            priorityTitle = "主眼：筋膜前後ライン調律 × 矢状面（屈伸軌道）の適正化";
+                                                            priorityReason = "前後ラインの張力バランスを整えて推進力を引き出し、股関節の伸展可動性を確保して腰部への過度な負担を軽減します。";
+                                                            p1 = "筋膜経線（主眼）";
+                                                            p2 = "関節協調設計";
+                                                            p3 = "感覚フィードバック";
+                                                            p4 = "直線軌道の適正化";
+                                                        }
+                                                        
+                                                        return (
+                                                            <div style={{ marginBottom: "12px", background: "rgba(255,255,255,0.02)", border: "1px solid rgba(255,255,255,0.06)", borderRadius: "8px", padding: "10px 14px", fontSize: "11px", lineHeight: "1.4" }}>
+                                                                <div style={{ display: "flex", gap: "6px", marginBottom: "6px", flexWrap: "wrap" }}>
+                                                                    <span style={{ background: "rgba(0, 240, 255, 0.1)", color: "var(--secondary)", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p3}</span>
+                                                                    <span style={{ background: "rgba(0, 255, 127, 0.1)", color: "#00ff7f", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p1}</span>
+                                                                    <span style={{ background: "rgba(255, 165, 0, 0.1)", color: "#ffa500", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p2}</span>
+                                                                    <span style={{ background: "rgba(255, 100, 200, 0.1)", color: "var(--accent)", padding: "2px 6px", borderRadius: "3px", fontWeight: "bold", fontSize: "9px" }}>{p4}</span>
+                                                                </div>
+                                                                <strong style={{ color: "#ffffff", display: "block", marginBottom: "2px" }}><i className="fa-solid fa-graduation-cap"></i> 運動力学・機能解剖の設計方針:</strong>
+                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{priorityTitle}</span><br />
+                                                                <span style={{ color: "var(--text-muted)", fontSize: "10.5px" }}>{priorityReason}</span>
+                                                            </div>
+                                                        );
+                                                    })()}
+
+                                                    {/* Auto-applied Custom Patches List */}
+                                                    <div style={{ display: "flex", flexDirection: "column", gap: "12px", marginTop: "12px" }}>
+                                                        <span style={{ fontSize: "11px", color: "var(--secondary)", fontWeight: "bold" }}><i className="fa-solid fa-circle-check"></i> 推奨強化パッチ（4枚自動貼付済）</span>
+                                                        {(() => {
+                                                            const sportData = getSelectedSportData();
+                                                            if (!sportData || !selectedConcern) return null;
+                                                            const concern = sportData.concerns?.find(c => c.id === selectedConcern);
+                                                            if (!concern) return null;
+                                                            return concern.patchIds.map((patchId, idx) => {
+                                                                const p = customPatchPool[patchId];
+                                                                if (!p) return null;
+                                                                return (
+                                                                    <div 
+                                                                        key={p.id}
+                                                                        className="info-card" 
+                                                                        style={{ 
+                                                                            margin: 0, 
+                                                                            borderColor: "rgba(0,255,127,0.25)",
+                                                                            background: "rgba(0, 255, 127, 0.02)"
+                                                                        }}
+                                                                    >
+                                                                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "8px" }}>
+                                                                            <div style={{ flex: 1 }}>
+                                                                                <span style={{ fontSize: "9px", color: "var(--secondary)", background: "rgba(0,255,127,0.1)", padding: "1px 5px", borderRadius: "4px", fontWeight: "bold", textTransform: "uppercase" }}>{p.meridian}</span>
+                                                                                <h4 style={{ margin: "4px 0 6px 0", color: "#ffffff", fontSize: "14px" }}>{p.name}</h4>
+                                                                                <p style={{ margin: 0, fontSize: "11px", color: "var(--text-muted)", lineHeight: "1.4" }}>{p.desc}</p>
+                                                                            </div>
+                                                                            <div style={{ color: "var(--secondary)", fontSize: "16px", marginTop: "4px", marginRight: "4px" }}>
+                                                                                <i className="fa-solid fa-circle-check"></i>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                );
+                                                            });
+                                                        })()}
+                                                    </div>
+                                                </div>
+                                            )}
+
+                                            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "16px" }}>
+                                                <Button 
+                                                    onClick={() => setCurrentStep(0)}
+                                                    style={{ background: "rgba(255,255,255,0.05)", borderColor: "rgba(255,255,255,0.15)", color: "#ffffff" }}
+                                                >
+                                                    <i className="fa-solid fa-arrow-left" style={{ marginRight: "6px" }}></i> 戻る
+                                                </Button>
+                                                <Button 
+                                                    type="primary" 
+                                                    disabled={!selectedSport || !selectedConcern}
+                                                    onClick={handleCompleteProtocol}
+                                                    style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px" }}
+                                                >
+                                                    <i className="fa-solid fa-circle-check"></i> プロトコル貼付完了
+                                                </Button>
+                                            </div>
+                                        </div>
+                                    )}
                                 </Col>
 
                                 {/* Right Side: 2D Anatomical Map Overlays */}
@@ -2686,7 +3030,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         const isDotSelected = selectedPoint && selectedPoint.id === p.id && selectedPoint.coordIdx === idx;
                                                         return (
                                                             <g 
-                                                                key={p.id + '-' + idx}
+                                                                key={`${p.id}-${idx}`}
                                                                 className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
                                                                 onMouseEnter={() => setHoveredPointId(p.id)}
                                                                 onMouseLeave={() => setHoveredPointId(null)}
@@ -2713,7 +3057,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         const isDotSelected = selectedPoint && selectedPoint.id === p.id && selectedPoint.coordIdx === idx;
                                                         return (
                                                             <g 
-                                                                key={p.id + '-' + idx}
+                                                                key={`${p.id}-${idx}`}
                                                                 className={`anatomy-dot ${p.type} ${p.highlighted ? 'highlighted' : ''} ${p.active ? 'active' : ''} ${isDotSelected ? 'highlighted active' : ''}`}
                                                                 onMouseEnter={() => setHoveredPointId(p.id)}
                                                                 onMouseLeave={() => setHoveredPointId(null)}
@@ -2732,87 +3076,52 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
                                             <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-base)" }}></span> ベースパッチ (6枚)
                                         </span>
+                                        <span style={{ display: "inline-flex", alignItems: "center", gap: "6px" }}>
+                                            <span style={{ width: "8px", height: "8px", borderRadius: "50%", background: "var(--patch-custom)" }}></span> カスタム強化パッチ (4枚)
+                                        </span>
                                     </div>
 
-                                    {/* ROM Diagnostic Reference Guide (Only visible in Step 1 VAS check) */}
-                                    {subStep === 'check' && (
-                                        <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
-                                            <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "2px" }}>
-                                                <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準目安
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>① 前屈 (SBLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 手のひらが床にベタッと届く</li>
-                                                    <li>軽度 (3-5): 指先が床にギリギリ届く〜届かない (床から10cm未満)</li>
-                                                    <li>中度 (6-8): 指先がすね (脛骨の中間) までしか届かない</li>
-                                                    <li>高度 (9-10): 指先が膝までしか届かない、または曲げると痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>② 後屈 (SFLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</li>
-                                                    <li>軽・中度 (3-6): 斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</li>
-                                                    <li>高度 (7-10): 顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>③ 側屈 (LLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
-                                                    <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
-                                                    <li>高度 (7-10): 中指の先が太ももの中間までしか届かない、または痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>④ 回旋 (SPLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): お尻を締め膝を伸ばして顔を胸に固定し、肩のラインが正面から70度以上回る</li>
-                                                    <li>中度 (3-6): 肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</li>
-                                                    <li>高度 (7-10): ほとんどねじれない (30度未満)、またはねじると痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
-                                                <strong>【判定基準の学術的・臨床的ソース】</strong><br />
-                                                - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提唱)<br />
-                                                - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
-                                                - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
-                                            </div>
-                                        </div>
-                                    )}
+                                    
                                 </Col>
                             </Row>
 
                             {/* Evidence Footer */}
-                            <footer style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "12px", fontSize: "10px", color: "var(--text-muted)", lineHeight: "1.5" }}>
-                                <h5 style={{ color: "var(--text-main)", margin: "0 0 6px 0", fontSize: "11px" }}>🔬 神経生理学的エビデンス（感覚フィードバック機構）</h5>
-                                <p style={{ margin: "0 0 4px 0" }}>
-                                    *1 **SA-I 機械受容器 (Merkel細胞受容複合体)**: 物理的圧迫とせん断力に持続的（遅順応）に反応し、脳へ常に貼付部位の絶対位置情報を発信します。
-                                </p>
-                                <p style={{ margin: "0 0 4px 0" }}>
-                                    *2 **SA-II 機械受容器 (Ruffini終末)**: 皮膚の張力（引っ張り）に鋭敏に反応し、関節角度の変化や動作中の関節運動感覚（固有受容感覚：Proprioception）を高解像度化します。
-                                </p>
-                                <p style={{ margin: "0 0 6px 0" }}>
-                                    *3 **体性感覚皮質の再マッピング**: パッチ表面の微細突起突起刺激により脳の小脳および体性感覚野における該当部位の「ホムンクルス表現領域（アライメント解像度）」を拡大し、運動連鎖の遅延（コンマ数秒の遅れ）を軽減します。(※本プロトコルは感覚入力最適化による運動学習サポート効果を提供するものです。)
-                                </p>
-                                <p style={{ margin: "0 0 6px 0" }}>
-                                    *4 **ジョイント・バイ・ジョイント・セオリー (Joint-by-Joint Theory)**: 身体各関節が担う「可動性 (Mobility)」と「安定性 (Stability)」の交互連動論。感覚入力により特定関節の無意識のロック（動きの制限）を解除し、隣接する安定性関節の過可動・負荷集中を防いで健全な運動連鎖を回復します。
-                                </p>
-                                <p style={{ margin: "0 0 4px 0" }}>
-                                     *5 **全身の7大感覚ゲートと脊髄反射弓 (Local Cutaneous Reflex Loop)**: 頚部前庭（大後頭神経）、脊柱（後枝皮枝）、骨盤（上臀皮神経）、膝（伏在・総腓骨神経）、肩甲（鎖骨上・肩甲上神経）、肘腕（橈骨・尺骨・正中神経）、足関節（脛骨・腓腹神経）の全身7箇所に設定された「感覚ゲート（センサー網）」を直接刺激し、中枢（脳）を経由しないミリ秒単位の脊髄運動反射ループをトリガー。マクロな連鎖とミクロな反射を完璧に同期させます。
-                                 </p>
-                                <Divider style={{ margin: "8px 0", borderColor: "rgba(255,255,255,0.06)" }} />
-                                <p style={{ margin: 0, fontStyle: "italic", fontSize: "9px", opacity: 0.8 }}>
-                                    【学術参考文献】<br />
-                                    - Menz, H. B., et al. (2005). Foot stimulation and postural stability in older adults. *Journal of NeuroEngineering and Rehabilitation*, 2(1), 19.<br />
-                                    - Proske, U., & Gandevia, S. C. (2012). The proprioceptive senses: Their roles in signaling joint position, movement, and muscle force. *Physiological Reviews*, 92(4), 1651-1697.<br />
-                                    - Boyle, M. (2016). *New Functional Training for Sports*. Human Kinetics. (Joint-by-Joint approach)<br />
-                                    - Zehr, E. P., & Stein, R. B. (1999). Interaction of cutaneous and proprioceptive afferents in the control of human walking. *Journal of Neurophysiology*, 82(6), 2855-2868. (Cutaneous Reflex Loops)
+                            <footer style={{ borderTop: "1px solid var(--border-color)", paddingTop: "16px", marginTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.6" }}>
+                                <h5 style={{ color: "var(--text-main)", margin: "0 0 8px 0", fontSize: "11px", fontWeight: "bold" }}>神経生理学的アプローチ（感覚フィードバック機構）</h5>
+                                <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>1. SA-I 機械受容器（メルケル細胞）:</strong> 物理的な圧迫とせん断力に持続的に反応し、貼付部位の位置感覚情報を中枢へ伝達します。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>2. SA-II 機械受容器（ルフィニ終末）:</strong> 皮膚の伸展張力に鋭敏に反応し、関節角度の変化や動作中の深部感覚（固有受容感覚）の認識精度を高めます。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>3. 体性感覚マップの適正化:</strong> シリコン微細突起による接触刺激が小脳および体性感覚野の感覚入力を活性化し、運動連鎖のタイムラグを低減させます。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>4. ジョイント・バイ・ジョイント連動:</strong> 各関節が担う「可動性」と「安定性」の調和理論に基づき、感覚入力によって過緊張や代償動作を抑制し、本来の滑らかな運動連鎖を促します。
+                                    </p>
+                                    <p style={{ margin: 0 }}>
+                                        <strong style={{ color: "#fff" }}>5. 全身7大感覚ゲートと脊髄反射弓:</strong> 頚部、脊柱、骨盤、膝、肩甲、肘腕、足関節の主要受容器領域への入力により、中枢を介さない素早い脊髄反射を引き出し、全身の協調的な動きを支えます。
+                                    </p>
+                                </div>
+                                <Divider style={{ margin: "10px 0 6px 0", borderColor: "rgba(255,255,255,0.06)" }} />
+                                <p style={{ margin: 0, fontSize: "9.5px", opacity: 0.8 }}>
+                                    参考論文・学術文献: Menz et al. (2005) J Neuroeng Rehabil / Proske & Gandevia (2012) Physiol Rev / Boyle (2016) New Functional Training for Sports
                                 </p>
                             </footer>
                         </div>
-                    `;>&times;</button>
+                    )}
+                    </div>
+
+                    {/* Product Details Custom Modal */}
+                    <div id="productDetailsModal" className="modal-backdrop" style={{ display: isSpecsModalOpen ? 'flex' : 'none' }}>
+                        <div className="modal-content" style={{ maxWidth: "600px", width: "95%", maxHeight: "85vh", overflowY: "auto" }}>
+                            <div className="modal-header">
+                                <h3 style={{ color: "var(--secondary)", fontSize: "14px", margin: 0, fontWeight: 800, display: "flex", alignItems: "center", gap: "8px" }}>
+                                    <i className="fa-solid fa-box-open"></i> KINETIC-LINK 109 プロダクト詳細解説
+                                </h3>
+                                <button className="modal-close-btn" onClick={() => setIsSpecsModalOpen(false)}>&times;</button>
                             </div>
                             <div className="modal-body" style={{ padding: "15px 0" }}>
                                 <div className="details-layout" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "20px", alignItems: "start" }}>
@@ -2829,7 +3138,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                     <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>スローガン</td><td style={{ padding: "4px 0", fontStyle: "italic", textAlign: "right", color: "var(--text-main)" }}>Move As One.</td></tr>
                                                     <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>パッチ入り数</td><td style={{ padding: "4px 0", textAlign: "right", color: "var(--text-main)" }}>10個 (専用シール48枚)</td></tr>
                                                     <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>微細突起数</td><td style={{ padding: "4px 0", textAlign: "right", color: "var(--text-main)" }}>109個 (1.5mmピッチ)</td></tr>
-                                                    <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>硬度・素材</td><td style={{ padding: "4px 0", textAlign: "right", color: "var(--text-main)" }}>Shore A50 / 医療用シリコン</td></tr>
+                                                    <tr style={{ borderBottom: "1px solid rgba(255,255,255,0.05)" }}><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>素材</td><td style={{ padding: "4px 0", textAlign: "right", color: "var(--text-main)" }}>医療用シリコン</td></tr>
                                                     <tr><td style={{ padding: "4px 0", color: "var(--text-muted)" }}>製造国</td><td style={{ padding: "4px 0", textAlign: "right", color: "var(--secondary)", fontWeight: 700 }}>MADE IN JAPAN</td></tr>
                                                 </tbody>
                                             </table>
@@ -2841,19 +3150,19 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                 皮膚に存在する遅順応型機械受容器（SA-I/SA-II）へ109個の極小突起が高密度かつ高解像度の感覚シグナルを入力。
                                             </p>
                                             <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11.5px", lineHeight: "1.6" }}>
-                                                本システムは、筋膜経線（Anatomy Trains）のテンセグリティ調律と、関節の可動性（Mobility）および安定性（Stability）を引き出すジョイント・バイ・ジョイント設計をベースに、**全身の「7大感覚ゲート（センサー網）」**を統合した先進的な感覚フィードバック機構です。
+                                                本システムは、筋膜経線理論に基づくテンセグリティ調律と、関節の可動性・安定性を引き出す設計を組み合わせ、全身に配置された7つの主要感覚ゲートを統合した感覚フィードバック機構です。
                                             </p>
                                             <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px", lineHeight: "1.5" }}>
-                                                ① **頚部・前庭ゲート**（後頭下三角/大後頭神経 C2による視線軸・前庭反射安定）<br />
-                                                ② **脊柱・体幹ゲート**（胸腰椎部/後枝皮枝・起立反射）<br />
-                                                ③ **股関節・骨盤ゲート**（臀部/上臀皮神経・後大腿皮神経）<br />
-                                                ④ **膝関節ゲート**（内側広筋・腓骨頭/伏在・総腓骨神経）<br />
-                                                ⑤ **肩甲・肩関節ゲート**（棘下筋・鎖骨下筋/肩甲上・鎖骨上神経）<br />
-                                                ⑥ **肘・手首ゲート**（内外上顆/橈骨・尺骨・正中神経）<br />
-                                                ⑦ **足関節ゲート**（内果・外果・アキレス腱/脛骨・腓腹神経による支持基底面制御）
+                                                1. 頚部・前庭ゲート（大後頭神経領域による頭部・視線軸の安定）<br />
+                                                2. 脊柱・体幹ゲート（胸腰移行部・後枝皮枝による体幹の起立反射）<br />
+                                                3. 股関節・骨盤ゲート（上臀皮神経・臀部受容器による骨盤支持）<br />
+                                                4. 膝関節ゲート（伏在神経・総腓骨神経による下肢軸の制御）<br />
+                                                5. 肩甲・肩関節ゲート（肩甲上・鎖骨上神経による胸郭・肩甲骨の協調）<br />
+                                                6. 肘・手首ゲート（橈骨・尺骨・正中神経による末端コントロール）<br />
+                                                7. 足関節ゲート（脛骨・腓腹神経による足底接地・支持基底面の安定）
                                             </p>
                                             <p style={{ margin: "6px 0 0 0", color: "var(--text-muted)", fontSize: "11px", lineHeight: "1.5" }}>
-                                                これら高密度な皮神経および腱受容器（SA-I/SA-II）領域へ直接アプローチし、中枢（脳）を経由しないミリ秒単位の脊髄運動反射弓をトリガー。脳の予測誤差による関節ロックを解除し、マクロな筋膜連鎖とミクロな反射制御を完璧に同期させて全身の健全な連動性とパフォーマンスを引き出します。
+                                                これらの高密度な皮膚受容器へ直接刺激を与えることで、脊髄レベルの運動反射を速やかに活性化。無意識の関節拘束を防ぎ、全身の連動性と本来の運動パフォーマンスを引き出します。
                                             </p>
                                         </div>
                                     </div>
@@ -3293,7 +3602,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                             <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center" }}>
                                                 <div style={{ textAlign: "center", fontSize: "11px", marginBottom: "6px" }}>
                                                     <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>X: {selectedPoint.x} , Y: {selectedPoint.y}</span>
-                                                    <div style={{ fontSize: "9px", color: "var(--text-muted)" }}>※D-padキーまたは図の点をタップして調整します。</div>
+                                                    <div style={{ fontSize: "9px", color: "var(--text-muted)" }}>矢印キーまたは図上の点をタップして位置を微調整できます。</div>
                                                 </div>
 
                                                 <div className="dpad-keys" style={{ display: "grid", gridTemplateColumns: "repeat(3, 30px)", gridTemplateRows: "repeat(3, 30px)", gap: "4px", justifyContent: "center" }}>
@@ -3490,7 +3799,7 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                         <span className="consent-link" onClick={() => setDocModalType('usage')}>使用上の注意を見る</span>
                                     </div>
                                     
-                                    <p className="consent-note">※ 同意内容は、利用日時とあわせて記録されます。</p>
+                                    <p className="consent-note">同意内容は利用日時とともに記録されます。</p>
                                 </div>
                             </div>
                         </div>

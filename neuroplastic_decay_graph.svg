@@ -1,0 +1,186 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 520" width="900" height="520" style="background:#ffffff; font-family:-apple-system, BlinkMacSystemFont, 'Segoe UI', 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;">
+  <defs>
+    <!-- Gradients -->
+    <linearGradient id="peakZoneGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0284c7" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0284c7" stop-opacity="0.02"/>
+    </linearGradient>
+    <linearGradient id="decayZoneGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#ef4444" stop-opacity="0.10"/>
+      <stop offset="100%" stop-color="#ef4444" stop-opacity="0.01"/>
+    </linearGradient>
+    <linearGradient id="blueLineGrad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0284c7"/>
+      <stop offset="100%" stop-color="#0369a1"/>
+    </linearGradient>
+    <!-- Arrow Marker -->
+    <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#64748b"/>
+    </marker>
+    <marker id="arrowRed" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#ef4444"/>
+    </marker>
+  </defs>
+
+  <!-- Title & Subtitle -->
+  <text x="450" y="32" text-anchor="middle" font-size="17" font-weight="800" fill="#0f172a">感覚フィードバック入力 ＆ 神経可塑性減衰カーブ（Neuroplastic Decay Curve）</text>
+  <text x="450" y="52" text-anchor="middle" font-size="12" font-weight="600" fill="#64748b">〜【月水金プロトコル継続群】vs【介入停止（卒業）による退行群】の比較生体力学モデル〜</text>
+
+  <!-- Top Input Signals (Afferent Feedback Bar) -->
+  <g transform="translate(100, 75)">
+    <rect x="0" y="0" width="750" height="42" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <text x="-15" y="25" text-anchor="end" font-size="11" font-weight="700" fill="#0369a1">感覚入力</text>
+    <text x="-15" y="38" text-anchor="end" font-size="9" fill="#64748b">（パッチ装着）</text>
+
+    <!-- Pulsatile Feedback Signals (Mon/Wed/Fri cycles for 4 weeks) -->
+    <!-- Week 1: Day 1, 3, 5 -->
+    <rect x="15" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="26" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="42" y="6" width="22" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <text x="53" y="25" text-anchor="middle" font-size="9" fill="#94a3b8">休</text>
+    <rect x="69" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="80" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="96" y="6" width="22" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <text x="107" y="25" text-anchor="middle" font-size="9" fill="#94a3b8">休</text>
+    <rect x="123" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="134" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="150" y="6" width="40" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <text x="170" y="25" text-anchor="middle" font-size="9" fill="#94a3b8">土日休</text>
+
+    <!-- Week 2 -->
+    <rect x="195" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="206" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="222" y="6" width="22" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <rect x="249" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="260" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="276" y="6" width="22" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <rect x="303" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="314" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="330" y="6" width="40" height="30" rx="2" fill="#f1f5f9" stroke="#cbd5e1" stroke-dasharray="2,2"/>
+    <text x="350" y="25" text-anchor="middle" font-size="9" fill="#94a3b8">土日休</text>
+
+    <!-- Week 3 -->
+    <rect x="375" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="386" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="429" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="440" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="483" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="494" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+
+    <!-- Week 4 -->
+    <rect x="555" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="566" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="609" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="620" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+    <rect x="663" y="6" width="22" height="30" rx="2" fill="#0284c7"/>
+    <text x="674" y="25" text-anchor="middle" font-size="9" font-weight="700" fill="#ffffff">ON</text>
+
+    <text x="740" y="25" text-anchor="end" font-size="10" font-weight="700" fill="#0284c7">➔ 隔日パルス入力継続</text>
+  </g>
+
+  <!-- Main Plot Area -->
+  <g transform="translate(100, 140)">
+    <!-- Shaded Peak Zone (85% - 100%) -->
+    <rect x="0" y="0" width="750" height="45" fill="url(#peakZoneGrad)"/>
+    <line x1="0" y1="45" x2="750" y2="45" stroke="#0284c7" stroke-width="1" stroke-dasharray="3,3"/>
+    <text x="745" y="28" text-anchor="end" font-size="10.5" font-weight="700" fill="#0369a1">【至適維持領域】ピークパフォーマンスゾーン (85%〜100%)</text>
+
+    <!-- Grid Lines (Horizontal) -->
+    <line x1="0" y1="0" x2="750" y2="0" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="0" y1="75" x2="750" y2="75" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="0" y1="150" x2="750" y2="150" stroke="#cbd5e1" stroke-width="1.5" stroke-dasharray="4,4"/> <!-- 50% Half-life -->
+    <line x1="0" y1="225" x2="750" y2="225" stroke="#e2e8f0" stroke-width="1"/>
+    <line x1="0" y1="300" x2="750" y2="300" stroke="#94a3b8" stroke-width="1.5"/> <!-- X Axis -->
+
+    <!-- Y Axis Labels -->
+    <text x="-12" y="5" text-anchor="end" font-size="10" font-weight="700" fill="#475569">100%</text>
+    <text x="-12" y="80" text-anchor="end" font-size="10" fill="#64748b">75%</text>
+    <text x="-12" y="155" text-anchor="end" font-size="10" font-weight="800" fill="#ef4444">50%</text>
+    <text x="-12" y="230" text-anchor="end" font-size="10" fill="#64748b">25%</text>
+    <text x="-12" y="304" text-anchor="end" font-size="10" font-weight="700" fill="#475569">0%</text>
+
+    <text x="-45" y="150" text-anchor="middle" font-size="11" font-weight="700" fill="#1e293b" transform="rotate(-90 -45 150)">運動学習・可動域保持率 (%)</text>
+
+    <!-- X Axis (Days) -->
+    <line x1="0" y1="300" x2="750" y2="300" stroke="#64748b" stroke-width="1.5"/>
+    <text x="0" y="318" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">Day 0</text>
+    <text x="180" y="318" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">第1週 (Day 7)</text>
+    <text x="360" y="318" text-anchor="middle" font-size="10" font-weight="700" fill="#ef4444">第2週 (Day 14)</text>
+    <text x="540" y="318" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">第3週 (Day 21)</text>
+    <text x="720" y="318" text-anchor="middle" font-size="10" font-weight="600" fill="#475569">第4週 (Day 28)</text>
+
+    <!-- Vertical Timeline Grid -->
+    <line x1="180" y1="0" x2="180" y2="300" stroke="#f1f5f9" stroke-width="1"/>
+    <line x1="360" y1="0" x2="360" y2="300" stroke="#fee2e2" stroke-width="1.5" stroke-dasharray="3,3"/>
+    <line x1="540" y1="0" x2="540" y2="300" stroke="#f1f5f9" stroke-width="1"/>
+    <line x1="720" y1="0" x2="720" y2="300" stroke="#f1f5f9" stroke-width="1"/>
+
+    <!-- ================= RED CURVE: 介入停止（卒業）による神経可塑性減衰カーブ ================= -->
+    <!-- R(t) = 100 * exp(-0.05 * t), at t=14 R=49.6%, at t=28 R=24.6% -->
+    <path d="M 0 0 
+             C 90 20, 180 50, 240 85 
+             C 300 120, 340 145, 360 152 
+             C 420 175, 480 205, 540 220 
+             C 630 240, 680 248, 750 255" 
+          fill="none" stroke="#ef4444" stroke-width="3" stroke-dasharray="6,4"/>
+
+    <!-- Decay Annotation Points -->
+    <circle cx="360" cy="152" r="5" fill="#ef4444"/>
+    <rect x="370" y="135" width="220" height="42" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="378" y="151" font-size="10" font-weight="800" fill="#b91c1c">★ 可塑性の半減期（14日目：50%）</text>
+    <text x="378" y="167" font-size="8.8" fill="#7f1d1d">重力と片寄り疲労で保護性スパズムが再燃</text>
+
+    <circle cx="720" cy="252" r="5" fill="#ef4444"/>
+    <rect x="520" y="240" width="190" height="38" rx="4" fill="#fef2f2" stroke="#fca5a5" stroke-width="1"/>
+    <text x="528" y="255" font-size="9.5" font-weight="800" fill="#b91c1c">【完全退行・リバウンド】</text>
+    <text x="528" y="270" font-size="8.5" fill="#7f1d1d">脳内マップ劣化（Cortical Smudging）</text>
+
+    <!-- ================= BLUE CURVE: 月・水・金プロトコル（隔日リキャリブレーション） ================= -->
+    <!-- Oscillating wave consolidating up and staying in peak zone (85-100%) -->
+    <path d="M 0 45
+             Q 15 10, 26 5
+             Q 38 18, 53 20
+             Q 68 8, 80 5
+             Q 95 18, 107 20
+             Q 120 7, 134 5
+             Q 150 25, 170 28
+             Q 195 8, 206 5
+             Q 222 18, 235 20
+             Q 249 7, 260 5
+             Q 276 18, 289 20
+             Q 303 7, 314 5
+             Q 330 25, 350 28
+             Q 375 8, 386 5
+             Q 429 7, 440 5
+             Q 483 7, 494 5
+             Q 555 7, 566 5
+             Q 609 7, 620 5
+             Q 663 7, 674 5
+             L 750 8" 
+          fill="none" stroke="#0284c7" stroke-width="3.5"/>
+
+    <!-- Blue Curve Annotation -->
+    <rect x="35" y="48" width="260" height="42" rx="4" fill="#f0f9ff" stroke="#7dd3fc" stroke-width="1"/>
+    <text x="43" y="65" font-size="10" font-weight="800" fill="#0369a1">【月水金プロトコル継続群】</text>
+    <text x="43" y="81" font-size="8.8" fill="#0284c7">隔日再ブーストにより減衰カーブを遮断 ➔ 恒久維持</text>
+
+    <!-- Late-LTP annotation on off day -->
+    <rect x="230" y="85" width="220" height="34" rx="4" fill="#f0fdf4" stroke="#86efac" stroke-width="1"/>
+    <text x="238" y="99" font-size="9" font-weight="800" fill="#166534">★ 貼らない日の自律復習（保持テスト）</text>
+    <text x="238" y="112" font-size="8.2" fill="#15803d">ガイダンス仮説打破 ＆ シナプス固定（Late-LTP）</text>
+  </g>
+
+  <!-- Legend Box at Bottom -->
+  <g transform="translate(100, 465)">
+    <rect x="0" y="0" width="750" height="44" rx="4" fill="#f8fafc" stroke="#cbd5e1" stroke-width="1"/>
+    <!-- Blue Legend -->
+    <line x1="20" y1="22" x2="60" y2="22" stroke="#0284c7" stroke-width="3.5"/>
+    <text x="70" y="26" font-size="11" font-weight="700" fill="#0f172a">月・水・金プロトコル継続群（週3回・8h装着）：</text>
+    <text x="325" y="26" font-size="10.5" fill="#334155">動的せん断応力で感度リセット ＆ 常に90%以上の出力を生涯維持</text>
+
+    <!-- Red Legend -->
+    <line x1="20" y1="36" x2="60" y2="36" stroke="#ef4444" stroke-width="2.5" stroke-dasharray="5,3"/>
+    <text x="70" y="39" font-size="10" font-weight="700" fill="#b91c1c">介入停止・卒業群（放置した場合）：</text>
+    <text x="270" y="39" font-size="9.5" fill="#64748b">約14日で半減（50%）➔ 28日後には筋性防御が再燃し元の硬さに退行</text>
+  </g>
+</svg>
