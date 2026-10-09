@@ -2528,49 +2528,145 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                     <div style={{ marginBottom: "16px" }}>
                                                         <h3 style={{ color: "var(--secondary)", margin: 0 }}><i className="fa-solid fa-street-view"></i> 身体アライメント自己診断 (ROM Test)</h3>
                                                         <p style={{ color: "var(--text-muted)", fontSize: "12px", margin: "4px 0 0 0" }}>
-                                                            右側の「自己判定用 可動域（ROM）基準目安」を参考に、ご自身の現在の可動レベル（0: 正常 ～ 10: 高度制限）に最も近い数値をスライダーで選択してください。
+                                                            各動作の判定基準を目安に、現在の可動レベル（0: 正常 ～ 10: 高度制限）をスライダーで選択してください。
                                                         </p>
                                                     </div>
 
                                                     <div style={{ display: "flex", flexDirection: "column", gap: "14px", marginBottom: "20px" }}>
                                                         {/* Slider 1: Flexion */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.flexion} / 10</span>
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>① 前屈 (Flexion) - 体後面ライン (SBL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.flexion <= 2 ? "#00ff7f" : vasScores.flexion <= 5 ? "var(--secondary)" : vasScores.flexion <= 8 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.flexion} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.flexion <= 2 ? "正常" : vasScores.flexion <= 5 ? "軽度制限" : vasScores.flexion <= 8 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 手のひらが床に届く / [中度] すねまで / [高度] 膝まで、または痛む</div>
                                                             <Slider min={0} max={10} value={vasScores.flexion} onChange={(val) => setVasScores({ ...vasScores, flexion: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.flexion <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.flexion <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.flexion <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>手のひらが床にベタッと届く</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "rgba(0, 240, 255, 0.12)" : "rgba(255,255,255,0.02)", border: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "1px solid var(--secondary)" : "1px solid transparent", color: (vasScores.flexion >= 3 && vasScores.flexion <= 5) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 軽度 (3-5)</span>
+                                                                    <span>指先が床にギリギリ届く〜届かない (床から10cm未満)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.flexion >= 6 && vasScores.flexion <= 8) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (6-8)</span>
+                                                                    <span>指先がすね (脛骨の中間) までしか届かない</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.flexion >= 9 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.flexion >= 9 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.flexion >= 9 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (9-10)</span>
+                                                                    <span>指先が膝までしか届かない、または曲げると痛む</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         {/* Slider 2: Extension */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>② 後屈 (Extension) - 胸郭ユニット・胸腰部移行部 (TLJ)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.extension} / 10</span>
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>② 後屈 (Extension) - 胸郭ユニット・胸腰部移行部 (TLJ)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.extension <= 2 ? "#00ff7f" : vasScores.extension <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.extension} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.extension <= 2 ? "正常" : vasScores.extension <= 6 ? "軽・中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 胸郭が開き天井が見上がる / [中度] 腰が詰まる・反りにくい / [高度] 股関節・背部がロックし痛む</div>
                                                             <Slider min={0} max={10} value={vasScores.extension} onChange={(val) => setVasScores({ ...vasScores, extension: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.extension <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.extension <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.extension <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 正常 (0-2)</span>
+                                                                    <span>天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.extension >= 3 && vasScores.extension <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 軽中度 (3-6)</span>
+                                                                    <span>斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.extension >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.extension >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.extension >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "65px" }}>● 高度 (7-10)</span>
+                                                                    <span>顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         {/* Slider 3: Lateral Flexion */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>③ 側屈 (Lateral Flexion) - 骨盤スタビライザー・腰方形筋 (LL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.lateral} / 10</span>
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>③ 側屈 (Lateral Flexion) - 骨盤スタビライザー・腰方形筋 (LL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.lateral <= 2 ? "#00ff7f" : vasScores.lateral <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.lateral} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.lateral <= 2 ? "正常" : vasScores.lateral <= 6 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 中指が膝の横を越えて下がる / [中度] 膝皿上部まで / [高度] 太もも中間まで</div>
                                                             <Slider min={0} max={10} value={vasScores.lateral} onChange={(val) => setVasScores({ ...vasScores, lateral: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.lateral <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.lateral <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.lateral <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.lateral >= 3 && vasScores.lateral <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (3-6)</span>
+                                                                    <span>中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.lateral >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.lateral >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.lateral >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (7-10)</span>
+                                                                    <span>中指の先が太ももの中間までしか届かない、または痛む</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
 
                                                         {/* Slider 4: Rotation */}
-                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "10px 14px", borderRadius: "6px", border: "1px solid rgba(255,255,255,0.05)" }}>
-                                                            <div style={{ display: "flex", justifyContent: "space-between", fontSize: "12px", marginBottom: "4px" }}>
-                                                                <span style={{ color: "#fff", fontWeight: "bold" }}>④ 回旋 (Rotation) - 胸椎・胸郭ケージ回旋軸 (SPL)</span>
-                                                                <span style={{ color: "var(--secondary)", fontWeight: "bold" }}>{vasScores.rotation} / 10</span>
+                                                        <div style={{ background: "rgba(255,255,255,0.02)", padding: "12px 14px", borderRadius: "8px", border: "1px solid rgba(255,255,255,0.06)" }}>
+                                                            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "6px" }}>
+                                                                <span style={{ color: "#fff", fontWeight: "bold", fontSize: "12.5px" }}>④ 回旋 (Rotation) - 胸椎・胸郭ケージ回旋軸 (SPL)</span>
+                                                                <span style={{ 
+                                                                    color: vasScores.rotation <= 2 ? "#00ff7f" : vasScores.rotation <= 6 ? "#ffa500" : "#ff2d55", 
+                                                                    fontWeight: "bold", 
+                                                                    fontSize: "13px" 
+                                                                }}>
+                                                                    {vasScores.rotation} / 10 <span style={{ fontSize: "10px", padding: "1px 6px", borderRadius: "4px", background: "rgba(255,255,255,0.08)", marginLeft: "4px" }}>
+                                                                        {vasScores.rotation <= 2 ? "正常" : vasScores.rotation <= 6 ? "中度制限" : "高度制限"}
+                                                                    </span>
+                                                                </span>
                                                             </div>
-                                                            <div style={{ fontSize: "10px", color: "var(--text-muted)", marginBottom: "4px" }}>目安: [正常] 両腕を胸の前で組み骨盤正面保持で肩が70度以上回る / [中度] 45度未満(斜め前まで)</div>
                                                             <Slider min={0} max={10} value={vasScores.rotation} onChange={(val) => setVasScores({ ...vasScores, rotation: val })} />
+                                                            
+                                                            {/* インライン判定基準ガイド */}
+                                                            <div style={{ display: "flex", flexDirection: "column", gap: "3px", marginTop: "8px", fontSize: "11px" }}>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.rotation <= 2 ? "rgba(0, 255, 127, 0.12)" : "rgba(255,255,255,0.02)", border: vasScores.rotation <= 2 ? "1px solid #00ff7f" : "1px solid transparent", color: vasScores.rotation <= 2 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#00ff7f", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 正常 (0-2)</span>
+                                                                    <span>両腕を胸の前で組み骨盤正面保持で肩が70度以上回る (首だけで振り向かない)</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "rgba(255, 165, 0, 0.15)" : "rgba(255,255,255,0.02)", border: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "1px solid #ffa500" : "1px solid transparent", color: (vasScores.rotation >= 3 && vasScores.rotation <= 6) ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ffa500", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 中度 (3-6)</span>
+                                                                    <span>肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</span>
+                                                                </div>
+                                                                <div style={{ padding: "4px 8px", borderRadius: "4px", background: vasScores.rotation >= 7 ? "rgba(255, 45, 85, 0.15)" : "rgba(255,255,255,0.02)", border: vasScores.rotation >= 7 ? "1px solid #ff2d55" : "1px solid transparent", color: vasScores.rotation >= 7 ? "#fff" : "var(--text-muted)", display: "flex", alignItems: "center", gap: "6px", transition: "all 0.2s ease" }}>
+                                                                    <span style={{ color: "#ff2d55", fontWeight: "bold", fontSize: "10px", minWidth: "55px" }}>● 高度 (7-10)</span>
+                                                                    <span>ほとんどねじれない (30度未満)、またはねじると痛む</span>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
 
@@ -2578,10 +2674,10 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
                                                         type="primary" 
                                                         block 
                                                         onClick={evaluateAndSetBasePatches}
-                                                        style={{ height: "36px", fontWeight: "bold", fontSize: "13px" }}
+                                                        style={{ height: "42px", fontWeight: "bold", fontSize: "14px", borderRadius: "8px", background: "linear-gradient(135deg, #00f0ff 0%, #00a0ff 100%)", border: "none", color: "#000", boxShadow: "0 4px 15px rgba(0,240,255,0.3)" }}
                                                     >
                                                         <i className="fa-solid fa-calculator" style={{ marginRight: "6px" }}></i> 診断してベース部位を決定
-                     </Button>
+                                                    </Button>
                                                 </div>
                                             ) : (
                                                 /* Sub-view B: Show selected base patches with checklists */
@@ -2939,48 +3035,14 @@ BC Labが紹介目的で皆様のメディア資料を利用する際は、必�
 
                                     {/* ROM Diagnostic Reference Guide (Only visible in Step 1 VAS check) */}
                                     {currentStep === 0 && subStep === 'check' && (
-                                        <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "8px" }}>
-                                            <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px", marginBottom: "2px" }}>
-                                                <i className="fa-solid fa-circle-info"></i> 自己判定用の可動域（ROM）基準目安
+                                        <div style={{ marginTop: "12px", borderTop: "1px dashed rgba(255,255,255,0.08)", paddingTop: "12px", fontSize: "10.5px", color: "var(--text-muted)", lineHeight: "1.5", display: "flex", flexDirection: "column", gap: "6px" }}>
+                                            <div style={{ color: "var(--secondary)", fontWeight: "bold", fontSize: "11px" }}>
+                                                <i className="fa-solid fa-graduation-cap"></i> 判定基準の学術的・臨床的ソース
                                             </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>① 前屈 (SBLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 手のひらが床にベタッと届く</li>
-                                                    <li>軽度 (3-5): 指先が床にギリギリ届く〜届かない (床から10cm未満)</li>
-                                                    <li>中度 (6-8): 指先がすね (脛骨の中間) までしか届かない</li>
-                                                    <li>高度 (9-10): 指先が膝までしか届かない、または曲げると痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>② 後屈 (SFLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 天井と顔 (視線) が平行になるまで見上げられる (腰の詰まりなし)</li>
-                                                    <li>軽・中度 (3-6): 斜め上の天井までしか見上げられない (前ももや腰のつっぱり)</li>
-                                                    <li>高度 (7-10): 顔を上に向けられない、または首・腰に鋭い詰まりや痛みがある</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>③ 側屈 (LLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 直立から上体を倒し、中指の先が膝関節の側面を越えて下がる</li>
-                                                    <li>中度 (3-6): 中指の先が膝のお皿の上部までしか届かない (脇腹が突っ張る)</li>
-                                                    <li>高度 (7-10): 中指の先が太も目の中間までしか届かない、または痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div>
-                                                <strong style={{ color: "#fff" }}>④ 回旋 (SPLライン評価)</strong>
-                                                <ul style={{ margin: "2px 0 0 0", paddingLeft: "16px", listStyleType: "circle" }}>
-                                                    <li>正常 (0-2): 両腕を胸の前で組み、骨盤を正面に保ったまま体幹を回旋し、肩のラインが正面から70度以上回る（※首だけで振り向かない）</li>
-                                                    <li>中度 (3-6): 肩の回転が45度未満 (斜め方向) で止まり、脇腹や背中が張る</li>
-                                                    <li>高度 (7-10): ほとんどねじれない (30度未満)、またはねじると痛む</li>
-                                                </ul>
-                                            </div>
-                                            <div style={{ borderTop: "1px dashed rgba(255,255,255,0.06)", paddingTop: "8px", color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
-                                                <strong>【判定基準の学術的・臨床的ソース】</strong><br />
-                                                - **SFMA (Selective Functional Movement Assessment)**: 可動域合否判定基準 (Gray Cook PT, FMS提供)<br />
-                                                - **日本整形外科学会・日本リハビリテーション医学会**: 関節可動域表示ならびに測定法 (臨床指標)<br />
-                                                - **Anatomy Trains (筋膜経線理論)**: 動作張力テスト評価 (Thomas Myers提唱)
+                                            <div style={{ color: "var(--text-muted)", fontSize: "9.5px", lineHeight: "1.4" }}>
+                                                ・<strong>SFMA (Selective Functional Movement Assessment)</strong>: 可動域合否判定基準 (Gray Cook PT, FMS提供)<br />
+                                                ・<strong>日本整形外科学会・日本リハビリテーション医学会</strong>: 関節可動域表示ならびに測定法 (臨床指標)<br />
+                                                ・<strong>Anatomy Trains (筋膜経線理論)</strong>: 動作張力テスト評価 (Thomas Myers提唱)
                                             </div>
                                         </div>
                                     )}
